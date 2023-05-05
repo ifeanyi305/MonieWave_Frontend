@@ -1,3 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+.App::before {
+  display: block;
+  content: "";
+  height: 100px;
+}
+
+.container {
+  width: 100%;
+  margin: auto;
+}
+
+.login_btn {
+  border-radius: 20px 2px;
+}
+
+.title {
+  color: linear-gradient(180deg, #FCB0F5 0%, #814DE5 100%);
+}
+
+.pounds {
+  text-align: end;
+}
+
+.detail {
+  z-index: 10;
+}
+
+.card {
+  width: 90%;
+  margin: auto;
+}
