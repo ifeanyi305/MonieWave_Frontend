@@ -3,6 +3,7 @@ import { BsFillMoonFill } from 'react-icons/bs';
 import { CgSun } from 'react-icons/cg';
 import { useState, useEffect } from 'react';
 import ukFlag from '../assets/images/navbar/Flag.png';
+import { Link } from 'react-router-dom';
 import Ratehive from '../assets/images/navbar/RateHive.png';
 
 const Navbar = () => {
@@ -42,8 +43,8 @@ const Navbar = () => {
           </li>
         </ul>
         <div className={style.flex_gap2}>
-          <button type="button" className="p-2 login_btn bg-transparent w-[160px] text-center border-[#814DE5] text-[#814DE5] border-[1px]">Login</button>
-          <button type="button" className="p-2 login_btn bg-[#814DE5] text-[#fff] w-[160px] text-center">Sign Up</button>
+          <Link to='/login'><button type="button" className="p-2 login_btn bg-transparent w-[160px] text-center border-[#814DE5] text-[#814DE5] border-[1px]">Login</button></Link>
+          <Link to='/signup'><button type="button" className="p-2 login_btn bg-[#814DE5] text-[#fff] w-[160px] text-center">Sign Up</button></Link>
           <button className="" onClick={handleThemeSwitch}>
               {theme === 'dark' ? (<CgSun />) : (<BsFillMoonFill />)}
             </button>
