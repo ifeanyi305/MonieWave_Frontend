@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,10 +21,6 @@
 
 .login_btn {
   border-radius: 20px 2px;
-}
-
-.title {
-  color: linear-gradient(180deg, #FCB0F5 0%, #814DE5 100%);
 }
 
 .pounds {
