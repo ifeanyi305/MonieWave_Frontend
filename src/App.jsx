@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import Signup from './components/Signup';
@@ -8,6 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <div className="dark:bg-[#000] App">
+      <ToastContainer />
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
