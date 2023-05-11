@@ -1,4 +1,6 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import Calculator from '../assets/images/landingpage/calculator.png';
 import Transactions from '../assets/images/landingpage/transactions.png';
 import Rectangle from '../assets/images/landingpage/Rectangle.png';
@@ -19,6 +21,8 @@ const LandingPage = () => {
     card: 'rounded-[11px] p-[13px] border-[#814DE5] border-[1px]',
   }
   return (
+    <>
+    <Navbar />
     <div className="containers">
       <div className={style.flex}>
         <div className="border-[#814DE5] h-[316px] rounded-[11px] border-[1px] px-2 py-4">
@@ -134,6 +138,8 @@ const LandingPage = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
 

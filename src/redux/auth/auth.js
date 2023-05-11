@@ -3,24 +3,28 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 const SIGN_IN = 'auth/sign_in';
 const SIGN_UP = 'auth/sign_up';
 const SIGN_OUT = 'auth/sign_out';
+const RESET_PASSWORD = 'auth/reset_password';
+const VERIFY_OTP = 'auth/verify_otp';
 const CLEAN_FLASH = 'auth/clean_flash';
 const RESET_STATE_AND_KEEP_FLASH = 'auth/reset_state_and_keep_flash';
 
-const SIGN_IN_URL = `${process.env.REACT_APP_API_ROOT_URL}/auth/login`;
-const SIGN_UP_URL = `${process.env.REACT_APP_API_ROOT}/api/v1/users`;
-const SIGN_OUT_URL = `${process.env.REACT_APP_API_ROOT_URL}/users/sign_out`;
+const SIGN_IN_URL = `http://127.0.0.1:3000/auth/login`;
+const SIGN_UP_URL = `http://127.0.0.1:3000/api/v1/users`;
+const SIGN_OUT_URL = `http://127.0.0.1:3000/users/sign_out`;
+const RESET_PASSWORD_URL = `http://127.0.0.1:3000/api/v1/password/reset`;
+const VERIFY_OTP_URL = `http://127.0.0.1:3000/api/v1/otp/verify_otp`;
 
 const initialState = [];
 
 const setToken = (token) => {
-  sessionStorage.setItem('user', JSON.stringify({ token }));
+  localStorage.setItem('user', JSON.stringify({ token }));
 }
 
 const removeToken = () => {
-  sessionStorage.removeItem('user');
+  localStorage.removeItem('user');
 }
 
-const getToken = () => JSON.parse(sessionStorage.getItem('user'))?.token;
+export const getToken = () => JSON.parse(localStorage.getItem('user'))?.token;
 export const cleanFlash = () => ({ type: CLEAN_FLASH });
 export const resetStateAndKeepFlash = () => ({
   type: RESET_STATE_AND_KEEP_FLASH,
@@ -45,10 +49,54 @@ export const signin = createAsyncThunk(
     }
 
     const data = await response.json();
-    setToken(response.headers.get('Authorization'));
-    sessionStorage.setItem('current', JSON.stringify(data.resource));
+    localStorage.setItem('user', data.data.meta.token);
+    setToken(data.data.meta.token);
     return { success: response.ok, ...data };
   },
+)
+
+export const resetPassword = createAsyncThunk(
+  RESET_PASSWORD,
+  async (payload, { rejectWithValue }) => {
+    const response = await fetch(RESET_PASSWORD_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data: payload }),
+    });
+
+    if (!response.ok) {
+      return rejectWithValue({
+        success: response.ok,
+        errors: ['Invalid Credentials'],
+      })
+    }
+
+    return { success: response.ok, ...(await response.json()) }
+  }
+)
+
+export const verifyOtp = createAsyncThunk(
+  VERIFY_OTP,
+  async (payload, { rejectWithValue }) => {
+    const response = await fetch(VERIFY_OTP_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user: payload }),
+    });
+
+    if (!response.ok) {
+      return rejectWithValue({
+        success: response.ok,
+        errors: ['Invalid Credentials'],
+      })
+    }
+
+    return { success: response.ok, ...(await response.json()) }
+  }
 )
 
 export const signup = createAsyncThunk(
@@ -69,7 +117,10 @@ export const signup = createAsyncThunk(
       })
     }
 
-    return { success: response.ok, ...(await response.json()) };
+    const data = await response.json();
+    localStorage.setItem('user', data.data.meta.token);
+    setToken(data.data.meta.token);
+    return { success: response.ok, ...data };
   },
 )
 
@@ -86,7 +137,7 @@ export const signout = createAsyncThunk(
 
     if (response.ok) {
       removeToken();
-      sessionStorage.removeItem('current');
+      localStorage.removeItem('current');
     }
 
     if (!response.ok) {
@@ -113,7 +164,7 @@ export default (state = initialState, action) => {
         user: action.payload.resource,
       }
     case `${SIGN_IN}/rejected`:
-      return { success: false, loading: false, errors: action.payload.errors };
+      return { success: false, loading: false, errors: action.payload?.errors };
     // SIGN OUT
     case `${SIGN_OUT}/pending`:
       return { success: null, loading: true };
@@ -148,5 +199,41 @@ export default (state = initialState, action) => {
       return { ...state, loading: false, success: null };
     default:
       return state;
+    // RESET PASSWORD
+    case `${RESET_PASSWORD}/pending`:
+      return {
+        success: null,
+        loading: true,
+      }
+    case `${RESET_PASSWORD}/fulfilled`:
+      return {
+        success: true,
+        loading: false,
+        message: action.payload.message,
+      }
+    case `${RESET_PASSWORD}/rejected`:
+      return {
+        success: false,
+        loading: false,
+        errors: action.payload.errors
+      }
+    // VERIFY OTP
+    case `${VERIFY_OTP}/pending`:
+      return {
+        success: null,
+        loading: true,
+      }
+    case `${VERIFY_OTP}/fulfilled`:
+      return {
+        verified: true,
+        loading: false,
+        message: action.payload.message,
+      }
+    case `${VERIFY_OTP}/rejected`:
+      return {
+        success: false,
+        loading: false,
+        errors: action.payload.errors
+      }
   };
 };
