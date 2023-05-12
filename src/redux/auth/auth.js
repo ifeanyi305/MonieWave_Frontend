@@ -10,7 +10,6 @@ const RESET_STATE_AND_KEEP_FLASH = 'auth/reset_state_and_keep_flash';
 
 const SIGN_IN_URL = `http://127.0.0.1:3000/auth/login`;
 const SIGN_UP_URL = `http://127.0.0.1:3000/api/v1/users`;
-const SIGN_OUT_URL = `http://127.0.0.1:3000/users/sign_out`;
 const RESET_PASSWORD_URL = `http://127.0.0.1:3000/api/v1/password/reset`;
 const VERIFY_OTP_URL = `http://127.0.0.1:3000/api/v1/otp/verify_otp`;
 
@@ -213,5 +212,5 @@ export default (state = initialState, action) => {
         loading: false,
         errors: action.payload.errors
       }
-  };
-};
+  }
+}
