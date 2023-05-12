@@ -18,7 +18,8 @@ const NewPassword = () => {
   const submit = (e) => {
     e.preventDefault();
     if (confirmPassword !== password) {
-      return (<>password do not match</>)
+      alert('password do not match')
+      return;
     }
     const passwordReset = {
       password,

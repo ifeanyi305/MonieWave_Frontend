@@ -1,6 +1,4 @@
 import { ToastContainer } from 'react-toastify';
-import Footer from './components/Footer';
-import Navbar from './components/Navbar';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import LandingPage from './pages/LandingPage';

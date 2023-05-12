@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { flash } from '../../redux/flash/flash';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState('');
@@ -14,9 +16,18 @@ const ResetPassword = () => {
       },
       body: JSON.stringify({ email: email })
     })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
+    .then(response => {
+      if (response.ok) {
+        flash('success', 'Email sent successfully');
+        navigate('/ResetPasswordLinkSent');
+      } else {
+        throw new Error('Request failed');
+      }
+    })
+      .catch(error => {
+        console.error(error)
+        flash('error', 'Email address not found')
+      });
   }
 
   const handleInputChange = (event) => {
@@ -24,12 +35,12 @@ const ResetPassword = () => {
   }
   return (
     <div>
+      <ToastContainer />
       <h1>Reset Password</h1>
       <p>Enter the email wey you carry register</p>
       <form onSubmit={handleSubmit}>
         <input type="email" value={email} onChange={handleInputChange} />
         <button type="submit">send</button>
-        {/* <Link to='/ResetPasswordLinkSent'></Link> */}
       </form>
     </div>
   );

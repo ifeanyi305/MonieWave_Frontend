@@ -1,21 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const UserCountry = ({ country, setCountry, setNumber }) => {
+  const validateCountry = () => {
+    return country.trim() !== '';
+  }
   return (
     <div>
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+      <label className="block" htmlFor="country">Country</label>
       <input
         type="text"
         id="country"
         name="country"
         value={country}
-        className="form-control"
+        className="p-4 block w-[560px] rounded-[8px] border-[#6B6B6B] border-[1px]"
         placeholder="country"
         onChange={(e) => setCountry(e.target.value)}
       />
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label htmlFor="email">Country</label>
-      <button onClick={() => setNumber(2)}>next</button>
+      <button
+        className={validateCountry() ?
+          'p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-[560px] text-center'
+          : 'p-2 mt-[27px] opacity-40 mb-2 login_btn bg-[#814DE5] text-[#fff] w-[560px] text-center'}
+        disabled={!validateCountry()}
+        onClick={() => setNumber(2)}>
+        next
+      </button>
     </div>
   );
 };

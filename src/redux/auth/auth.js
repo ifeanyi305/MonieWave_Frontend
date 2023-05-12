@@ -124,32 +124,10 @@ export const signup = createAsyncThunk(
   },
 )
 
-export const signout = createAsyncThunk(
-  SIGN_OUT,
-  async (_, { rejectWithValue }) => {
-    const response = await fetch(SIGN_OUT_URL, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: getToken(),
-      },
-    });
-
-    if (response.ok) {
-      removeToken();
-      localStorage.removeItem('current');
-    }
-
-    if (!response.ok) {
-      return rejectWithValue({
-        success: response.ok,
-        errors: ['An error occured while logging out'],
-      });
-    }
-
-    return { success: response.ok, ...(await response.json()) };
-  },
-);
+export const signout = () => {
+  removeToken();
+  localStorage.removeItem('current');
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -188,7 +166,7 @@ export default (state = initialState, action) => {
         loading: true,
       }
     case `${SIGN_UP}/fulfilled`:
-      return { success: true, loading: false, message: action.payload.message };
+      return { success: true, coming: false, message: action.payload.message };
     case `${SIGN_UP}/rejected`:
       return { success: false, loading: false, errors: action.payload.errors };
     // CLEAN_FLASH

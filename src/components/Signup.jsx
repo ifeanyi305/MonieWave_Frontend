@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
-import { signup, resetStateAndKeepFlash, verifyOtp } from '../redux/auth/auth';
+import { signup, resetStateAndKeepFlash } from '../redux/auth/auth';
 import Password from './signupProcess/Password';
 import SendVerification from './signupProcess/SendVerification';
 import UserCountry from './signupProcess/UserCountry';
 import UserNameAndEmail from './signupProcess/UserNameAndEmail';
 import Otp from './signupProcess/VerifyOtp';
 import { flash } from '../redux/flash/flash';
-import { Routes, Route } from 'react-router-dom';
+import Man from '../assets/images/login/man.png';
+import RateHive from '../assets/images/navbar/RateHive.png';
 
 const Signup = () => {
   const [first_name, setFirstname] = useState('');
@@ -18,25 +19,25 @@ const Signup = () => {
   const [otp, setOtp] = useState('');
   const [country, setCountry] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [verified, setVerification] = useState(false);
   const [role, setRole] = useState('customer');
   const [number, setNumber] = useState(0);
-  const { success } = useSelector((state) => state.auth);
+  const { success, coming } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const submit = (e) => {
     e.preventDefault();
+    if (confirmPassword !== password) {
+      flash('error','password do not match')
+      return;
+    }
     const user = {
       first_name, last_name, email, country,
       password, verified, role
     }
     dispatch(signup(user))
-    // if (success) {
-    //   dispatch(resetStateAndKeepFlash());
-    //   flash('success', 'Account created successfully')
-    //   navigate('/SignupSuccesful');
-    // }
   }
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const Signup = () => {
       flash('success', 'Account created successfully')
       navigate('/SignupSuccesful');
     }
-  },[success])
+  }, [success])
 
   const sendVerication = (event) => {
     event.preventDefault();
@@ -74,13 +75,36 @@ const Signup = () => {
           setNumber={setNumber}
         />
       case 1:
-        return <UserCountry setNumber={setNumber} country={country} setCountry={setCountry} />
+        return <UserCountry
+          setNumber={setNumber}
+          country={country}
+          setCountry={setCountry}
+        />
       case 2:
-        return <SendVerification setNumber={setNumber} sendVerication={sendVerication} email={email} setEmail={setEmail} />
+        return <SendVerification
+          setNumber={setNumber}
+          sendVerication={sendVerication}
+          email={email}
+          setEmail={setEmail}
+        />
       case 3:
-        return <Otp otp={otp} setNumber={setNumber} email={email} setOtp={setOtp} />
+        return <Otp
+          otp={otp}
+          setVerification={setVerification}
+          sendVerication={sendVerication}
+          setNumber={setNumber}
+          email={email}
+          setOtp={setOtp} />
       case 4:
-        return <Password password={password} setNumber={setNumber} submit={submit} setPassword={setPassword} />
+        return <Password
+          setConfirmPassword={setConfirmPassword}
+          confirmPassword={confirmPassword}
+          password={password}
+          setNumber={setNumber}
+          submit={submit}
+          setPassword={setPassword}
+          coming={coming}
+        />
       default:
         return <UserNameAndEmail
           submit={submit}
@@ -96,10 +120,22 @@ const Signup = () => {
   return (
     <div>
       <ToastContainer />
-      <p>login</p>
-      <>
-        {currentForm()}
-      </>
+      <div className="flex w-[80%] m-auto bg-[#fff] mb-6 items-center gap-2">
+        <div>
+          <img className="h-full w-full" src={Man} alt="man folding hands" />
+        </div>
+        <div className="w-full p-6">
+          <h1 className="pb-[40px]"><a href='/broken'><img className="m-auto" src={RateHive} alt="title" /></a></h1>
+          <div className="text-center pb-[40px]">
+            <p className="text-[#212121] font-[600] text-[40px]">Create your RateHive account</p>
+            <p className="text-[16px]  text-[#212121] font-[400]">
+              Already have an account?
+              <Link className="text-[#814DE5] text-[16px] font-[400]" to='/login'> Log in here</Link>
+            </p>
+          </div>
+          <div className="flex justify-center">{currentForm()}</div>
+        </div>
+      </div>
     </div>
   );
 };
