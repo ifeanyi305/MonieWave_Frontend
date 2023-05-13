@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetPassword, resetStateAndKeepFlash } from '../../redux/auth/auth';
 import { flash } from '../../redux/flash/flash';
+import Ratehive from '../../assets/images/navbar/RateHive.png';
 
 const NewPassword = () => {
   const location = useLocation();
@@ -14,7 +15,6 @@ const NewPassword = () => {
   const { success, errors } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-// ifyjapan
   const submit = (e) => {
     e.preventDefault();
     if (confirmPassword !== password) {
@@ -43,29 +43,35 @@ const NewPassword = () => {
     const userEmail = searchParams.get("email")
     setEmail(userEmail);
     setToken(userToken);
-    console.log(userToken)
-    console.log(userEmail)
   },[location])
 
   return (
     <div>
-      <form onSubmit={submit}>
-        <input
-         className='bg-[#000] text-[#fff] py-2 block'
-         type="password"
-         value={password}
-         placeholder="password"
-         onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-         className='bg-[#000] text-[#fff] py-2 block'
-         type="password"
-         value={confirmPassword}
-         placeholder="confirm password"
-         onChange={(e) => setconfirmPassword(e.target.value)}
-        />
-        <button type="submit">Change password</button>
-      </form>
+      <div><h1><img  className="pb-[5%] px-6" src={Ratehive} alt="title" /></h1></div>
+      <div className="flex justify-center">
+        <form onSubmit={submit}>
+          <h1 className="pb-[15px] text-[40px] text-center">Create new Password</h1>
+          <input
+          className="p-4 block w-[560px] my-2 rounded-[8px] border-[#6B6B6B] border-[1px]"
+          type="password"
+          value={password}
+          placeholder="password"
+          onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+          className="p-4 block w-[560px] rounded-[8px] border-[#6B6B6B] border-[1px]"
+          type="password"
+          value={confirmPassword}
+          placeholder="confirm password"
+          onChange={(e) => setconfirmPassword(e.target.value)}
+          />
+          <div className="mt-[5%] flex justify-center">
+            <button type="submit" className="p-2 login_btn bg-[#814DE5] text-[#fff] w-[80%] text-center">
+            Change password
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
