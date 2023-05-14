@@ -3,14 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { flash } from '../../redux/flash/flash';
 import Ratehive from '../../assets/images/navbar/RateHive.png';
-import ResetPasswordLinkSent from './ResetPasswordLinkSent';
+import Loading from '../../assets/images/loading/loading-icon.gif';
+
 
 const ResetPassword = () => {
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true);
     fetch('http://127.0.0.1:3000/api/v1/password/forgot', {
       method: 'POST',
       headers: {
@@ -18,15 +21,17 @@ const ResetPassword = () => {
       },
       body: JSON.stringify({ email: email })
     })
-    .then(response => {
-      if (response.ok) {
-        flash('success', 'Email sent successfully');
-        navigate('/ResetPasswordLinkSent');
-      } else {
-        throw new Error('Request failed');
-      }
-    })
+      .then(response => {
+        setLoading(false);
+        if (response.ok) {
+          flash('success', 'Email sent successfully');
+          navigate('/ResetPasswordLinkSent');
+        } else {
+          throw new Error('Request failed');
+        }
+      })
       .catch(error => {
+        setLoading(false);
         console.error(error)
         flash('error', 'Email address not found')
       });
@@ -38,7 +43,7 @@ const ResetPassword = () => {
   return (
     <div>
       <ToastContainer />
-      <div><h1><img  className="pb-[5%] px-6" src={Ratehive} alt="title" /></h1></div>
+      <div><h1><img className="pb-[5%] px-6" src={Ratehive} alt="title" /></h1></div>
       <div className="flex justify-center">
         <div>
           <h1 className="pb-[15px] text-[40px] text-center">Reset Password</h1>
@@ -49,7 +54,9 @@ const ResetPassword = () => {
             <input type="email" className="p-4 block w-[560px] rounded-[8px] border-[#6B6B6B] border-[1px]" value={email} onChange={handleInputChange} />
             <div className="mt-[5%] flex justify-center">
               <button type="submit" className="p-2 login_btn bg-[#814DE5] text-[#fff] w-[80%] text-center">
-                send password reset link
+                {
+                  loading ? (<img src={Loading} className="w-[25px] m-auto" alt="loading" />) : (<>send password reset link</>)
+                }
               </button>
             </div>
           </form>

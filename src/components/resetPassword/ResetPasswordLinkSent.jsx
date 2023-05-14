@@ -11,7 +11,7 @@ const ResetPasswordLinkSent = () => {
         <div>
           <img className="py-6 m-auto" src={Mail} alt="mail box" />
           <h1 className="pb-[15px] text-[40px] text-center">Reset Password </h1>
-          <p className="text-center">We sent you an email use the link to reset your password email to </p>
+          <p className="text-center">We've sent you an email, use the link to reset your password</p>
           <p className="text-center">If you don’t get the email soon, check your spam folder.</p>
         </div>
       </div>
