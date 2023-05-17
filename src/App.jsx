@@ -9,14 +9,15 @@ import ForgotPassword from './components/resetPassword/ForgotPassword';
 import NewPassword from './components/resetPassword/NewPassword';
 import ResetPassword from './components/resetPassword/ResetPassword';
 import ResetPasswordLinkSent from './components/resetPassword/ResetPasswordLinkSent';
-
+import { getToken } from './redux/auth/auth';
 
 function App() {
+  const isAuthenticated = getToken();
   return (
     <div className="dark:bg-[#000] App">
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={isAuthenticated ? <UserDashboard /> : <LandingPage />} />
         <Route path="/SignupSuccesful" element={<SignupSuccesful />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
       </Routes>
