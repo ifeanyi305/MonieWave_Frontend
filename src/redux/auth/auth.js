@@ -123,28 +123,32 @@ export const signup = createAsyncThunk(
   },
 )
 
-export const signout = () => {
-  removeToken();
-  localStorage.removeItem('current');
-}
+export const signout = createAsyncThunk(
+  SIGN_OUT,
+  async (_, { dispatch }) => {
+    removeToken();
+    localStorage.removeItem('current');
+    dispatch({ type: 'CLEAR_USER_DATA' });
+  }
+);
 
 export default (state = initialState, action) => {
   switch (action.type) {
     // SIGN IN
     case `${SIGN_IN}/pending`:
-      return { success: null, loading: true };
+      return { progress: null, loading: true };
     case `${SIGN_IN}/fulfilled`:
       return {
-        success: true,
+        progress: true,
         loading: false,
         message: action.payload.message,
         user: action.payload.resource,
       }
     case `${SIGN_IN}/rejected`:
-      return { success: false, loading: false, errors: action.payload?.errors };
+      return { progress: false, loading: false, errors: action.payload?.errors };
     // SIGN OUT
     case `${SIGN_OUT}/pending`:
-      return { success: null, loading: true };
+      return { success: null };
     case `${SIGN_OUT}/fulfilled`:
       return {
         success: true,

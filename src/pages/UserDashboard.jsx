@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { getToken } from '../redux/auth/auth';
 import Authentication from '../components/Authentication';
-import { signout, cleanFlash } from '../redux/auth/auth';
+import { signout } from '../redux/auth/auth';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Redirect = () => {
@@ -11,9 +11,9 @@ const Redirect = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(signout());
-    dispatch(cleanFlash());
-    navigate('/login');
-  }
+      navigate('/login');
+  };
+  
 
   <Authentication />
   return (
