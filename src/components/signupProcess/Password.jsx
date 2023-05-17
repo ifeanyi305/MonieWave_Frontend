@@ -27,13 +27,6 @@ const Password = ({ password, submit, setPassword, confirmPassword, setConfirmPa
           placeholder="confirm Password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        {/* <button
-          type="submit"
-          onClick={() => (submit)}
-          className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-[560px] text-center"
-        >
-          sign up
-        </button> */}
         <button type="submit" className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-[560px] text-center">
           {
             coming ? (<img src={Loading} className="w-[25px] m-auto" alt="loading" />) : (<> sign up</>)

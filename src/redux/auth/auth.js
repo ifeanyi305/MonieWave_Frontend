@@ -162,12 +162,12 @@ export default (state = initialState, action) => {
     case `${SIGN_UP}/pending`:
       return {
         success: null,
-        loading: true,
+        coming: true,
       }
     case `${SIGN_UP}/fulfilled`:
       return { success: true, coming: false, message: action.payload.message };
     case `${SIGN_UP}/rejected`:
-      return { success: false, loading: false, errors: action.payload.errors };
+      return { success: false, coming: false, errors: action.payload.errors };
     // CLEAN_FLASH
     case CLEAN_FLASH:
       return { success: null, loading: false };
