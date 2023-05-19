@@ -8,10 +8,14 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.App::before {
-  display: block;
-  content: "";
-  height: 100px;
+.heading_text {
+  font-family: 'Rebond Grotesque';
+}
+
+.navbar {
+  top: 0;
+  margin-bottom: 10px;
+  position: sticky;
 }
 
 .container {
@@ -21,6 +25,10 @@
 
 .login_btn {
   border-radius: 20px 2px;
+}
+
+.send_btn {
+  border-radius: 48px 4px;
 }
 
 .pounds {
@@ -34,4 +42,22 @@
 .card {
   width: 90%;
   margin: auto;
+}
+
+.open {
+  display: block;
+}
+
+.close {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .sidebar {
+    display: block;
+  }
+}
+
+.button {
+  z-index: 20;
 }

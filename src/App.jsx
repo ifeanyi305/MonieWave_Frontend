@@ -1,4 +1,5 @@
 import { ToastContainer } from 'react-toastify';
+import { useState } from 'react';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import LandingPage from './pages/LandingPage';
@@ -9,15 +10,38 @@ import ForgotPassword from './components/resetPassword/ForgotPassword';
 import NewPassword from './components/resetPassword/NewPassword';
 import ResetPassword from './components/resetPassword/ResetPassword';
 import ResetPasswordLinkSent from './components/resetPassword/ResetPasswordLinkSent';
+import Sidebar from './pages/dashboard/Sidebar';
+import SendMoney from './pages/dashboard/transferprocess/SendMoney';
+import Navbar from './pages/dashboard/Navbar';
 import { getToken } from './redux/auth/auth';
 
 function App() {
   const isAuthenticated = getToken();
+  const [sidebar, setSidebar] = useState(false)
+  const handleSidebar = () => {
+    setSidebar(!sidebar)
+  }
   return (
     <div className="dark:bg-[#000] App">
       <ToastContainer />
+      <div>
+        {
+          isAuthenticated ? (
+            <section className='flex gap-6'>
+              <Sidebar sidebar={sidebar} />
+              <div className="md:ml-[20%] w-full">
+                <Navbar handleSidebar={handleSidebar} sidebar={sidebar} />
+                <Routes>
+                  <Route path="/send_money" element={<SendMoney />} />
+                  <Route path="/" element={isAuthenticated ? <UserDashboard /> : <LandingPage />} />
+                </Routes>
+              </div>
+            </section>
+          ) :
+            ''
+        }
+      </div>
       <Routes>
-        <Route path="/" element={isAuthenticated ? <UserDashboard /> : <LandingPage />} />
         <Route path="/SignupSuccesful" element={<SignupSuccesful />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
       </Routes>
