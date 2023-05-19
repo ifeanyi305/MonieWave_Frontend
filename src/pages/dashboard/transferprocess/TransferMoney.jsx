@@ -5,7 +5,7 @@ import exchange from './images/exchange.png'
 const TransferMoney = ({ setNumber }) => {
   return (
     <div className="px-6">
-      <div className="flex my-[4%] justify-between wrap items-center">
+      <div className="flex my-[4%] justify-between wrap items-start">
         <h1 className="text-[40px] text-[#212121]">Send Money</h1>
         <div className="flex gap-4">
           <button><GrNotification /></button>

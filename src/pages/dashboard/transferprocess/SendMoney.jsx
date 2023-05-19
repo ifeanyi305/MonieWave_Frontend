@@ -13,15 +13,15 @@ const SendMoney = () => {
       case 0:
         return <TransferMoney setNumber={setNumber} />
       case 1:
-        return <BankDetails setNumber={setNumber} />
-      case 2:
-        return <MoneySent setNumber={setNumber} />
-      case 3:
-        return <PaymentMethod setNumber={setNumber} />
-      case 4:
         return <RecipientDetails setNumber={setNumber} />
-      case 5:
-        return <SelectPayment setNumber={setNumber} />
+      case 2:
+        return <BankDetails setNumber={setNumber} />
+      case 3:
+        return <MoneySent setNumber={setNumber} />
+      // case 4:
+      //   return <PaymentMethod setNumber={setNumber} />
+      // case 5:
+      //   return <SelectPayment setNumber={setNumber} />
       default:
         return <SendMoney setNumber={setNumber} />
     }
