@@ -13,6 +13,7 @@ import ResetPasswordLinkSent from './components/resetPassword/ResetPasswordLinkS
 import Sidebar from './pages/dashboard/Sidebar';
 import SendMoney from './pages/dashboard/transferprocess/SendMoney';
 import Navbar from './pages/dashboard/Navbar';
+import Recipients from './pages/dashboard/Recipients';
 import { getToken } from './redux/auth/auth';
 
 function App() {
@@ -32,8 +33,9 @@ function App() {
               <div className="md:ml-[20%] w-full">
                 <Navbar handleSidebar={handleSidebar} sidebar={sidebar} />
                 <Routes>
-                  <Route path="/send_money" element={<SendMoney />} />
                   <Route path="/" element={isAuthenticated ? <UserDashboard /> : <LandingPage />} />
+                  <Route path="/send_money" element={<SendMoney />} />
+                  <Route path="/recipients" element={<Recipients />} />
                 </Routes>
               </div>
             </section>

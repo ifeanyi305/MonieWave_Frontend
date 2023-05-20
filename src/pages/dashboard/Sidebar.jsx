@@ -1,5 +1,6 @@
 import React from 'react';
 import Ratehive from '../../assets/images/navbar/RateHive.png';
+import { Link } from 'react-router-dom';
 
 const Sidebar = ({sidebar}) => {
   const style = {
@@ -13,7 +14,7 @@ const Sidebar = ({sidebar}) => {
         <ul className="text-[#FAFAFA] m-6">
           <li className={style.padding}>Home</li>
           <li className={style.padding}>Send money</li>
-          <li className={style.padding}>Recipients</li>
+          <Link to="/recipients"><li className={style.padding}>Recipients</li></Link>
           <li className={style.padding}>Transactions</li>
         </ul>
       </div>
