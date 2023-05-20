@@ -1,8 +1,67 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { GrNotification } from 'react-icons/gr';
-import exchange from './images/exchange.png'
+import exchange from './images/exchange.png';
+import axios from 'axios';
+import Select from 'react-select';
+import _ from 'lodash';
 
 const TransferMoney = ({ setNumber }) => {
+  const [rates, setRates] = useState({});
+  const [baseCurrency, setBaseCurrency] = useState('Euro');
+  const [targetCurrency, setTargetCurrency] = useState('Pounds');
+  const [baseAmount, setBaseAmount] = useState(1);
+  const [convertedAmount, setConvertedAmount] = useState(0);
+
+  useEffect(() => {
+    const fetchRates = async () => {
+      const response = await axios.get('http://127.0.0.1:3000/api/v1/rate/latest_all');
+      setRates(response.data.data);
+    };
+    fetchRates();
+  }, []);
+
+  const handleCurrencyChange = (selectedOption, isBaseCurrency) => {
+    if (isBaseCurrency) {
+      setBaseCurrency(selectedOption.value);
+    } else {
+      setTargetCurrency(selectedOption.value);
+    }
+  };
+
+  const handleBaseAmountChange = (event) => {
+    setBaseAmount(event.target.value);
+  };
+
+  useEffect(() => {
+    const euroToNairaRate = _.get(rates, [baseCurrency, 'price'], 1);
+    const poundsToNairaRate = _.get(rates, [targetCurrency, 'price'], 1);
+    const rate = poundsToNairaRate / euroToNairaRate;
+    const nairaAmount = parseFloat(baseAmount) * euroToNairaRate;
+    setConvertedAmount(parseFloat(nairaAmount) * parseFloat(rate) || 0);
+  }, [rates, baseCurrency, targetCurrency, baseAmount]);
+
+  const options = Object.keys(rates).map((currency) => ({
+    value: currency,
+    label: currency,
+  }));
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      border: '1px solid #6B6B6B',
+      borderRadius: '8px',
+      backgroundColor: 'transparent',
+      width: '100%',
+    }),
+    option: (provided) => ({
+      ...provided,
+      backgroundColor: 'white',
+      color: 'black',
+      '&:hover': {
+        backgroundColor: '#6B6B6B',
+        color: 'white',
+      },
+    }),
+  };
   return (
     <div className="px-6">
       <div className="flex my-[4%] justify-between wrap items-start">
@@ -19,10 +78,22 @@ const TransferMoney = ({ setNumber }) => {
       <div className="py-6 md:w-[45%]">
         <div>
           <label className="block">you send</label>
-          <input
-            type="number"
-            className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
-          />
+          <div className="flex gap-[2px] items-center">
+            <input
+              type="number"
+              value={baseAmount}
+              onChange={handleBaseAmountChange}
+              className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
+            />
+            <Select
+              value={{ value: targetCurrency, label: targetCurrency }}
+              onChange={(selectedOption) =>
+                handleCurrencyChange(selectedOption, false)
+              }
+              options={options}
+              styles={customStyles}
+            />
+          </div>
         </div>
         <div className="my-6">
           <img src={exchange} className="m-auto" alt="exchange" />
@@ -30,10 +101,11 @@ const TransferMoney = ({ setNumber }) => {
         <div>
           <label className="block">Osadebanem Ralph recieves exactly</label>
           <input
-            type="number"
+            type="text"
+            value={convertedAmount.toFixed(2)} readOnly
             className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
           />
-          <label className="block py-2">total amount: 50696GPD</label>
+          <label className="block py-2">total amount: {convertedAmount.toFixed(2)}</label>
         </div>
         <div className="flex my-4 justify-between items-center">
           <p>Our fee</p>

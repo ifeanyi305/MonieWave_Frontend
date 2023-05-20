@@ -20,8 +20,8 @@ const SendMoney = () => {
         return <MoneySent setNumber={setNumber} />
       // case 4:
       //   return <PaymentMethod setNumber={setNumber} />
-      // case 5:
-      //   return <SelectPayment setNumber={setNumber} />
+      case 5:
+        return <SelectPayment setNumber={setNumber} />
       default:
         return <SendMoney setNumber={setNumber} />
     }
