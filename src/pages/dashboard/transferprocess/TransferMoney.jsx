@@ -32,12 +32,19 @@ const TransferMoney = ({ setNumber }) => {
     setBaseAmount(event.target.value);
   };
 
+  const formatNumber = (num = 0) => {
+    return num.toLocaleString("en-NG", {
+      style: 'currency',
+      currency: 'NGN'
+    })
+  }
+
   useEffect(() => {
     const euroToNairaRate = _.get(rates, [baseCurrency, 'price'], 1);
     const poundsToNairaRate = _.get(rates, [targetCurrency, 'price'], 1);
     const rate = poundsToNairaRate / euroToNairaRate;
     const nairaAmount = parseFloat(baseAmount) * euroToNairaRate;
-    setConvertedAmount(parseFloat(nairaAmount) * parseFloat(rate) || 0);
+    setConvertedAmount(formatNumber(parseFloat(nairaAmount) * parseFloat(rate) || 0));
   }, [rates, baseCurrency, targetCurrency, baseAmount]);
 
   const options = Object.keys(rates).map((currency) => ({
@@ -45,11 +52,12 @@ const TransferMoney = ({ setNumber }) => {
     label: currency,
   }));
   const customStyles = {
-    control: (provided) => ({
+    control: (provided, state) => ({
       ...provided,
-      border: '1px solid #6B6B6B',
       borderRadius: '8px',
       backgroundColor: 'transparent',
+      border: 'none',
+      boxShadow: state.isFocused ? 'transparent' : 'none',
       width: '100%',
     }),
     option: (provided) => ({
@@ -78,12 +86,12 @@ const TransferMoney = ({ setNumber }) => {
       <div className="py-6 md:w-[45%]">
         <div>
           <label className="block">you send</label>
-          <div className="flex gap-[2px] items-center">
+          <div className="flex gap-[2px] border-[#6B6B6B] rounded-[8px] pl-[5px] border-[1px] items-center">
             <input
               type="number"
               value={baseAmount}
               onChange={handleBaseAmountChange}
-              className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
+              className="w-full p-4 block border-none focus:outline-none"
             />
             <Select
               value={{ value: targetCurrency, label: targetCurrency }}
@@ -102,15 +110,15 @@ const TransferMoney = ({ setNumber }) => {
           <label className="block">Osadebanem Ralph recieves exactly</label>
           <input
             type="text"
-            value={convertedAmount.toFixed(2)} readOnly
+            value={convertedAmount} readOnly
             className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
           />
-          <label className="block py-2">total amount: {convertedAmount.toFixed(2)}</label>
         </div>
         <div className="flex my-4 justify-between items-center">
           <p>Our fee</p>
           <p>1GPD</p>
         </div>
+        <label className="block py-2">total amount: {convertedAmount}</label>
         <button
           type="button"
           className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"
