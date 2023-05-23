@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { GrNotification } from 'react-icons/gr';
 import Recipients from '../Recipients'
 
@@ -9,6 +10,8 @@ const RecipientDetails = ({ setNumber }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [toggleChecked, setToggleChecked] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const setDetails = (details) => {
     const existingDetails = localStorage.getItem('recipients');
@@ -16,6 +19,22 @@ const RecipientDetails = ({ setNumber }) => {
     recipients.push(details);
     localStorage.setItem('recipients', JSON.stringify(recipients));
   }
+  useEffect(() => {
+    const fetchAccName = async () => {
+      try {
+        const res = await axios.get(`https://app.nuban.com.ng/api/NUBAN-JYBVNVCG1570?acc_no=${accountNumber}`);
+        const recipientName = res.data[0].account_name;
+        console.log("acc name", recipientName)
+        setAccountName(recipientName);
+        setLoading(false);
+      } catch (error) {
+        setError('An error occurred while fetching the account name.');
+        setLoading(false);
+      }
+    };
+
+    fetchAccName();
+  }, []);
 
   const submit = (e) => {
     e.preventDefault()
@@ -72,9 +91,8 @@ const RecipientDetails = ({ setNumber }) => {
             <label className="block">Account Holder Name</label>
             <input
               type="text"
-              value={accountName}
+              value={loading ? 'accname loading' : accountName } readOnly
               className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
-              onChange={(e) => setAccountName(e.target.value)}
             />
           </div>
           <div>

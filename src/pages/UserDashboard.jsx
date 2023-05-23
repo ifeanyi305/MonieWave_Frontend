@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { getToken } from '../redux/auth/auth';
 import Authentication from '../components/Authentication';
@@ -6,16 +6,44 @@ import { signout } from '../redux/auth/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { GrNotification } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { createChart } from 'lightweight-charts';
 
 const Redirect = () => {
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // const euroRef = useRef(null);
   const handleLogout = () => {
     dispatch(signout());
     navigate('/login');
   };
 
+  //   const fetchRates = async (newDiv) => {
+  //     const response = await axios.get('http://127.0.0.1:3000/api/v1/rate/history');
+  //     console.log("i'm the ressponse", response)
+  //     const data = response.data.data.Euro
+  //     const Areadata = data.map((d) => {
+  //       const timestamp = new Date(d.time);
+  //       const formattedDate = timestamp.toLocaleDateString('en-GB');
+  //       const formattedTime = formattedDate.substring(6, 10) + '-' + formattedDate.substring(3, 5) + '-' + formattedDate.substring(0, 2);
+  //       console.log(formattedTime)
+  //       return { value: d.price, time: formattedTime }
+  //     })
+  //     const chartOptions = { layout: { textColor: 'white', background: { type: 'solid', color: 'black' } } };
+  //     const chart = createChart(newDiv, chartOptions);
+  //     const areaSeries = chart.addAreaSeries({ lineColor: '#2962FF', topColor: '#2962FF', bottomColor: 'rgba(41, 98, 255, 0.28)' });
+  //     areaSeries.setData(Areadata);
+  //     chart.timeScale().fitContent();
+  //     console.log("i'm the data", Areadata);
+  //   };
+
+  // useEffect(() => {
+  //   const newNode = euroRef.current;
+  //   const newDiv = newNode.appendChild(document.createElement('div'));
+
+  //   fetchRates(newDiv);
+  // }, [])
 
   <Authentication />
   return (
@@ -43,6 +71,8 @@ const Redirect = () => {
       </div>
       <div>
         <p>Today's exchange rates</p>
+        {/* <div ref={euroRef}>
+        </div> */}
       </div>
       {/* <button
         type="button"
