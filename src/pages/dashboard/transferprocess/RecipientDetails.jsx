@@ -12,6 +12,7 @@ const RecipientDetails = ({ setNumber }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [randomCharacters, setRandomCharacters] = useState('');
 
   const setDetails = (details) => {
     const existingDetails = localStorage.getItem('recipients');
@@ -38,6 +39,10 @@ const RecipientDetails = ({ setNumber }) => {
 
   const submit = (e) => {
     e.preventDefault()
+    if (bankName && accountNumber && phoneNumber) {
+      const characters = generateRandomCharacters(6);
+      setRandomCharacters(characters);
+    }
     const recipientDtails = {
       bankName, accountNumber, accountName, phoneNumber
     }
@@ -46,6 +51,18 @@ const RecipientDetails = ({ setNumber }) => {
     setToggleChecked(!toggleChecked);
     setDetails(recipientDtails);
   }
+
+  const generateRandomCharacters = (length) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+
+    return result;
+  };
 
   return (
     <div className="px-6">
@@ -91,7 +108,7 @@ const RecipientDetails = ({ setNumber }) => {
             <label className="block">Account Holder Name</label>
             <input
               type="text"
-              value={loading ? 'accname loading' : accountName } readOnly
+              value={loading ? 'accname loading' : error ? error : accountName} readOnly
               className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
             />
           </div>
@@ -117,6 +134,11 @@ const RecipientDetails = ({ setNumber }) => {
               <label htmlFor="toggle-checkbox"></label>
             </div>
           </div>
+          {randomCharacters && (
+            <div className="my-4">
+              Generated Random Characters: {randomCharacters}
+            </div>
+          )}
           <button
             type="button"
             className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"
