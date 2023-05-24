@@ -12,6 +12,7 @@ import num3 from '../assets/images/landingpage/num3.png';
 import phone from '../assets/images/landingpage/phone.png';
 import appstore from '../assets/images/landingpage/Appstore.png';
 import googleplay from '../assets/images/landingpage/googleplay.png';
+import { Link } from 'react-router-dom';
 import { getToken } from '../redux/auth/auth';
 
 const LandingPage = () => {

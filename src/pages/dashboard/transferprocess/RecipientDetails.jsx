@@ -21,7 +21,7 @@ const RecipientDetails = ({ setNumber }) => {
   };
   const options = getBankCodes.map((code) => ({
     value: code.code,
-    label: `${code.bank_name} - ${code.code}`
+    label: `${code.bank_name}`
   }));
   const customStyles = {
     control: (provided) => ({
@@ -39,22 +39,23 @@ const RecipientDetails = ({ setNumber }) => {
     recipients.push(details);
     localStorage.setItem('recipients', JSON.stringify(recipients));
   }
+  const fetchAccName = async () => {
+    try {
+      const res = await axios.get(`https://app.nuban.com.ng/api/NUBAN-JYBVNVCG1570?bank_code=${bankName}&acc_no=${accountNumber}`);
+      const recipientName = res.data[0].account_name;
+      setAccountName(recipientName);
+      setLoading(false);
+    } catch (error) {
+      setError('An error occurred while fetching the account name.');
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchAccName = async () => {
-      try {
-        const res = await axios.get(`https://app.nuban.com.ng/api/NUBAN-JYBVNVCG1570?bank_code=${bankName}&acc_no=${accountNumber}`);
-        const recipientName = res.data[0].account_name;
-        console.log("acc name", recipientName)
-        setAccountName(recipientName);
-        setLoading(false);
-      } catch (error) {
-        setError('An error occurred while fetching the account name.');
-        setLoading(false);
-      }
-    };
-
-    fetchAccName();
-  }, []);
+    if(accountNumber.length == 10) {
+      setError('');
+      fetchAccName();
+    }
+  }, [accountNumber]);
 
   const submit = (e) => {
     e.preventDefault()
@@ -115,18 +116,11 @@ const RecipientDetails = ({ setNumber }) => {
               onChange={(e) => setAccountNumber(e.target.value)}
             />
           </div>
-          <div>
-            <label className="block">Confirm Account Number</label>
-            <input
-              type="number"
-              className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
-            />
-          </div>
           <div className="my-4">
             <label className="block">Account Holder Name</label>
             <input
               type="text"
-              value={loading ? 'accname loading' : accountName} readOnly
+              value={loading ? 'loading Account name' : error ? error : accountName} readOnly
               className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
             />
           </div>

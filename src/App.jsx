@@ -33,32 +33,28 @@ function App() {
               <div className="md:ml-[20%] w-full">
                 <Navbar handleSidebar={handleSidebar} sidebar={sidebar} />
                 <Routes>
-                  <Route path="/" element={isAuthenticated ? <UserDashboard /> : <LandingPage />} />
+                  <Route path="/" element={<UserDashboard />} />
                   <Route path="/send_money" element={<SendMoney />} />
                   <Route path="/recipients" element={<Recipients />} />
                 </Routes>
               </div>
             </section>
           ) :
-            ''
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              {/* Authentication Routes */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              {/*  */}
+              <Route path="/SignupSuccesful" element={<SignupSuccesful />} />
+              {/* Reset Password Routes */}
+              <Route path="/ForgotPassword" element={<ForgotPassword />} />
+              <Route path="/ResetPassword" element={<ResetPassword />} />
+              <Route path="/ResetPasswordLinkSent" element={<ResetPasswordLinkSent />} />
+              <Route path="/reset_password" element={<NewPassword />} />
+            </Routes>
         }
       </div>
-      <Routes>
-        <Route path="/SignupSuccesful" element={<SignupSuccesful />} />
-        <Route path="/userdashboard" element={<UserDashboard />} />
-      </Routes>
-      {/* Authentication Routes */}
-      <Routes>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-      {/* Reset Password Routes */}
-      <Routes>
-        <Route path="/ForgotPassword" element={<ForgotPassword />} />
-        <Route path="/ResetPassword" element={<ResetPassword />} />
-        <Route path="/ResetPasswordLinkSent" element={<ResetPasswordLinkSent />} />
-        <Route path="/reset_password" element={<NewPassword />} />
-      </Routes>
     </div>
   )
 }
