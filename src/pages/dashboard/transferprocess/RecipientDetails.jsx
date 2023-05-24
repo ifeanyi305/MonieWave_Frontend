@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { GrNotification } from 'react-icons/gr';
-import Recipients from '../Recipients'
+import Recipients from '../Recipients';
+import { getBankCodes } from '../bankCodes/BankCodes';
+import Select from 'react-select';
 
 const RecipientDetails = ({ setNumber }) => {
   const [bankName, setBankName] = useState('');
@@ -14,6 +16,23 @@ const RecipientDetails = ({ setNumber }) => {
   const [error, setError] = useState('');
   const [randomCharacters, setRandomCharacters] = useState('');
 
+  const handleBankChange = (selectedOption) => {
+    setBankName(selectedOption ? selectedOption.value : '');
+  };
+  const options = getBankCodes.map((code) => ({
+    value: code.code,
+    label: `${code.bank_name} - ${code.code}`
+  }));
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      borderRadius: '8px',
+      backgroundColor: 'transparent',
+      width: '100%',
+      borderColor: '#6B6B6B',
+      padding: '10px',
+    })
+  }
   const setDetails = (details) => {
     const existingDetails = localStorage.getItem('recipients');
     let recipients = existingDetails ? JSON.parse(existingDetails) : [];
@@ -23,7 +42,7 @@ const RecipientDetails = ({ setNumber }) => {
   useEffect(() => {
     const fetchAccName = async () => {
       try {
-        const res = await axios.get(`https://app.nuban.com.ng/api/NUBAN-JYBVNVCG1570?acc_no=${accountNumber}`);
+        const res = await axios.get(`https://app.nuban.com.ng/api/NUBAN-JYBVNVCG1570?bank_code=${bankName}&acc_no=${accountNumber}`);
         const recipientName = res.data[0].account_name;
         console.log("acc name", recipientName)
         setAccountName(recipientName);
@@ -80,12 +99,11 @@ const RecipientDetails = ({ setNumber }) => {
       <div className="py-6 md:w-[45%]">
         <form onSubmit={submit}>
           <div>
-            <label className="block">Bank Name</label>
-            <input
-              type="text"
-              value={bankName}
-              className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
-              onChange={(e) => setBankName(e.target.value)}
+            <Select
+              value={options.find((option) => option.value === bankName)}
+              onChange={handleBankChange}
+              options={options}
+              styles={customStyles}
             />
           </div>
           <div className="my-4">
@@ -108,7 +126,7 @@ const RecipientDetails = ({ setNumber }) => {
             <label className="block">Account Holder Name</label>
             <input
               type="text"
-              value={loading ? 'accname loading' : error ? error : accountName} readOnly
+              value={loading ? 'accname loading' : accountName} readOnly
               className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
             />
           </div>
