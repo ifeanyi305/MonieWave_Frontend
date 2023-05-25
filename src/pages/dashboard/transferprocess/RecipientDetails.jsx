@@ -51,7 +51,7 @@ const RecipientDetails = ({ setNumber }) => {
     }
   };
   useEffect(() => {
-    if(accountNumber.length == 10) {
+    if (accountNumber.length == 10) {
       setError('');
       fetchAccName();
     }
@@ -59,7 +59,7 @@ const RecipientDetails = ({ setNumber }) => {
 
   const submit = (e) => {
     e.preventDefault()
-    if (bankName && accountNumber && phoneNumber) {
+    if (bankName && accountNumber && phoneNumber && accountName) {
       const characters = generateRandomCharacters(6);
       setRandomCharacters(characters);
     }
@@ -100,6 +100,7 @@ const RecipientDetails = ({ setNumber }) => {
       <div className="py-6 md:w-[45%]">
         <form onSubmit={submit}>
           <div>
+            <label className="block">Bank Name</label>
             <Select
               value={options.find((option) => option.value === bankName)}
               onChange={handleBankChange}

@@ -11,6 +11,7 @@ const TransferMoney = ({ setNumber }) => {
   const [targetCurrency, setTargetCurrency] = useState('Pounds');
   const [baseAmount, setBaseAmount] = useState(1);
   const [convertedAmount, setConvertedAmount] = useState(0);
+  const [fee, setFee] = useState(0);
 
   useEffect(() => {
     const fetchRates = async () => {
@@ -19,6 +20,33 @@ const TransferMoney = ({ setNumber }) => {
     };
     fetchRates();
   }, []);
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:3000/api/v1/fee_ranges')
+      .then(response => {
+        const rateFee = response.data;
+        const amount = parseFloat(baseAmount);
+        if (amount >= 1 && amount <= 100) {
+          setFee(rateFee.data[0].fee)
+        } else if (amount >= 101 && amount <= 300) {
+          setFee(rateFee.data[1].fee)
+        } else if (amount >= 301 && amount <= 500) {
+          setFee(rateFee.data[2].fee)
+        } else if (amount >= 501 && amount <= 1000) {
+          setFee(rateFee.data[3].fee)
+        } else if (amount >= 1001 && amount <= 1000000000000000) {
+          setFee(rateFee.data[4].fee)
+        } else {
+          setFee(0)
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, [baseAmount]);
+
+  useEffect(() => {
+  }, [fee]);
 
   const handleCurrencyChange = (selectedOption, isBaseCurrency) => {
     if (isBaseCurrency) {
@@ -116,7 +144,7 @@ const TransferMoney = ({ setNumber }) => {
         </div>
         <div className="flex my-4 justify-between items-center">
           <p>Our fee</p>
-          <p>1GPD</p>
+          <p>{fee}GPD</p>
         </div>
         <label className="block py-2">total amount: {convertedAmount}</label>
         <button
