@@ -46,7 +46,7 @@ const RecipientDetails = ({ setNumber }) => {
       setAccountName(recipientName);
       setLoading(false);
     } catch (error) {
-      setError('An error occurred while fetching the account name.');
+      setError('An error occurred, type the Account number again');
       setLoading(false);
     }
   };
