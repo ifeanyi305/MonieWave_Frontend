@@ -7,10 +7,10 @@ import _ from 'lodash';
 
 const TransferMoney = ({ setNumber }) => {
   const [rates, setRates] = useState({});
-  const [baseCurrency, setBaseCurrency] = useState('Euro');
-  const [targetCurrency, setTargetCurrency] = useState('Pounds');
+  const [currency, setCurrency] = useState('Euro');
   const [baseAmount, setBaseAmount] = useState(1);
   const [convertedAmount, setConvertedAmount] = useState(0);
+  const [checkRate, setCheckRate] = useState(0);
   const [fee, setFee] = useState(0);
 
   useEffect(() => {
@@ -48,12 +48,8 @@ const TransferMoney = ({ setNumber }) => {
   useEffect(() => {
   }, [fee]);
 
-  const handleCurrencyChange = (selectedOption, isBaseCurrency) => {
-    if (isBaseCurrency) {
-      setBaseCurrency(selectedOption.value);
-    } else {
-      setTargetCurrency(selectedOption.value);
-    }
+  const handleCurrencyChange = (selectedOption) => {
+    setCurrency(selectedOption.value);
   };
 
   const handleBaseAmountChange = (event) => {
@@ -68,13 +64,17 @@ const TransferMoney = ({ setNumber }) => {
   }
 
   useEffect(() => {
-    const euroToNairaRate = _.get(rates, [baseCurrency, 'price'], 1);
-    const poundsToNairaRate = _.get(rates, [targetCurrency, 'price'], 1);
-    const rate = poundsToNairaRate / euroToNairaRate;
-    const nairaAmount = parseFloat(baseAmount) * euroToNairaRate;
-    setConvertedAmount(formatNumber(parseFloat(nairaAmount) * parseFloat(rate) || 0));
-  }, [rates, baseCurrency, targetCurrency, baseAmount]);
-
+    let nairaAmount;
+    if (currency === "Pounds") {
+      nairaAmount = rates?.Pounds?.price * baseAmount
+      setCheckRate(rates?.Pounds?.price);
+    } else if (currency === "Euro") {
+      nairaAmount = rates?.Euro?.price * baseAmount
+      setCheckRate(rates?.Euro?.price);
+    }
+    setConvertedAmount(formatNumber(nairaAmount));
+  }, [rates, currency, baseAmount]);
+  console.log("the rate",checkRate)
   const options = Object.keys(rates).map((currency) => ({
     value: currency,
     label: currency,
@@ -122,9 +122,9 @@ const TransferMoney = ({ setNumber }) => {
               className="w-full p-4 block border-none focus:outline-none"
             />
             <Select
-              value={{ value: targetCurrency, label: targetCurrency }}
+              value={{ value: currency, label: currency }}
               onChange={(selectedOption) =>
-                handleCurrencyChange(selectedOption, false)
+                handleCurrencyChange(selectedOption)
               }
               options={options}
               styles={customStyles}

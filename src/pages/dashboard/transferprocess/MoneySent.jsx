@@ -12,7 +12,7 @@ const MoneySent = ({ setNumber }) => {
           <p>Flourish Ralph &darr;</p>
         </div>
       </div>
-      <div className="w-[45%] m-auto">
+      <div className="w-[100%] md:w-[45%] m-auto">
         <div className="mb-6"><img className="m-auto" src={checkbox} alt="checkbox" /></div>
         <div>
           <h1 className="text-[#212121] text-center font-semibold text-[24px]">Transaction Confirmation</h1>
