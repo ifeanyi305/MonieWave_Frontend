@@ -50,7 +50,7 @@ const BankDetails = ({ setNumber }) => {
             </small>
           </div>
           <div>
-            <p className="font-[900] text-[15px]">596603</p>
+            <p className="font-[900] text-[15px]"></p>
           </div>
         </div>
         <button

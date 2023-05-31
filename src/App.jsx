@@ -14,6 +14,7 @@ import Sidebar from './pages/dashboard/Sidebar';
 import SendMoney from './pages/dashboard/transferprocess/SendMoney';
 import Navbar from './pages/dashboard/Navbar';
 import Recipients from './pages/dashboard/Recipients';
+import Transactions from './pages/dashboard/Transactions';
 import { getToken } from './redux/auth/auth';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                   <Route path="/" element={<UserDashboard />} />
                   <Route path="/send_money" element={<SendMoney />} />
                   <Route path="/recipients" element={<Recipients />} />
+                  <Route path="/transactions" element={<Transactions />} />
                 </Routes>
               </div>
             </section>

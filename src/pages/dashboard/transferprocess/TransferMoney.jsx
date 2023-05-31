@@ -5,12 +5,12 @@ import axios from 'axios';
 import Select from 'react-select';
 import _ from 'lodash';
 
-const TransferMoney = ({ setNumber }) => {
+const TransferMoney = ({
+  setNumber, currency, setCurrency, amount,
+  setAmount, naira_amount, setNaira_amount,
+  exchange_rate, setExchange_rate
+}) => {
   const [rates, setRates] = useState({});
-  const [currency, setCurrency] = useState('Euro');
-  const [baseAmount, setBaseAmount] = useState(1);
-  const [convertedAmount, setConvertedAmount] = useState(0);
-  const [checkRate, setCheckRate] = useState(0);
   const [fee, setFee] = useState(0);
 
   useEffect(() => {
@@ -25,16 +25,16 @@ const TransferMoney = ({ setNumber }) => {
     axios.get('http://127.0.0.1:3000/api/v1/fee_ranges')
       .then(response => {
         const rateFee = response.data;
-        const amount = parseFloat(baseAmount);
-        if (amount >= 1 && amount <= 100) {
+        const baseAmount = parseFloat(amount);
+        if (baseAmount >= 1 && baseAmount <= 100) {
           setFee(rateFee.data[0].fee)
-        } else if (amount >= 101 && amount <= 300) {
+        } else if (baseAmount >= 101 && baseAmount <= 300) {
           setFee(rateFee.data[1].fee)
-        } else if (amount >= 301 && amount <= 500) {
+        } else if (baseAmount >= 301 && baseAmount <= 500) {
           setFee(rateFee.data[2].fee)
-        } else if (amount >= 501 && amount <= 1000) {
+        } else if (baseAmount >= 501 && baseAmount <= 1000) {
           setFee(rateFee.data[3].fee)
-        } else if (amount >= 1001 && amount <= 1000000000000000) {
+        } else if (baseAmount >= 1001 && baseAmount <= 1000000000000000) {
           setFee(rateFee.data[4].fee)
         } else {
           setFee(0)
@@ -43,7 +43,7 @@ const TransferMoney = ({ setNumber }) => {
       .catch(error => {
         console.error(error);
       });
-  }, [baseAmount]);
+  }, [amount]);
 
   useEffect(() => {
   }, [fee]);
@@ -53,7 +53,7 @@ const TransferMoney = ({ setNumber }) => {
   };
 
   const handleBaseAmountChange = (event) => {
-    setBaseAmount(event.target.value);
+    setAmount(event.target.value);
   };
 
   const formatNumber = (num = 0) => {
@@ -66,15 +66,14 @@ const TransferMoney = ({ setNumber }) => {
   useEffect(() => {
     let nairaAmount;
     if (currency === "Pounds") {
-      nairaAmount = rates?.Pounds?.price * baseAmount
-      setCheckRate(rates?.Pounds?.price);
+      nairaAmount = rates?.Pounds?.price * amount
+      setExchange_rate(rates?.Pounds?.price);
     } else if (currency === "Euro") {
-      nairaAmount = rates?.Euro?.price * baseAmount
-      setCheckRate(rates?.Euro?.price);
+      nairaAmount = rates?.Euro?.price * amount
+      setExchange_rate(rates?.Euro?.price);
     }
-    setConvertedAmount(formatNumber(nairaAmount));
-  }, [rates, currency, baseAmount]);
-  console.log("the rate",checkRate)
+    setNaira_amount(formatNumber(nairaAmount));
+  }, [rates, currency, amount]);
   const options = Object.keys(rates).map((currency) => ({
     value: currency,
     label: currency,
@@ -117,7 +116,7 @@ const TransferMoney = ({ setNumber }) => {
           <div className="flex gap-[2px] border-[#6B6B6B] rounded-[8px] pl-[5px] border-[1px] items-center">
             <input
               type="number"
-              value={baseAmount}
+              value={amount}
               onChange={handleBaseAmountChange}
               className="w-full p-4 block border-none focus:outline-none"
             />
@@ -138,7 +137,7 @@ const TransferMoney = ({ setNumber }) => {
           <label className="block">Osadebanem Ralph recieves exactly</label>
           <input
             type="text"
-            value={convertedAmount} readOnly
+            value={naira_amount} readOnly
             className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
           />
         </div>
@@ -146,7 +145,7 @@ const TransferMoney = ({ setNumber }) => {
           <p>Our fee</p>
           <p>{fee}GPD</p>
         </div>
-        <label className="block py-2">total amount: {convertedAmount}</label>
+        <label className="block py-2">total amount: {naira_amount}</label>
         <button
           type="button"
           className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"

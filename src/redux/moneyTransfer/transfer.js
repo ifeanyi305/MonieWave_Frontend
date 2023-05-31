@@ -1,20 +1,26 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getToken } from '../auth/auth'
 
 const TRANSFER = 'transfers';
 const TRANSFER_URL = `http://127.0.0.1:3000/api/v1/transfers`;
 
 const initialState = [];
 
+
 export const transfer = createAsyncThunk(
   TRANSFER,
-  async (payload, { rejectWithValue }) => {
+  async (transferData, { rejectWithValue }) => {
+    const {transferDetails, token} = transferData
+    console.log(transferDetails, token);
     const response = await fetch(TRANSFER_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify({ data: payload }),
+      body: JSON.stringify({ data: transferDetails }),
     });
+    console.log(response)
     if (!response.ok) {
       return rejectWithValue({
         success: response.ok,

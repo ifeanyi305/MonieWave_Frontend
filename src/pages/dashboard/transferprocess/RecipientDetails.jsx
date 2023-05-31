@@ -1,23 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { saveRecipients } from '../../../redux/recipients/recipients';
+import { useDispatch, useSelector } from 'react-redux';
 import { GrNotification } from 'react-icons/gr';
 import Recipients from '../Recipients';
+import BankDetails from './BankDetails';
 import { getBankCodes } from '../bankCodes/BankCodes';
 import Select from 'react-select';
 
-const RecipientDetails = ({ setNumber }) => {
-  const [bankName, setBankName] = useState('');
-  const [accountNumber, setAccountNumber] = useState('');
-  const [accountName, setAccountName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [toggleChecked, setToggleChecked] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
+const RecipientDetails = ({
+  setNumber, recipient_name, setRecipient_name, recipient_account,
+  setRecipient_account, recipient_bank, setRecipient_bank, recipient_phone,
+  setRecipient_phone, reference_number, setReference_number
+}) => {
+  const [isChecked, setIsChecked] = useState(false);
+  const [bank_code, setBank_code] = useState('')
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [randomCharacters, setRandomCharacters] = useState('');
+  const { successful, coming } = useSelector((state) => state.beneficiary);
+  const dispatch = useDispatch();
+
+  const handleToggle = () => {
+    setIsChecked(!isChecked);
+  };
 
   const handleBankChange = (selectedOption) => {
-    setBankName(selectedOption ? selectedOption.value : '');
+    setRecipient_bank(selectedOption ? selectedOption.label : '');
+    setBank_code(selectedOption ? selectedOption.value : '');
   };
   const options = getBankCodes.map((code) => ({
     value: code.code,
@@ -41,9 +50,9 @@ const RecipientDetails = ({ setNumber }) => {
   }
   const fetchAccName = async () => {
     try {
-      const res = await axios.get(`https://app.nuban.com.ng/api/NUBAN-JYBVNVCG1570?bank_code=${bankName}&acc_no=${accountNumber}`);
+      const res = await axios.get(`https://app.nuban.com.ng/api/NUBAN-JYBVNVCG1570?bank_code=${bank_code}&acc_no=${recipient_account}`);
       const recipientName = res.data[0].account_name;
-      setAccountName(recipientName);
+      setRecipient_name(recipientName);
       setLoading(false);
     } catch (error) {
       setError('An error occurred, type the Account number again');
@@ -51,25 +60,35 @@ const RecipientDetails = ({ setNumber }) => {
     }
   };
   useEffect(() => {
-    if (accountNumber.length == 10) {
+    if (recipient_account.length == 10) {
       setError('');
       fetchAccName();
     }
-  }, [accountNumber]);
+  }, [recipient_account]);
 
   const submit = (e) => {
     e.preventDefault()
-    if (bankName && accountNumber && phoneNumber && accountName) {
+    if (recipient_bank && recipient_account && recipient_phone && recipient_name) {
       const characters = generateRandomCharacters(6);
-      setRandomCharacters(characters);
+      setReference_number(characters);
+    }
+    if (isChecked && successful) {
+      const beneficiaryDetails = {
+        bank_name: recipient_bank,
+        account_number: recipient_account,
+        account_name: recipient_name,
+        phone_number: recipient_phone
+      }
+      console.log("beneficiary saved successfully")
+      dispatch(saveRecipients(beneficiaryDetails))
+    } else {
+      console.log("not saved, an error occured")
     }
     const recipientDtails = {
-      bankName, accountNumber, accountName, phoneNumber
+      recipient_bank, recipient_account, recipient_name, recipient_phone
     }
-    console.log(recipientDtails)
-    setShowDetails(true);
-    setToggleChecked(!toggleChecked);
     setDetails(recipientDtails);
+    setNumber(2)
   }
 
   const generateRandomCharacters = (length) => {
@@ -102,7 +121,7 @@ const RecipientDetails = ({ setNumber }) => {
           <div>
             <label className="block">Bank Name</label>
             <Select
-              value={options.find((option) => option.value === bankName)}
+              value={options.find((option) => option.value === recipient_bank)}
               onChange={handleBankChange}
               options={options}
               styles={customStyles}
@@ -111,17 +130,17 @@ const RecipientDetails = ({ setNumber }) => {
           <div className="my-4">
             <label className="block">Account Number</label>
             <input
-              value={accountNumber}
+              value={recipient_account}
               type="number"
               className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
-              onChange={(e) => setAccountNumber(e.target.value)}
+              onChange={(e) => setRecipient_account(e.target.value)}
             />
           </div>
           <div className="my-4">
             <label className="block">Account Holder Name</label>
             <input
               type="text"
-              value={loading ? 'loading Account name' : error ? error : accountName} readOnly
+              value={loading ? 'loading Account name' : error ? error : recipient_name} readOnly
               className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
             />
           </div>
@@ -133,8 +152,8 @@ const RecipientDetails = ({ setNumber }) => {
               </select>
               <input
                 type="number"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                value={recipient_phone}
+                onChange={(e) => setRecipient_phone(e.target.value)}
                 placeholder="8012345678"
                 className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
               />
@@ -143,25 +162,19 @@ const RecipientDetails = ({ setNumber }) => {
           <div className="flex my-2 justify-between items-center">
             <p className="text-[#814DE5]">Save this recipient</p>
             <div className="toggle">
-              <input type="checkbox" checked={toggleChecked} onChange={submit} id="toggle-checkbox" />
+              <input type="checkbox" checked={isChecked} onChange={handleToggle} id="toggle-checkbox" />
               <label htmlFor="toggle-checkbox"></label>
             </div>
           </div>
-          {randomCharacters && (
-            <div className="my-4">
-              Generated Random Characters: {randomCharacters}
-            </div>
-          )}
+          <p>Generated Random Characters: {reference_number}</p>
+          <button type="button">save</button>
           <button
-            type="button"
+            type="submit"
             className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"
-            onClick={() => setNumber(2)}>
-            Continue
+          >
+            {coming ? 'loading' : 'continue'}
           </button>
         </form>
-        {showDetails && (
-          <Recipients bankName={bankName} accountNumber={accountNumber} />
-        )}
       </div>
     </div>
   );
