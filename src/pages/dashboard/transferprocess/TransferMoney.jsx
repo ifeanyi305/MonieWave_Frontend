@@ -11,12 +11,23 @@ const TransferMoney = ({
   exchange_rate, setExchange_rate, fee, setFee
 }) => {
   const [rates, setRates] = useState({});
+  const [loadingRates, setloadingRates] = useState(true);
+  const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetchRates = async () => {
+  const fetchRates = async () => {
+    try {
       const response = await axios.get('http://127.0.0.1:3000/api/v1/rate/latest_all');
       setRates(response.data.data);
-    };
+      setloadingRates(false);
+    } catch (error) {
+      setError('An error occurred while fetching the Rates');
+      fetchRates();
+      setloadingRates(false);
+    }
+  };
+
+  useEffect(() => {
+    setError('');
     fetchRates();
   }, []);
 
@@ -134,11 +145,23 @@ const TransferMoney = ({
         </div>
         <div>
           <label className="block">Osadebanem Ralph recieves exactly</label>
-          <input
-            type="text"
-            value={naira_amount} readOnly
-            className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
-          />
+          {loadingRates ? (
+            <input
+              type="text"
+              value="Loading Rates..." readOnly
+              className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
+            />) : error ? (
+              <input
+                type="text"
+                value={error} readOnly
+                className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
+              />) : (
+            <input
+              type="text"
+              value={naira_amount} readOnly
+              className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
+            />
+          )}
         </div>
         <div className="flex my-4 justify-between items-center">
           <p>Our fee</p>
