@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 import Calculator from '../assets/images/landingpage/calculator.png';
 import Transactions from '../assets/images/landingpage/transactions.png';
 import Rectangle from '../assets/images/landingpage/Rectangle.png';
-import { Link } from 'react-router-dom';
 import down from '../assets/images/landingpage/down.png';
 import user2 from '../assets/images/landingpage/user2.png';
 import num1 from '../assets/images/landingpage/num1.png';
@@ -13,6 +12,7 @@ import num3 from '../assets/images/landingpage/num3.png';
 import phone from '../assets/images/landingpage/phone.png';
 import appstore from '../assets/images/landingpage/Appstore.png';
 import googleplay from '../assets/images/landingpage/googleplay.png';
+import { Link } from 'react-router-dom';
 import { getToken } from '../redux/auth/auth';
 
 const LandingPage = () => {

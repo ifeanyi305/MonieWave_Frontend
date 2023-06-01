@@ -22,7 +22,7 @@ const Navbar = () => {
   };
 
   const style = {
-    header: 'flex justify-between fixed top-0 w-full dark:bg-[#000] bg-[#fff] dark:text-[#fff] items-center py-4 px-[5%]',
+    header: 'flex justify-between navbar w-full dark:bg-[#000] bg-[#fff] dark:text-[#fff] items-center py-4 px-[5%]',
     flex_gap: 'flex items-center gap-[5px]',
     flex_gap2: 'flex items-center gap-[10px]',
     nav_list: 'flex gap-[7px] items-center',

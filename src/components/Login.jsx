@@ -13,7 +13,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
-  const { success, loading } = useSelector((state) => state.auth);
+  const { progress, loading } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,16 +24,14 @@ const Login = () => {
       password,
     }
     dispatch(signin(user))
-    .then((response) => {
-      if (response.success) {
+      if (progress) {
         dispatch(resetStateAndKeepFlash());
         flash('success', 'Account logged in successfully');
-        navigate('/userdashboard');
+        navigate('/');
       } else {
-        flash('error', 'Invalid credentials');
+        flash('error', 'Invalid credentials ');
         setLoginError(true);
       }
-    });
   }
 
   return (
