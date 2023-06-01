@@ -2,7 +2,7 @@ import React from 'react';
 import Ratehive from '../../assets/images/navbar/RateHive.png';
 import { Link } from 'react-router-dom';
 
-const Sidebar = ({sidebar}) => {
+const Sidebar = ({ sidebar, handleSidebar }) => {
   const style = {
     padding: "py-6",
     checking: 'bg-[#000] h-[100%] fixed w-[50%] md:w-[20%]'
@@ -12,10 +12,10 @@ const Sidebar = ({sidebar}) => {
       <div className="mt-6"><h1><img className="p-6" src={Ratehive} alt="title" /></h1></div>
       <div className="flex justify-center md:justify-start">
         <ul className="text-[#FAFAFA] m-6">
-          <li className={style.padding}>Home</li>
-          <li className={style.padding}>Send money</li>
-          <Link to="/recipients"><li className={style.padding}>Recipients</li></Link>
-          <li className={style.padding}>Transactions</li>
+          <Link onClick={handleSidebar} to="/"><li className={style.padding}>Home</li></Link>
+          <Link onClick={handleSidebar} to="/send_money"><li className={style.padding}>Send money</li></Link>
+          <Link onClick={handleSidebar} to="/recipients"><li className={style.padding}>Recipients</li></Link>
+          <Link onClick={handleSidebar} to="/transactions"><li className={style.padding}>Transactions</li></Link>
         </ul>
       </div>
     </div>

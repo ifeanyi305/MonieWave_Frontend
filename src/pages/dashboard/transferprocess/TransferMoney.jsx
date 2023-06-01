@@ -8,10 +8,9 @@ import _ from 'lodash';
 const TransferMoney = ({
   setNumber, currency, setCurrency, amount,
   setAmount, naira_amount, setNaira_amount,
-  exchange_rate, setExchange_rate
+  exchange_rate, setExchange_rate, fee, setFee
 }) => {
   const [rates, setRates] = useState({});
-  const [fee, setFee] = useState(0);
 
   useEffect(() => {
     const fetchRates = async () => {
@@ -145,7 +144,6 @@ const TransferMoney = ({
           <p>Our fee</p>
           <p>{fee}GPD</p>
         </div>
-        <label className="block py-2">total amount: {naira_amount}</label>
         <button
           type="button"
           className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"

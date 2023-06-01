@@ -16,6 +16,7 @@ const SendMoney = () => {
   const [amount, setAmount] = useState(1);
   const [naira_amount, setNaira_amount] = useState(0);
   const [exchange_rate, setExchange_rate] = useState(0);
+  const [fee, setFee] = useState(0);
   const [recipient_name, setRecipient_name] = useState('');
   const [recipient_account, setRecipient_account] = useState('');
   const [recipient_bank, setRecipient_bank] = useState('');
@@ -28,7 +29,7 @@ const SendMoney = () => {
   const navigate = useNavigate();
   useEffect(() => {
     setToken(getToken());
-  },[])
+  }, [])
 
   const confirmTransfer = (e) => {
     e.preventDefault();
@@ -56,6 +57,8 @@ const SendMoney = () => {
           setCurrency={setCurrency}
           setNumber={setNumber}
           amount={amount}
+          fee={fee}
+          setFee={setFee}
           setAmount={setAmount}
           naira_amount={naira_amount}
           setNaira_amount={setNaira_amount}
@@ -77,7 +80,12 @@ const SendMoney = () => {
           setReference_number={setReference_number}
         />
       case 2:
-        return <BankDetails setNumber={setNumber} />
+        return <BankDetails
+          setNumber={setNumber}
+          reference_number={reference_number}
+          amount={amount}
+          fee={fee}
+        />
       case 3:
         return <MoneySent
           setNumber={setNumber}

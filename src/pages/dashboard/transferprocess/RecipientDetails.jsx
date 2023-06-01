@@ -3,15 +3,13 @@ import axios from 'axios';
 import { saveRecipients } from '../../../redux/recipients/recipients';
 import { useDispatch, useSelector } from 'react-redux';
 import { GrNotification } from 'react-icons/gr';
-import Recipients from '../Recipients';
-import BankDetails from './BankDetails';
 import { getBankCodes } from '../bankCodes/BankCodes';
 import Select from 'react-select';
 
 const RecipientDetails = ({
   setNumber, recipient_name, setRecipient_name, recipient_account,
   setRecipient_account, recipient_bank, setRecipient_bank, recipient_phone,
-  setRecipient_phone, reference_number, setReference_number
+  setRecipient_phone, setReference_number
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [bank_code, setBank_code] = useState('')
@@ -22,6 +20,7 @@ const RecipientDetails = ({
 
   const handleToggle = () => {
     setIsChecked(!isChecked);
+    console.log(isChecked);
   };
 
   const handleBankChange = (selectedOption) => {
@@ -72,7 +71,7 @@ const RecipientDetails = ({
       const characters = generateRandomCharacters(6);
       setReference_number(characters);
     }
-    if (isChecked && successful) {
+    if (isChecked) {
       const beneficiaryDetails = {
         bank_name: recipient_bank,
         account_number: recipient_account,
@@ -166,8 +165,6 @@ const RecipientDetails = ({
               <label htmlFor="toggle-checkbox"></label>
             </div>
           </div>
-          <p>Generated Random Characters: {reference_number}</p>
-          <button type="button">save</button>
           <button
             type="submit"
             className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"

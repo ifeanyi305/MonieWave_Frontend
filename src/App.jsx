@@ -19,10 +19,10 @@ import { getToken } from './redux/auth/auth';
 
 function App() {
   const isAuthenticated = getToken();
-  const [sidebar, setSidebar] = useState(false)
+  const [sidebar, setSidebar] = useState(false);
   const handleSidebar = () => {
-    setSidebar(!sidebar)
-  }
+    setSidebar(!sidebar);
+  };
   return (
     <div className="dark:bg-[#000] App">
       <ToastContainer />
@@ -30,7 +30,7 @@ function App() {
         {
           isAuthenticated ? (
             <section className='flex gap-6'>
-              <Sidebar sidebar={sidebar} />
+              <Sidebar sidebar={sidebar} handleSidebar={handleSidebar} />
               <div className="md:ml-[20%] w-full">
                 <Navbar handleSidebar={handleSidebar} sidebar={sidebar} />
                 <Routes>
