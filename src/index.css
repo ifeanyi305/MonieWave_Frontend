@@ -9,7 +9,7 @@
 }
 
 .heading_text {
-  font-family: 'Rebond Grotesque';
+  font-family: 'Rebond Grotesque', sans-serif;
 }
 
 .navbar {
@@ -88,7 +88,7 @@
   cursor: pointer;
 }
 
-.toggle label:before {
+.toggle label::before {
   content: "";
   position: absolute;
   top: 2px;
@@ -101,9 +101,9 @@
 }
 
 .toggle input[type="checkbox"]:checked + label {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
-.toggle input[type="checkbox"]:checked + label:before {
+.toggle input[type="checkbox"]:checked + label::before {
   transform: translateX(20px);
 }
