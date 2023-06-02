@@ -90,6 +90,7 @@ const Recipients = ({
     if (success) {
       dispatch(fetchRecipients())
     }
+    window.location.reload();
   };
 
   return (
