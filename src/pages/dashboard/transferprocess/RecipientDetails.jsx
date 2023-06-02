@@ -13,14 +13,13 @@ const RecipientDetails = ({
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [bank_code, setBank_code] = useState('')
-  const [loading, setLoading] = useState(true);
+  const [pending, setPending] = useState(true);
   const [error, setError] = useState('');
-  const { successful, coming } = useSelector((state) => state.beneficiary);
+  const { successful, loading } = useSelector((state) => state.beneficiary);
   const dispatch = useDispatch();
 
   const handleToggle = () => {
     setIsChecked(!isChecked);
-    console.log(isChecked);
   };
 
   const handleBankChange = (selectedOption) => {
@@ -52,10 +51,10 @@ const RecipientDetails = ({
       const res = await axios.get(`https://app.nuban.com.ng/api/NUBAN-JYBVNVCG1570?bank_code=${bank_code}&acc_no=${recipient_account}`);
       const recipientName = res.data[0].account_name;
       setRecipient_name(recipientName);
-      setLoading(false);
+      setPending(false);
     } catch (error) {
       setError('An error occurred, type the Account number again');
-      setLoading(false);
+      setPending(false);
     }
   };
   useEffect(() => {
@@ -139,7 +138,7 @@ const RecipientDetails = ({
             <label className="block">Account Holder Name</label>
             <input
               type="text"
-              value={loading ? 'loading Account name' : error ? error : recipient_name} readOnly
+              value={pending ? 'loading Account name' : error ? error : recipient_name} readOnly
               className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
             />
           </div>
@@ -169,7 +168,7 @@ const RecipientDetails = ({
             type="submit"
             className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"
           >
-            {coming ? 'loading' : 'continue'}
+            {loading ? 'loading' : 'continue'}
           </button>
         </form>
       </div>

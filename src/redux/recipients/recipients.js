@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const RECIPIENT = 'recipient';
 const ALLRECIPIENT = 'allRecipient';
+const DELETERECIPIENT = 'deleteRecipient';
 const RECIPIENT_URL = `http://127.0.0.1:3000/api/v1/beneficiaries`;
 
 const initialState = {
@@ -40,7 +41,7 @@ export const fetchRecipients = createAsyncThunk(
     try {
       const config = {
         headers: {
-          Authorization: `Bearer ${getToken()}`
+          Authorization: `Bearer ${getToken()}`,
         }
       };
 
@@ -52,21 +53,47 @@ export const fetchRecipients = createAsyncThunk(
   }
 );
 
+export const deleteRecipients = createAsyncThunk(
+  DELETERECIPIENT,
+  async (id) => {
+    try {
+      const response = await axios.delete(`http://127.0.0.1:3000/api/v1/beneficiaries/${id}`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+);
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case `${RECIPIENT}/pending`:
-      return { successful: false, coming: true }
+      return {
+        ...state,
+        success: false,
+        loading: true,
+        error: false,
+      }
     case `${RECIPIENT}/fulfilled`:
       return {
-        successful: true,
-        coming: false,
+        ...state,
+        success: true,
+        loading: false,
         message: action.payload.message,
+        error: false,
       }
     case `${RECIPIENT}/rejected`:
       return {
-        successful: false,
-        coming: false,
-        message: action.payload.errors
+        ...state,
+        success: false,
+        loading: false,
+        message: action.payload.errors,
+        error: true,
       }
     case `${ALLRECIPIENT}/pending`:
       return {
@@ -90,6 +117,24 @@ export default (state = initialState, action) => {
         loading: false,
         error: true
       }
+    case `${DELETERECIPIENT}/pending`:
+      return {
+        loading: true,
+        success: false,
+        error: false,
+      }
+    case `${DELETERECIPIENT}/fulfilled`:
+      return {
+        success: action.payload,
+        loading: false,
+        error: false
+      }
+    case `${DELETERECIPIENT}/rejected`:
+      return {
+        success: false,
+        loading: false,
+        error: true
+      }  
     default:
       return state;
   }

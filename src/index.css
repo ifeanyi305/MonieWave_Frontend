@@ -16,6 +16,7 @@
   top: 0;
   margin-bottom: 10px;
   position: sticky;
+  color: #000000ca;
 }
 
 .container {
@@ -79,6 +80,10 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+  }
+
+  .recipientModal {
+    width: 90%;
   }
 }
 
