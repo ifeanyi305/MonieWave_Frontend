@@ -14,14 +14,12 @@ const Recipients = ({
   recipient_account, setRecipient_account, recipient_phone, setRecipient_phone
 }) => {
   const { success, loading, error } = useSelector((state) => state.beneficiary);
-  console.log("raw",success);
   const [searchQuery, setSearchQuery] = useState('');
   const [recipientModal, setRecipientModal] = useState(false);
   const [bank_code, setBank_code] = useState('')
   const [pending, setPending] = useState(true);
   const [failed, setFailed] = useState('');
   const recipients = success?.success;
-  console.log("configured",recipients);
   const dispatch = useDispatch();
 
   useEffect(() => {
