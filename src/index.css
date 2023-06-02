@@ -62,6 +62,26 @@
   }
 }
 
+@media screen and (max-width: 767px) {
+  .recipient_account_details {
+    margin-bottom: 10px;
+  }
+
+  .delete_recipient {
+    margin-top: 10px;
+  }
+
+  .recipient_button {
+    width: 100%;
+  }
+
+  .recipient_details {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
 .button {
   z-index: 20;
 }

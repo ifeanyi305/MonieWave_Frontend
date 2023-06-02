@@ -4,9 +4,13 @@ import axios from 'axios';
 
 const RECIPIENT = 'recipient';
 const ALLRECIPIENT = 'allRecipient';
-const RECIPIENT_URL = `http://127.0.0.1:3000/api/v1/beneficiaries`
+const RECIPIENT_URL = `http://127.0.0.1:3000/api/v1/beneficiaries`;
 
-const initialState = [];
+const initialState = {
+  success: [],
+  loading: false,
+  error: false
+};
 
 export const saveRecipients = createAsyncThunk(
   RECIPIENT,
@@ -66,15 +70,25 @@ export default (state = initialState, action) => {
       }
     case `${ALLRECIPIENT}/pending`:
       return {
-        success: false, loading: true
+        ...state,
+        success: false,
+        loading: true,
+        error: false
       }
     case `${ALLRECIPIENT}/fulfilled`:
       return {
-        success: action.payload, loading: false, message: action.payload.message
+        ...state,
+        success: action.payload,
+        loading: false,
+        message: action.payload.message,
+        error: false
       }
     case `${ALLRECIPIENT}/rejected`:
       return {
-        success: false, loading: false, error: action.payload.error
+        ...state,
+        success: false,
+        loading: false,
+        error: true
       }
     default:
       return state;
