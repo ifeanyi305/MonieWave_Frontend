@@ -33,21 +33,26 @@ const SendMoney = ({
   const confirmTransfer = (e) => {
     e.preventDefault();
     const transferDetails = {
-      currency, amount, naira_amount,
-      exchange_rate, recipient_name, recipient_account, recipient_bank,
-      recipient_phone, reference_number, payment_method
+      amount: amount.toString(),
+      naira_amount: naira_amount.toString(),
+      recipient_account: recipient_account.toString(),
+      recipient_phone: recipient_phone.toString(),
+      reference_number: reference_number.toString(),
+      currency,
+      exchange_rate, recipient_name, recipient_bank,
+      payment_method
     }
     const transferData = {
       transferDetails, token
     }
     dispatch(transfer(transferData))
   }
-
   useEffect(() => {
     if (victory) {
       navigate('/transactions')
     }
   }, [victory])
+  
   const currentForm = () => {
     switch (number) {
       case 0:

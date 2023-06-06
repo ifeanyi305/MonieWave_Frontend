@@ -20,7 +20,7 @@ const Recipients = ({
   const [pending, setPending] = useState(true);
   const [failed, setFailed] = useState('');
   const recipients = success?.success;
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(fetchRecipients());

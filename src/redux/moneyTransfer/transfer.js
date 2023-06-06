@@ -9,8 +9,7 @@ const initialState = [];
 export const transfer = createAsyncThunk(
   TRANSFER,
   async (transferData, { rejectWithValue }) => {
-    const {transferDetails, token} = transferData
-    console.log(transferDetails, token);
+    const { transferDetails, token } = transferData;
     const response = await fetch(TRANSFER_URL, {
       method: 'POST',
       headers: {
@@ -19,7 +18,8 @@ export const transfer = createAsyncThunk(
       },
       body: JSON.stringify({ data: transferDetails }),
     });
-    console.log(response)
+    const responseData = await response.json();
+    console.log("Im the transfer response", responseData);
     if (!response.ok) {
       return rejectWithValue({
         success: response.ok,
@@ -27,23 +27,24 @@ export const transfer = createAsyncThunk(
       })
     }
 
-    return { success: response.ok, ...(await response.json()) }
+    return { victory: response.ok, ...responseData }
   },
 );
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case `${TRANSFER}/pending`:
-      return { victory: false, loading: true }
+      return { victory: false, loading: true, errors: false }
     case `${TRANSFER}/fulfilled`:
       return {
-        victory: true,
+        victory: action.payload,
         loading: false,
-        message: action.payload.message,
+        // message: action.payload.message,
+        errors: false,
       }
     case `${TRANSFER}/rejected`:
       return { victory: false, loading: false, errors: action.payload.errors }
     default:
-      return state;
+      return {...state, victory: false};
   }
 }

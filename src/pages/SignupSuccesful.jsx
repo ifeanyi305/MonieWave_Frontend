@@ -8,7 +8,7 @@ const Redirect = () => {
   return (
     <div>
       Signup Succesful
-      <Link to='/userdashboard'>Continue</Link>
+      <Link to='/'>Continue</Link>
     </div>
   );
 };
