@@ -15,6 +15,7 @@ import SendMoney from './pages/dashboard/SendMoney';
 import Navbar from './pages/dashboard/Navbar';
 import Recipients from './pages/dashboard/Recipients';
 import Transactions from './pages/dashboard/Transactions';
+import TransferStatus from './pages/dashboard/TransferStatus';
 import { getToken } from './redux/auth/auth';
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
                     />
                   } />
                   <Route path="/transactions" element={<Transactions />} />
+                  <Route path="/transfer_status" element={<TransferStatus />} />
                 </Routes>
               </div>
             </section>
