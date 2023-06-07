@@ -63,7 +63,7 @@ const Login = () => {
             <div>
               <form onSubmit={submit}>
                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                <label className="block" htmlFor="email">Your email address</label>
+                <label className="block" htmlFor="email">Your email address <span className="text-[#C50713] text-[17px]">*</span></label>
                 <input
                   type="text"
                   id="email"
@@ -74,7 +74,7 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                <label className="block" htmlFor="password">Password</label>
+                <label className="block" htmlFor="password">Password <span className="text-[#C50713] text-[17px]">*</span></label>
                 <input
                   type="password"
                   id="password"

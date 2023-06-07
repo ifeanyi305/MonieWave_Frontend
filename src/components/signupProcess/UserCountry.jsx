@@ -7,7 +7,7 @@ const UserCountry = ({ country, setCountry, setNumber }) => {
   return (
     <div>
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label className="block" htmlFor="country">Country</label>
+      <label className="block" htmlFor="country">Country <span className="text-[#C50713] text-[17px]">*</span></label>
       <input
         type="text"
         id="country"

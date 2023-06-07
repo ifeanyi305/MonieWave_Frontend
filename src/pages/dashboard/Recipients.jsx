@@ -103,7 +103,7 @@ const Recipients = ({
           </div>
           <form onSubmit={submit}>
             <div>
-              <label className="block">Bank Name</label>
+              <label className="block">Bank Name <span className="text-[#C50713] text-[17px]">*</span></label>
               <Select
                 value={options.find((option) => option.value === recipient_bank)}
                 onChange={handleBankChange}
@@ -112,7 +112,7 @@ const Recipients = ({
               />
             </div>
             <div className="my-4">
-              <label className="block">Account Number</label>
+              <label className="block">Account Number <span className="text-[#C50713] text-[17px]">*</span></label>
               <input
                 value={recipient_account}
                 type="number"
@@ -121,7 +121,7 @@ const Recipients = ({
               />
             </div>
             <div className="my-4">
-              <label className="block">Account Holder Name</label>
+              <label className="block">Account Holder Name <span className="text-[#C50713] text-[17px]">*</span></label>
               <input
                 type="text"
                 value={pending ? 'loading Account name' : failed ? failed : recipient_name} readOnly
@@ -129,7 +129,7 @@ const Recipients = ({
               />
             </div>
             <div>
-              <label className="block">Recipient Phone Number</label>
+              <label className="block">Recipient Phone Number <span className="text-[#C50713] text-[17px]">*</span></label>
               <div className="flex gap-4 items-center">
                 <select className="block border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]" name="number" id="number">
                   <option value="+234">+234</option>

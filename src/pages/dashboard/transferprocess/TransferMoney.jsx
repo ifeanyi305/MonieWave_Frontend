@@ -126,7 +126,7 @@ const TransferMoney = ({
       </div>
       <div className="py-6 md:w-[45%]">
         <div>
-          <label className="block">you send</label>
+          <label className="block">you send <span className="text-[#C50713] text-[17px]">*</span></label>
           <div className="flex gap-[2px] border-[#6B6B6B] rounded-[8px] pl-[5px] border-[1px] items-center">
             <input
               type="number"
@@ -148,7 +148,7 @@ const TransferMoney = ({
           <img src={exchange} className="m-auto" alt="exchange" />
         </div>
         <div>
-          <label className="block">Osadebanem Ralph recieves exactly</label>
+          <label className="block">Osadebanem Ralph recieves exactly <span className="text-[#C50713] text-[17px]">*</span></label>
           {loadingRates ? (
             <input
               type="text"
