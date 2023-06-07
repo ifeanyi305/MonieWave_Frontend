@@ -2,7 +2,7 @@ import React from 'react';
 import { GrNotification } from 'react-icons/gr';
 import checkbox from './images/checkbox.png'
 
-const MoneySent = ({ setNumber, confirmTransfer }) => {
+const MoneySent = ({ setNumber, confirmTransfer, loading, errors }) => {
   return (
     <div className="px-6">
       <div className="flex mt-[4%] justify-between wrap items-start">
@@ -30,7 +30,7 @@ const MoneySent = ({ setNumber, confirmTransfer }) => {
           onClick={confirmTransfer}
           className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"
         >
-          Confirm Transaction
+          {loading ? 'loading...' : errors ? 'Transaction failed' : 'Confirm transfer'}
         </button>
       </div>
     </div>

@@ -23,7 +23,7 @@ const SendMoney = ({
   const [reference_number, setReference_number] = useState('');
   const [payment_method, setPayment_Method] = useState('Bank transfer');
   const [token, setToken] = useState("");
-  const { victory, loading } = useSelector((state) => state.transfer);
+  const { victory, loading, errors } = useSelector((state) => state.transfer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -94,6 +94,8 @@ const SendMoney = ({
         return <MoneySent
           setNumber={setNumber}
           confirmTransfer={confirmTransfer}
+          loading={loading}
+          errors={errors}
         />
       // case 4:
       //   return <PaymentMethod setNumber={setNumber} />

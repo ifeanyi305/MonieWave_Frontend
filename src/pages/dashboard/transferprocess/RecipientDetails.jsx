@@ -22,6 +22,15 @@ const RecipientDetails = ({
     setIsChecked(!isChecked);
   };
 
+  const validateForm = () => {
+    return  pending !== true &&
+    error !== 'An error occurred, type the Account number again' &&
+     recipient_account.length !== 0 &&
+     recipient_phone.length !== 0 &&
+     recipient_bank.length !== 0
+  };
+  console.log(recipient_bank.length);
+
   const handleBankChange = (selectedOption) => {
     setRecipient_bank(selectedOption ? selectedOption.label : '');
     setBank_code(selectedOption ? selectedOption.value : '');
@@ -166,7 +175,10 @@ const RecipientDetails = ({
           </div>
           <button
             type="submit"
-            className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"
+            disabled={!validateForm()}
+            className={validateForm() ?
+              'p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center'
+              : 'p-2 mt-[27px] opacity-40 mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center'}
           >
             {loading ? 'loading' : 'continue'}
           </button>
