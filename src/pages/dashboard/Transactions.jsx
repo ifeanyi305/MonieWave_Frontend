@@ -25,10 +25,10 @@ const Transactions = () => {
       day: 'numeric',
       year: 'numeric',
     };
-  
+
     const date = new Date(dateString);
     const formattedDate = date.toLocaleDateString('en-US', options);
-  
+
     return formattedDate;
   };
   return (
@@ -53,12 +53,22 @@ const Transactions = () => {
         loading ? (<p>loading...</p>)
           : error ? (<p>an error occured while loading transfers</p>) : transfers ? (
             transfers.filter((transfer) =>
-            transfer.recipient_name.toLowerCase().includes(searchQuery.toLowerCase())
-          ).map((transfer) => (
+              transfer.recipient_name.toLowerCase().includes(searchQuery.toLowerCase())
+            ).map((transfer) => (
               <div key={transfer.id}>
                 <div className="flex justify-between items-center">
                   <p className="text-[#6B6B6B] text-[19px]">{formatDate(transfer.created_at)}</p>
-                  <p className="text-[#F9B608] text-[12px]">{transfer.status}</p>
+                  <p className={
+                    transfer.status == 'Pending' ?
+                      'text-[#F9B608] text-[12px]' :
+                      transfer.status == 'Processing' ?
+                        'text-[#814DE5] text-[12px]' :
+                        transfer.status == 'Completed' ?
+                          'text-[#37A13C] text-[12px]' :
+                          transfer.status == 'Rejected' ?
+                            'text-[#C50713] text-[12px]' :
+                            'text-[#000] text-[12px]'
+                  }>{transfer.status}</p>
                 </div>
                 <Link className="no-underline" state={transfer} to="/transfer_status">
                   <div className="border-[1px] border-[#D3D3D3] flex justify-between items-center mb-[5%] rounded-[24px] w-full p-6">
