@@ -5,6 +5,7 @@ const SIGN_UP = 'auth/sign_up';
 const SIGN_OUT = 'auth/sign_out';
 const RESET_PASSWORD = 'auth/reset_password';
 const VERIFY_OTP = 'auth/verify_otp';
+const SET_USER_ROLE = 'auth/setUserRole';
 const CLEAN_FLASH = 'auth/clean_flash';
 const RESET_STATE_AND_KEEP_FLASH = 'auth/reset_state_and_keep_flash';
 
@@ -13,7 +14,14 @@ const SIGN_UP_URL = `http://127.0.0.1:3000/api/v1/users`;
 const RESET_PASSWORD_URL = `http://127.0.0.1:3000/api/v1/password/reset`;
 const VERIFY_OTP_URL = `http://127.0.0.1:3000/api/v1/otp/verify_otp`;
 
-const initialState = [];
+const initialState = {
+  role: '',
+};
+
+export const setUserRole = (role) => ({
+  type: SET_USER_ROLE,
+  payload: role,
+});
 
 const setToken = (token) => {
   localStorage.setItem('user', JSON.stringify({ token }));
@@ -31,7 +39,7 @@ export const resetStateAndKeepFlash = () => ({
 
 export const signin = createAsyncThunk(
   SIGN_IN,
-  async (payload, { rejectWithValue }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     const response = await fetch(SIGN_IN_URL, {
       method: 'POST',
       headers: {
@@ -42,17 +50,25 @@ export const signin = createAsyncThunk(
 
     if (!response.ok) {
       return rejectWithValue({
-        success: response.ok,
+        // success: response.ok,
         errors: ['Invalid Credentials'],
       })
     }
 
     const data = await response.json();
-    localStorage.setItem('user', data.data.meta.token);
-    setToken(data.data.meta.token);
+    const role = data.data.attributes.role;
+    const userDetails = {
+      token: data.data.meta.token,
+      role: data.data.attributes.role,
+      username: data.data.attributes.first_name
+    }
+
+    dispatch(setUserRole(role));
+    localStorage.setItem('user', JSON.stringify(userDetails));
+    setToken(userDetails);
     return { success: response.ok, ...data };
   },
-)
+);
 
 export const resetPassword = createAsyncThunk(
   RESET_PASSWORD,
@@ -100,7 +116,7 @@ export const verifyOtp = createAsyncThunk(
 
 export const signup = createAsyncThunk(
   SIGN_UP,
-  async (payload, { rejectWithValue }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     const response = await fetch(SIGN_UP_URL, {
       method: 'POST',
       headers: {
@@ -117,8 +133,13 @@ export const signup = createAsyncThunk(
     }
 
     const data = await response.json();
-    localStorage.setItem('user', data.data.meta.token);
-    setToken(data.data.meta.token);
+    const userDetails = {
+      token: data.data.meta.token,
+      role: data.data.attributes.role,
+      username: data.data.attributes.first_name
+    }
+    localStorage.setItem('user', JSON.stringify(userDetails));
+    setToken(userDetails);
     return { success: response.ok, ...data };
   },
 )
@@ -178,8 +199,6 @@ export default (state = initialState, action) => {
     // RESET_STATE_AND_KEEP_FLASH
     case RESET_STATE_AND_KEEP_FLASH:
       return { ...state, loading: false, success: null };
-    default:
-      return state;
     // RESET PASSWORD
     case `${RESET_PASSWORD}/pending`:
       return {
@@ -216,5 +235,12 @@ export default (state = initialState, action) => {
         loading: false,
         errors: action.payload.errors
       }
+    case SET_USER_ROLE:
+      return {
+        ...state,
+        role: action.payload,
+      };
+    default:
+      return state;
   }
 }

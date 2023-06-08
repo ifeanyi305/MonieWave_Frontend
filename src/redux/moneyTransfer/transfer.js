@@ -19,7 +19,6 @@ export const transfer = createAsyncThunk(
       body: JSON.stringify({ data: transferDetails }),
     });
     const responseData = await response.json();
-    console.log("Im the transfer response", responseData);
     if (!response.ok) {
       return rejectWithValue({
         success: response.ok,

@@ -68,7 +68,7 @@ const TransferStatus = () => {
           <AiOutlineCheckCircle className="text-[#37A13C]" />
           <div>
             <p>Transfer confirmation request sent</p>
-            <p>{formatTimestamp(transfer.updated_at)}</p>
+            <p>{formatTimestamp(transfer.created_at)}</p>
           </div>
         </div>
         <div className="flex mb-4 items-center gap-2">

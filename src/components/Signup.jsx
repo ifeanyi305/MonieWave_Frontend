@@ -12,7 +12,7 @@ import { flash } from '../redux/flash/flash';
 import Man from '../assets/images/login/man.png';
 import RateHive from '../assets/images/navbar/RateHive.png';
 
-const Signup = () => {
+const Signup = ({ role, setRole }) => {
   const [first_name, setFirstname] = useState('');
   const [last_name, setLastname] = useState('');
   const [email, setEmail] = useState('');
@@ -21,7 +21,6 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [verified, setVerification] = useState(false);
-  const [role, setRole] = useState('customer');
   const [number, setNumber] = useState(0);
   const { success, coming } = useSelector((state) => state.auth);
   const navigate = useNavigate();

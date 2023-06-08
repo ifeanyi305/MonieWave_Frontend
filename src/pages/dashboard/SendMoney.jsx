@@ -22,13 +22,15 @@ const SendMoney = ({
   const [fee, setFee] = useState(0);
   const [reference_number, setReference_number] = useState('');
   const [payment_method, setPayment_Method] = useState('Bank transfer');
+  const userDetails = getToken();
+  const userToken = userDetails.token;
   const [token, setToken] = useState("");
   const { victory, loading, errors } = useSelector((state) => state.transfer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    setToken(getToken());
-  }, [])
+    setToken(userToken);
+  }, []);
 
   const confirmTransfer = (e) => {
     e.preventDefault();
@@ -52,7 +54,7 @@ const SendMoney = ({
       navigate('/transactions')
     }
   }, [victory])
-  
+
   const currentForm = () => {
     switch (number) {
       case 0:

@@ -13,7 +13,6 @@ import phone from '../assets/images/landingpage/phone.png';
 import appstore from '../assets/images/landingpage/Appstore.png';
 import googleplay from '../assets/images/landingpage/googleplay.png';
 import { Link } from 'react-router-dom';
-import { getToken } from '../redux/auth/auth';
 
 const LandingPage = () => {
   const style = {
@@ -22,7 +21,6 @@ const LandingPage = () => {
     card_text: 'w-[235px] mt-[18%] text-[#fff] text-center',
     card: 'rounded-[11px] p-[13px] border-[#814DE5] border-[1px]',
   }
-  const isAuthenticated = getToken();
   return (
     <>
       <Navbar />
@@ -35,7 +33,7 @@ const LandingPage = () => {
             </div>
             <div className="flex justify-center mt-[29%]">
               <button type="button" className="p-2 login_btn bg-[#814DE5] text-[#fff] w-[160px] text-center">
-                <Link to={isAuthenticated ? '/userdashboard' : '/login'}>Send money</Link>
+                <Link to='/login'>Send money</Link>
               </button>
             </div>
           </div>
@@ -51,7 +49,7 @@ const LandingPage = () => {
             </div>
             <div className="flex justify-center mt-[29%]">
               <button type="button" className="p-2 login_btn bg-[#814DE5] text-[#fff] w-[160px] text-center">
-                <Link to={isAuthenticated ? '/userdashboard' : '/login'}>Send money</Link>
+                <Link to='/login'>Send money</Link>
               </button>
             </div>
           </div>
@@ -81,7 +79,7 @@ const LandingPage = () => {
             </p>
             <div className="mt-[10%]">
               <button type="button" className="p-2 login_btn bg-[#814DE5] text-[#fff] w-[160px] text-center">
-                <Link to={isAuthenticated ? '/userdashboard' : '/login'}>Get started</Link>
+                <Link to='/login'>Get started</Link>
               </button>
             </div>
           </div>
@@ -127,7 +125,7 @@ const LandingPage = () => {
             </div>
             <div className="flex justify-center mt-[4%] pb-[9%]">
               <button type="button" className="p-2 login_btn bg-[#814DE5] text-[#fff] w-[160px] text-center">
-                <Link to={isAuthenticated ? '/userdashboard' : '/login'}>Send money</Link>
+                <Link to='/login'>Send money</Link>
               </button>
             </div>
           </div>

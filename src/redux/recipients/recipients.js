@@ -6,6 +6,8 @@ const RECIPIENT = 'recipient';
 const ALLRECIPIENT = 'allRecipient';
 const DELETERECIPIENT = 'deleteRecipient';
 const RECIPIENT_URL = `http://127.0.0.1:3000/api/v1/beneficiaries`;
+const userDetails = getToken();
+const token = userDetails?.token;
 
 const initialState = {
   success: [],
@@ -20,7 +22,7 @@ export const saveRecipients = createAsyncThunk(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${getToken()}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({ data: payload }),
     });
@@ -41,7 +43,7 @@ export const fetchRecipients = createAsyncThunk(
     try {
       const config = {
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${token}`,
         }
       };
 
@@ -59,7 +61,7 @@ export const deleteRecipients = createAsyncThunk(
     try {
       const response = await axios.delete(`http://127.0.0.1:3000/api/v1/beneficiaries/${id}`, {
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 

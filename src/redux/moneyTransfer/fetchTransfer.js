@@ -3,6 +3,8 @@ import axios from 'axios';
 import { getToken } from '../auth/auth';
 
 const AllTRANSFERS = 'allTransfers';
+const userDetails = getToken();
+const token = userDetails?.token;
 
 const initialState = {
   victory: [],
@@ -16,7 +18,7 @@ export const fetchTransfers = createAsyncThunk(
     try {
       const config = {
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${token}`,
         }
       };
 
