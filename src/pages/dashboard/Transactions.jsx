@@ -51,7 +51,7 @@ const Transactions = () => {
       </div>
       {
         loading ? (<p>loading...</p>)
-          : error ? (<p>an error occured while loading transfers</p>) : transfers ? (
+          : error ? (<p>an error occured while loading transfers, try refreshing the page</p>) : transfers ? (
             transfers.filter((transfer) =>
               transfer.recipient_name.toLowerCase().includes(searchQuery.toLowerCase())
             ).map((transfer) => (

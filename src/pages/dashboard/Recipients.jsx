@@ -173,7 +173,7 @@ const Recipients = ({
           </button>
         </div>
         {
-          loading ? (<p>loading...</p>) : error ? (<p>An error occured</p>) : recipients ? (
+          loading ? (<p>loading...</p>) : error ? (<p>An error occured while loading recipient, try refreshing the page</p>) : recipients ? (
             recipients.filter((recipient) =>
               recipient.account_name.toLowerCase().includes(searchQuery.toLowerCase())
             ).map((recipient) => (
