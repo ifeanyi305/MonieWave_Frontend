@@ -52,38 +52,38 @@ const TransferStatus = () => {
       <div>
         <p className="text-[#212121] text-[24px] font-[600]">Transaction status</p>
         <p className={
-          transfer.status == 'Pending' ?
+          transfer?.status == 'Pending' ?
             'text-[#F9B608]' :
-            transfer.status == 'Processing' ?
+            transfer?.status == 'Processing' ?
               'text-[#814DE5]' :
-              transfer.status == 'Completed' ?
+              transfer?.status == 'Completed' ?
                 'text-[#37A13C]' :
-                transfer.status == 'Rejected' ?
+                transfer?.status == 'Rejected' ?
                   'text-[#C50713]' :
                   'text-[#000]'
-        }>{transfer.status}</p>
+        }>{transfer?.status}</p>
       </div>
       <div className="py-6">
         <div className="flex mb-4 items-center gap-2">
           <AiOutlineCheckCircle className="text-[#37A13C]" />
           <div>
             <p>Transfer confirmation request sent</p>
-            <p>{formatTimestamp(transfer.created_at)}</p>
+            <p>{formatTimestamp(transfer?.created_at)}</p>
           </div>
         </div>
         <div className="flex mb-4 items-center gap-2">
           <div>
             {
-              transfer.status == 'Pending' ? (<MdOutlinePending className="text-[#F9B608]" />)
-                : transfer.status == 'Processing' ? (<FcProcess className="text-[#814DE5]" />)
-                  : transfer.status == 'Completed' ? (<AiOutlineCheckCircle className="text-[#37A13C]" />)
-                    : transfer.status == 'Rejected' ? (<GiCancel className="text-[#C50713]" />)
+              transfer?.status == 'Pending' ? (<MdOutlinePending className="text-[#F9B608]" />)
+                : transfer?.status == 'Processing' ? (<FcProcess className="text-[#814DE5]" />)
+                  : transfer?.status == 'Completed' ? (<AiOutlineCheckCircle className="text-[#37A13C]" />)
+                    : transfer?.status == 'Rejected' ? (<GiCancel className="text-[#C50713]" />)
                       : (<TbClockCancel />)
             }
           </div>
           <div>
-            <p>Transfer {transfer.status}</p>
-            <p>{formatTimestamp(transfer.updated_at)}</p>
+            <p>Transfer {transfer?.status}</p>
+            <p>{formatTimestamp(transfer?.updated_at)}</p>
           </div>
         </div>
       </div>
@@ -91,11 +91,11 @@ const TransferStatus = () => {
         <p>Recipient</p>
         <div className="border-[1px] border-[#D3D3D3] flex justify-between items-center mb-[5%] rounded-[24px] w-full p-6">
           <div>
-            <p className="text-[#464646] pb-4 text-[20px] font-[500]">{transfer.recipient_name}</p>
-            <p className="text-[#464646] text-[14px] font-[400]">{transfer.recipient_bank}</p>
+            <p className="text-[#464646] pb-4 text-[20px] font-[500]">{transfer?.recipient_name}</p>
+            <p className="text-[#464646] text-[14px] font-[400]">{transfer?.recipient_bank}</p>
           </div>
           <div>
-            <p className="text-[#464646] pb-4 text-[20px] font-[600]">{transfer.naira_amount}</p>
+            <p className="text-[#464646] pb-4 text-[20px] font-[600]">{transfer?.naira_amount}</p>
             <p className="text-[#814DE5] text-[14px] font-[400]">Download receipt</p>
           </div>
         </div>

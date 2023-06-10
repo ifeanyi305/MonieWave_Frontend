@@ -20,6 +20,8 @@ import CustomerRoute from './pages/ProtectedRoute/CustomerRoute';
 import PublicRoutes from './pages/ProtectedRoute/PublicRoutes';
 import Users from './pages/admin/Users';
 import UsersTransaction from './pages/admin/UsersTransaction';
+import TransactDetails from './pages/admin/TransactDetails';
+import UsersLists from './pages/admin/UsersLists';
 import Home from './pages/admin/Home';
 
 function App() {
@@ -94,6 +96,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/users" element={<Users />} />
             <Route path="/users_transaction" element={<UsersTransaction />} />
+            <Route path="/transact_details" element={<TransactDetails />} />
+            <Route path="/users_lists" element={<UsersLists />} />
           </Route>
         </Routes>
       </div>

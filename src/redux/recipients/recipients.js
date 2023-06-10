@@ -136,7 +136,7 @@ export default (state = initialState, action) => {
         success: false,
         loading: false,
         error: true
-      }  
+      }
     default:
       return state;
   }

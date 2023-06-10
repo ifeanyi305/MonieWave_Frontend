@@ -8,10 +8,6 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* .App {
-  background-color: #f5f5f5;
-} */
-
 .heading_text {
   font-family: 'Rebond Grotesque', sans-serif;
 }
@@ -89,6 +85,10 @@
   .recipientModal {
     width: 90%;
   }
+}
+
+.tranfers {
+  overflow-x: scroll;
 }
 
 .button {
