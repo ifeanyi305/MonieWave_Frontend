@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllTransfers } from '../../redux/moneyTransfer/allTransfers';
 import { showUserTransfer } from '../../redux/moneyTransfer/showTransfer';
+import LoadingGif from './images/loading-icon.gif';
 
 const UsersTransaction = () => {
   const { success, loading, error } = useSelector((state) => state.getAllTransfers);
@@ -91,7 +92,7 @@ const UsersTransaction = () => {
                               className={!showButtonArray[index] ? 'hidden' : 'block'}
                               type="button"
                               onClick={() => transferDetails(transfer.id)}
-                            >{pending ? 'loading' : 'view details'}</button>
+                            >{pending ? (<img src={LoadingGif} alt="loading_gif" />) : 'view details'}</button>
                           </td>
                           <td className="text-center"><button type="button" onClick={() => viewButton(index)}>...</button></td>
                         </tr>
