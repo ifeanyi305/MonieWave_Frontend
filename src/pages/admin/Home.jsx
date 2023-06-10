@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllTransfers } from '../../redux/moneyTransfer/allTransfers';
 import { fetchAllUsers } from '../../redux/users/users';
@@ -115,11 +115,11 @@ const Home = () => {
             </thead>
             <tbody>
               {
-                loading ? (<>loading details</>)
+                loading ? (<>loading transfer details...</>)
                   : error ? (<>error details</>)
                     : transfers ? (
                       transfers.map((transfer) => (
-                        <tr>
+                        <tr key={transfer.id}>
                           <td className="text-center">{transfer.first_name}</td>
                           <td className="text-center">{formatDate(transfer.created_at)}</td>
                           <td className="text-center">{transfer.amount} {transfer.currency}</td>
@@ -140,11 +140,11 @@ const Home = () => {
         </div>
         <div className="user_container flex justify-between flex-wrap gap-2 p-4">
           {
-            pending ? (<>fetching users</>)
+            pending ? (<>fetching users...</>)
               : failed ? (<>an error occured while fetching users</>)
                 : allUsers ? (
                   allUsers.map((user) => (
-                    <div className="flex justify-between items-center md:w-[49%] w-full p-4 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
+                    <div key={user.id} className="flex justify-between items-center md:w-[49%] w-full p-4 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
                       <div>
                         <p className="text-[16px] text-[#212121] font-[600]">{user.first_name} {user.last_name}</p>
                         <small className="text-[#6B6B6B] text-[12px]">{user.email}</small>

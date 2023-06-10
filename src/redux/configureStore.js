@@ -5,6 +5,7 @@ import getTransferReducer from './moneyTransfer/fetchTransfer';
 import getAllTransferReducer from './moneyTransfer/allTransfers';
 import recipientReducer from './recipients/recipients';
 import getUsersReducer from './users/users';
+import showUserDetailsReducer from './users/userDetails';
 import updateTransferReducer from './moneyTransfer/updateTransfer';
 import showTransferReducer from './moneyTransfer/showTransfer';
 
@@ -18,6 +19,7 @@ const store = configureStore({
     users: getUsersReducer,
     updateTransfer: updateTransferReducer,
     showTransfer: showTransferReducer,
+    userDetails: showUserDetailsReducer,
   }
 })
 

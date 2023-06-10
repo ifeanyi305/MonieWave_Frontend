@@ -1,8 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllUsers } from '../../redux/users/users';
+import { showUserDetails } from '../../redux/users/userDetails';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import LoadingGif from './images/loading-icon.gif';
 
 const Users = () => {
+  const { successful, pending, failed } = useSelector((state) => state.users);
+  const { progress, loading } = useSelector((state) => state.userDetails);
+  const allUsers = successful?.successful?.users;
+  const [showButtonArray, setShowButtonArray] = useState(Array(allUsers?.length).fill(false));
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(fetchAllUsers());
+  }, [dispatch]);
+
+  const viewButton = (index) => {
+    setShowButtonArray((prevArray) => {
+      const newArray = [...prevArray];
+      newArray[index] = !newArray[index];
+      return newArray;
+    });
+  };
+
+  const userDetails = (id) => {
+    dispatch(showUserDetails(id))
+    if (progress) {
+      navigate('/users_lists')
+    }
+  }
+
+  const formatTime = (timestamp) => {
+    const formattedTime = new Date(timestamp).toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    return formattedTime;
+  }
+
+  const formatDate = (dateString) => {
+    const options = {
+      weekday: 'short',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    };
+
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString('en-US', options);
+
+    return formattedDate;
+  };
+
   return (
     <div className="px-6">
       <div className="flex flex-wrap my-[4%] justify-between wrap items-center">
@@ -20,7 +73,7 @@ const Users = () => {
         <p><b className="font-[600] text-[24px] text-[#212121]">Customers</b></p>
       </div>
       <div className="tranfers p-4 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
-        <Link to="/users_lists">
+        {/* <Link to="/users_lists"> */}
           <table>
             <thead>
               <tr>
@@ -32,16 +85,31 @@ const Users = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="text-center">ogad</td>
-                <td className="text-center">japasm</td>
-                <td className="text-center">kfjfrr</td>
-                <td className="text-center">kfjfrr</td>
-                <td className="text-center">kfjfrr</td>
-              </tr>
+              {
+                pending ? (<>fetching users</>)
+                  : failed ? (<>an error occured while fetching users</>)
+                    : allUsers ? (
+                      allUsers.map((user, index) => (
+                        <tr key={index}>
+                          <td className="text-center">{user.first_name} {user.last_name}</td>
+                          <td className="text-center">{user.email}</td>
+                          <td className="text-center">{formatDate(user.last_login)}at{formatTime(user.last_login)}</td>
+                          <td className="text-center">{user.status}</td>
+                          <td className="text-center">
+                            <button
+                              className={!showButtonArray[index] ? 'hidden' : 'block'}
+                              type="button"
+                              onClick={() => userDetails(user.id)}
+                            >{loading ? (<img src={LoadingGif} alt="loading_gif" />) : 'view details'}</button>
+                          </td>
+                          <td className="text-center"><button type="button" onClick={() => viewButton(index)}>...</button></td>
+                        </tr>
+                      ))
+                    ) : <>Users empty</>
+              }
             </tbody>
           </table>
-        </Link>
+        {/* </Link> */}
       </div>
     </div>
   );

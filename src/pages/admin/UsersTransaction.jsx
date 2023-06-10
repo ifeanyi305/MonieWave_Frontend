@@ -64,7 +64,7 @@ const UsersTransaction = () => {
         <p><b className="font-[600] text-[24px] text-[#212121]">Pending</b></p>
       </div>
       {
-        loading ? (<>loading details</>)
+        loading ? (<>loading transaction details...</>)
           : error ? (<>error details</>)
             : transfers ? (
               transfers.map((transfer, index) => (
