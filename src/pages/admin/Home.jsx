@@ -42,6 +42,15 @@ const Home = () => {
     return formattedDate;
   };
 
+  const formatTime = (timestamp) => {
+    const formattedTime = new Date(timestamp).toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    return formattedTime;
+  }
+
   const contents = [
     {
       title: 'Recent Transactions',
@@ -86,7 +95,7 @@ const Home = () => {
           contents.map((content) => (
             <div key={content.id} className="p-4 mb-2 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
               <div className="mb-4">
-                <div className="flex items-start justify-between">
+                <div className="flex items-start gap-4 justify-between">
                   {content.icon}
                   <p className="text-[#212121] text-[16px] font-[600]">{content.title}</p>
                 </div>
@@ -102,8 +111,8 @@ const Home = () => {
           <p className="text-[#212121] text-[24px] font-[600]">Recent Transactions</p>
           <Link to='/users_transaction'><p className="text-[#814DE5] text-[19px]">See all</p></Link>
         </div>
-        <div className="tranfers w-full p-4 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
-          <table>
+        <div className="border-[1px] tranfers p-2 border-[#909090] rounded-[24px]">
+          <table className="w-full p-4 bg-[#fff]">
             <thead>
               <tr>
                 <th className="py-6 px-4 text-[#909090] text-[13px]">Name of User</th>
@@ -120,11 +129,21 @@ const Home = () => {
                     : transfers ? (
                       transfers.map((transfer) => (
                         <tr key={transfer.id}>
-                          <td className="text-center">{transfer.first_name}</td>
-                          <td className="text-center">{formatDate(transfer.created_at)}</td>
-                          <td className="text-center">{transfer.amount} {transfer.currency}</td>
-                          <td className="text-center">{transfer.id}</td>
-                          <td className="text-center">{transfer.status}</td>
+                          <td className="text-center text-[12px] py-4">{transfer.first_name}</td>
+                          <td className="text-center text-[12px]">{formatDate(transfer.created_at)} at {formatTime(transfer.created_at)}</td>
+                          <td className="text-center text-[12px]">{transfer.amount} {transfer.currency}</td>
+                          <td className="text-center text-[12px]">{transfer.id}</td>
+                          <td className={
+                            transfer?.status == 'Pending' ?
+                              'text-[#F9B608] text-center text-[12px]' :
+                              transfer?.status == 'Processing' ?
+                                'text-[#814DE5] text-center text-[12px]' :
+                                transfer?.status == 'Completed' ?
+                                  'text-[#37A13C] text-center text-[12px]' :
+                                  transfer?.status == 'Rejected' ?
+                                    'text-[#C50713] text-center text-[12px]' :
+                                    'text-[#000] text-center text-[12px]'
+                          }>{transfer.status}</td>
                         </tr>
                       ))
                     ) : <>details empty</>
@@ -153,7 +172,12 @@ const Home = () => {
                         <p className="text-[16px] text-[#212121] font-[600]">Last login</p>
                         <small className="text-[#6B6B6B] text-[12px]">{formatDate(user.last_login)}</small>
                       </div>
-                      <div>
+                      <div className="flex items-center gap-[4px]">
+                        {
+                          user.status == "Active" ?
+                          (<div className="font-[900] bg-[#37A13C] rounded-[50%] p-[5px]"></div>)
+                          : (<div className="font-[900] bg-[#C50713] rounded-[50%] p-[5px]"></div>)
+                        }
                         <p>{user.status}</p>
                       </div>
                     </div>

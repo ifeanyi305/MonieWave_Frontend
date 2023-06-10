@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTransferStatus } from '../../redux/moneyTransfer/updateTransfer';
+import { useNavigate } from 'react-router-dom';
 
 const TransactDetails = () => {
   const [status, setStatus] = useState('');
@@ -8,6 +9,7 @@ const TransactDetails = () => {
   const { progress } = useSelector((state) => state.showTransfer);
   const transfer = progress?.transfer;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleStatusUpdate = () => {
     if (status !== '') {
@@ -20,6 +22,7 @@ const TransactDetails = () => {
         })
       );
     }
+    navigate('/users_transaction')
   };
 
   const formatTime = (timestamp) => {
@@ -57,7 +60,21 @@ const TransactDetails = () => {
         </div>
         <div>
           <p className="text-[16px] text-[#909090] font-[600]">Transaction status</p>
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          <select
+            className={
+              status == 'Pending' ?
+              'text-[#F9B608] focus:outline-none cursor-pointer bg-[#FFFCF5] border-[1px] border-[#FEF0CD] rounded-[12px] p-2' :
+              status == 'Processing' ?
+                'text-[#814DE5] focus:outline-none cursor-pointer bg-[#824de517] border-[1px] border-[#824de516] rounded-[12px] p-2' :
+                status == 'Completed' ?
+                  'text-[#37A13C] focus:outline-none cursor-pointer bg-[#37a13c1f] border-[1px] border-[#37a13c2b] rounded-[12px] p-2' :
+                  status == 'Rejected' ?
+                    'text-[#C50713] focus:outline-none cursor-pointer bg-[#c5071411] border-[1px] border-[#c507141a] rounded-[12px] p-2' :
+                    'text-[#000] focus:outline-none cursor-pointer p-2 rounded-[12px] border-[1px] border-[#000]'
+            }
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
             <option value="">Select status</option>
             <option value="Pending">Pending</option>
             <option value="Processing">Processing</option>

@@ -72,9 +72,8 @@ const Users = () => {
       <div className="flex items-center justify-between py-4">
         <p><b className="font-[600] text-[24px] text-[#212121]">Customers</b></p>
       </div>
-      <div className="tranfers p-4 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
-        {/* <Link to="/users_lists"> */}
-          <table>
+      <div className="border-[1px] tranfers p-2 border-[#909090] rounded-[24px]">
+          <table className="w-full p-4 bg-[#fff]">
             <thead>
               <tr>
                 <th className="py-6 px-4 text-[#909090] text-[13px]">Name</th>
@@ -91,25 +90,31 @@ const Users = () => {
                     : allUsers ? (
                       allUsers.map((user, index) => (
                         <tr key={index}>
-                          <td className="text-center">{user.first_name} {user.last_name}</td>
-                          <td className="text-center">{user.email}</td>
-                          <td className="text-center">{formatDate(user.last_login)}at{formatTime(user.last_login)}</td>
-                          <td className="text-center">{user.status}</td>
-                          <td className="text-center">
+                          <td className="text-center text-[12px] ">{user.first_name} {user.last_name}</td>
+                          <td className="text-center text-[12px]">{user.email}</td>
+                          <td className="text-center text-[12px]">{formatDate(user.last_login)}at{formatTime(user.last_login)}</td>
+                          <td className="justify-center p-2 flex gap-[3px] items-center text-[12px]">
+                          {
+                          user.status == "Active" ?
+                          (<div className="font-[900] bg-[#37A13C] rounded-[50%] p-[5px]"></div>)
+                          : (<div className="font-[900] bg-[#C50713] rounded-[50%] p-[5px]"></div>)
+                        }
+                            {user.status}
+                          </td>
+                          <td className="text-center"><button type="button" onClick={() => viewButton(index)}>...</button></td>
+                          <td className="text-center text-[12px]">
                             <button
                               className={!showButtonArray[index] ? 'hidden' : 'block'}
                               type="button"
                               onClick={() => userDetails(user.id)}
                             >{loading ? (<img src={LoadingGif} alt="loading_gif" />) : 'view details'}</button>
                           </td>
-                          <td className="text-center"><button type="button" onClick={() => viewButton(index)}>...</button></td>
                         </tr>
                       ))
                     ) : <>Users empty</>
               }
             </tbody>
           </table>
-        {/* </Link> */}
       </div>
     </div>
   );

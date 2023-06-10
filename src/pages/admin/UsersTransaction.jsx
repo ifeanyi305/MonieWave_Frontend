@@ -63,46 +63,56 @@ const UsersTransaction = () => {
       <div className="flex items-center justify-between py-4">
         <p><b className="font-[600] text-[24px] text-[#212121]">Pending</b></p>
       </div>
-      {
-        loading ? (<>loading transaction details...</>)
-          : error ? (<>error details</>)
-            : transfers ? (
-              transfers.map((transfer, index) => (
-                <div className="py-4" key={index}>
-                  <div className="tranfers w-full p-4 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th className="py-6 px-4 text-[#909090] text-[13px]">Name of User</th>
-                          <th className="py-6 px-4 text-[#909090] text-[13px]">Date and time of transactions</th>
-                          <th className="py-6 px-4 text-[#909090] text-[13px]">Amount sent(Euro/Pounds)</th>
-                          <th className="py-6 px-4 text-[#909090] text-[13px]">Transaction ID</th>
-                          <th className="py-6 px-4 text-[#909090] text-[13px]">Transaction status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="text-center">{transfer.first_name}</td>
-                          <td className="text-center">{formatDate(transfer.created_at)}</td>
-                          <td className="text-center">{transfer.amount} {transfer.currency}</td>
-                          <td className="text-center">{transfer.id}</td>
-                          <td className="text-center">{transfer.status}</td>
-                          <td className="text-center">
+      <div className="py-4">
+        <div className="border-[1px] tranfers p-2 border-[#909090] rounded-[24px]">
+          <table className="w-full p-4 bg-[#fff]">
+            <thead>
+              <tr>
+                <th className="py-6 px-4 text-[#909090] text-[13px]">Name of User</th>
+                <th className="py-6 px-4 text-[#909090] text-[13px]">Date and time of transactions</th>
+                <th className="py-6 px-4 text-[#909090] text-[13px]">Amount sent(Euro/Pounds)</th>
+                <th className="py-6 px-4 text-[#909090] text-[13px]">Transaction ID</th>
+                <th className="py-6 px-4 text-[#909090] text-[13px]">Transaction status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                loading ? (<>loading transaction details...</>)
+                  : error ? (<>error details</>)
+                    : transfers ? (
+                      transfers.map((transfer, index) => (
+                        <tr key={index}>
+                          <td className="text-center text-[12px] py-4">{transfer.first_name}</td>
+                          <td className="text-center text-[12px]">{formatDate(transfer.created_at)}</td>
+                          <td className="text-center text-[12px]">{transfer.amount} {transfer.currency}</td>
+                          <td className="text-center text-[12px]">{transfer.id}</td>
+                          <td className={
+                            transfer?.status == 'Pending' ?
+                              'text-[#F9B608] text-center text-[12px]' :
+                              transfer?.status == 'Processing' ?
+                                'text-[#814DE5] text-center text-[12px]' :
+                                transfer?.status == 'Completed' ?
+                                  'text-[#37A13C] text-center text-[12px]' :
+                                  transfer?.status == 'Rejected' ?
+                                    'text-[#C50713] text-center text-[12px]' :
+                                    'text-[#000] text-center text-[12px]'
+                          }>{transfer.status}</td>
+                          <td className="text-center text-[12px]">
                             <button
-                              className={!showButtonArray[index] ? 'hidden' : 'block'}
+                              className={!showButtonArray[index] ? 'hidden' : 'block text-[12px]'}
                               type="button"
                               onClick={() => transferDetails(transfer.id)}
                             >{pending ? (<img src={LoadingGif} alt="loading_gif" />) : 'view details'}</button>
                           </td>
                           <td className="text-center"><button type="button" onClick={() => viewButton(index)}>...</button></td>
                         </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              ))
-            ) : <>details empty</>
-      }
+                      ))
+                    ) : <>details empty</>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
