@@ -91,15 +91,17 @@ function App() {
 
         {/* Admin Routes */}
 
-        <Routes>
-          <Route element={<AdminRoutes handleSidebar={handleSidebar} sidebar={sidebar} />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/users_transaction" element={<UsersTransaction />} />
-            <Route path="/transact_details" element={<TransactDetails />} />
-            <Route path="/users_lists" element={<UsersLists />} />
-          </Route>
-        </Routes>
+        <div className='admin'>
+          <Routes>
+            <Route element={<AdminRoutes handleSidebar={handleSidebar} sidebar={sidebar} />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/users_transaction" element={<UsersTransaction />} />
+              <Route path="/transact_details" element={<TransactDetails />} />
+              <Route path="/users_lists" element={<UsersLists />} />
+            </Route>
+          </Routes>
+        </div>
       </div>
     </div>
   )

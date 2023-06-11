@@ -93,7 +93,7 @@ const Home = () => {
       <div className="flex justify-between items-center flex-wrap">
         {
           contents.map((content) => (
-            <div key={content.id} className="p-4 mb-2 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
+            <div key={content.id} className="p-4 mb-2 bg-[#fff] border-[1px] border-[#E6E6E6] rounded-[24px]">
               <div className="mb-4">
                 <div className="flex items-start gap-4 justify-between">
                   {content.icon}
@@ -111,7 +111,7 @@ const Home = () => {
           <p className="text-[#212121] text-[24px] font-[600]">Recent Transactions</p>
           <Link to='/users_transaction'><p className="text-[#814DE5] text-[19px]">See all</p></Link>
         </div>
-        <div className="border-[1px] tranfers p-2 border-[#909090] rounded-[24px]">
+        <div className="border-[1px] tranfers p-2 border-[#E6E6E6 bg-[#fff] rounded-[24px]">
           <table className="w-full p-4 bg-[#fff]">
             <thead>
               <tr>
@@ -157,13 +157,13 @@ const Home = () => {
           <p className="text-[#212121] text-[24px] font-[600]">Users</p>
           <Link to='/users'><p className="text-[#814DE5] text-[19px]">See all</p></Link>
         </div>
-        <div className="user_container flex justify-between flex-wrap gap-2 p-4">
+        <div className="w-full flex items-center flex-wrap gap-2 p-4">
           {
             pending ? (<>fetching users...</>)
               : failed ? (<>an error occured while fetching users</>)
                 : allUsers ? (
                   allUsers.map((user) => (
-                    <div key={user.id} className="flex justify-between items-center md:w-[49%] w-full p-4 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
+                    <div key={user.id} className=" w-full flex user_container gap-4 justify-between items-center p-4 bg-[#fff] border-[1px] border-[#E6E6E6] rounded-[24px]">
                       <div>
                         <p className="text-[16px] text-[#212121] font-[600]">{user.first_name} {user.last_name}</p>
                         <small className="text-[#6B6B6B] text-[12px]">{user.email}</small>

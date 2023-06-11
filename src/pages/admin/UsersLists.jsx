@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 const UsersLists = () => {
   const { progress, loading, failed } = useSelector((state) => state.userDetails);
   const [transferStatus, setTransferStatus] = useState('');
   const [beneficiaryStatus, setBeneficiaryStatus] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchBeneficiary, setSearchBeneficiary] = useState('');
   const user = progress?.user;
   const userTransfers = progress?.transfers;
   const userBeneficiaries = progress?.beneficiaries;
-  
+
   const transferEmpty = () => {
     if (userTransfers?.length == 0) {
       setTransferStatus('No transfers have been made by this user')
     }
   }
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleBeneficiarySearch = (event) => {
+    setSearchBeneficiary(event.target.value);
+  };
 
   const beneficiaryEmpty = () => {
     if (userBeneficiaries?.length == 0) {
@@ -61,9 +72,9 @@ const UsersLists = () => {
             : user ? (
               <>
                 <div className="my-[4%]">
-                  <h1 className="text-[40px] text-[#464646]">{user?.first_name}&apos;s <span className="text-[#966BE9]">{user?.first_name} {user?.last_name}</span></h1>
+                  <h1 className="text-[40px] text-[#464646]">{user?.first_name}&apos;s details: <span className="text-[#966BE9]">{user?.first_name} {user?.last_name}</span></h1>
                 </div>
-                <div className="flex flex-wrap gap-2 mb-2 justify-between items-center w-full p-4 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
+                <div className="flex flex-wrap gap-2 mb-2 justify-between items-center w-full p-4 bg-[#fff] border-[1px] border-[#E6E6E6] rounded-[24px]">
                   <div>
                     <p className="text-[16px] text-[#909090] font-[600]">Transaction Completed</p>
                     <small className="text-[#212121] text-[16px]">{userTransfers?.length}</small>
@@ -78,9 +89,9 @@ const UsersLists = () => {
                   </div>
                 </div>
                 <div className="my-6">
-                  <h1 className="pb-4">{user?.first_name}&apos;s Information</h1>
-                  <div className="user_container p-4 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
-                  <div className="">
+                  <h1 className="pb-4 text-[#464646] text-[20px] font-extrabold">{user?.first_name}&apos;s Information</h1>
+                  <div className="user_container p-4 bg-[#fff] border-[1px] border-[#E6E6E6] rounded-[24px]">
+                    <div className="">
                       <div className="flex pb-4 gap-4  items-center">
                         <p className="text-[16px] text-[#909090] font-[600]">Country:</p>
                         <small className="text-[#212121] text-[16px]">{user?.country}</small>
@@ -102,17 +113,31 @@ const UsersLists = () => {
                 </div>
               </>
             )
-              :  <>User empty</>
+              : <>User empty</>
       }
       <div className="my-6">
-        <h1 className="pb-4">{user?.first_name}&apos;s transactions</h1>
+        <div className={transferStatus ? "hidden" : "flex items-center gap-4 py-4"}>
+          <h1 className='block text-[#464646] text-[20px] font-extrabold'>{user?.first_name}&apos;s transactions</h1>
+          <div className="flex items-center justify-end user_container gap-2 border-[1px] border-[#909090] rounded-[8px] px-[24px]">
+            <AiOutlineSearch />
+            <input
+              type="search"
+              className="border-none py-[12px] bg-transparent focus:outline-none"
+              placeholder="search"
+              value={searchQuery}
+              onChange={handleSearch}
+            />
+          </div>
+        </div>
         {
           loading ? (<>Loading transfer...</>)
             : failed ? (<>An error occured while loading transfer</>)
               : userTransfers ? (
-                userTransfers.map((transfer) => (
+                userTransfers.filter((transfer) =>
+                  transfer.recipient_name.toLowerCase().includes(searchQuery.toLowerCase())
+                ).map((transfer) => (
                   <div className="py-2">
-                    <div className="user_container p-4 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
+                    <div className="user_container p-4 bg-[#fff] border-[1px] border-[#E6E6E6] rounded-[24px]">
                       <div className="">
                         <div className="flex pb-4 gap-4 items-center">
                           <p className="text-[16px] text-[#909090] font-[600]">Amount sent:</p>
@@ -153,17 +178,30 @@ const UsersLists = () => {
               )
                 : ''
         }
-        <p>{transferStatus}</p>
       </div>
       <div className="my-6">
-        <h1 className="pb-4">{user?.first_name}&apos;s Beneficiaries</h1>
+        <div className={transferStatus ? "hidden" : "flex items-center gap-4 py-4"}>
+          <h1 className='block text-[#464646] text-[20px] font-extrabold'>{user?.first_name}&apos;s Beneficiaries</h1>
+          <div className="flex items-center justify-end user_container gap-2 border-[1px] border-[#909090] rounded-[8px] px-[24px]">
+            <AiOutlineSearch />
+            <input
+              type="search"
+              className="border-none py-[12px] bg-transparent focus:outline-none"
+              placeholder="search"
+              value={searchBeneficiary}
+              onChange={handleBeneficiarySearch}
+            />
+          </div>
+        </div>
         {
           loading ? (<>loading beneficiaries...</>)
             : failed ? (<>An error occured while loading beneficiaries</>)
               : userBeneficiaries ? (
-                userBeneficiaries.map((beneficiary) => (
+                userBeneficiaries.filter((beneficiary) =>
+                beneficiary.account_name.toLowerCase().includes(searchBeneficiary.toLowerCase())
+              ).map((beneficiary) => (
                   <div className="py-2">
-                    <div className="user_container p-4 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
+                    <div className="user_container p-4 bg-[#fff] border-[1px] border-[#E6E6E6] rounded-[24px]">
                       <div className="">
                         <div className="flex pb-4 gap-4 items-center">
                           <p className="text-[16px] text-[#909090] font-[600]">Benficiary name:</p>
@@ -192,16 +230,15 @@ const UsersLists = () => {
               )
                 : ''
         }
-        <p>{beneficiaryStatus}</p>
       </div>
       <div className="my-6">
-        <h1 className="pb-4">Additional information</h1>
+        <h1 className="pb-4 text-[#464646] text-[20px] font-extrabold">Additional information</h1>
         {
           loading ? (<>loading...</>)
             : failed ? (<>An error occured</>)
               : user ? (
                 <>
-                  <div className="user_container p-4 bg-[#fff] border-[1px] border-[#909090] rounded-[24px]">
+                  <div className="user_container p-4 bg-[#fff] border-[1px] border-[#E6E6E6] rounded-[24px]">
                     <div className="">
                       <div className="flex pb-4 gap-4 items-center">
                         <p className="text-[16px] text-[#909090] font-[600]">Date and time joined:</p>
@@ -226,6 +263,8 @@ const UsersLists = () => {
                 : <>User empty</>
         }
       </div>
+      <p className="text-[15px] text-[#909090] font-[600]">{transferStatus}</p>
+      <p className="text-[15px] text-[#909090] font-[600]">{beneficiaryStatus}</p>
       <div className="md:w-[40%] m-auto">
         <button
           type="submit"

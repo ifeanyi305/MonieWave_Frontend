@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { usePagination, Pagination } from "pagination-react-js";
 import { AiOutlineSearch } from 'react-icons/ai';
-import { Link, useNavigate } from 'react-router-dom';
+import { BsArrowUpLeft } from 'react-icons/bs';
+import { BsArrowUpRight } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllTransfers } from '../../redux/moneyTransfer/allTransfers';
 import { showUserTransfer } from '../../redux/moneyTransfer/showTransfer';
@@ -11,12 +14,18 @@ const UsersTransaction = () => {
   const { progress, pending } = useSelector((state) => state.showTransfer);
   const transfers = success?.success?.transfers;
   const [showButtonArray, setShowButtonArray] = useState(Array(transfers?.length).fill(false));
+  const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { currentPage, entriesPerPage, entries } = usePagination(1, 10);
 
   useEffect(() => {
     dispatch(fetchAllTransfers());
   }, [dispatch]);
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   const viewButton = (index) => {
     setShowButtonArray((prevArray) => {
@@ -55,8 +64,10 @@ const UsersTransaction = () => {
           <AiOutlineSearch />
           <input
             type="search"
-            className="border-none py-[12px] focus:outline-none"
+            className="border-none py-[12px] bg-transparent focus:outline-none"
             placeholder="search"
+            value={searchQuery}
+            onChange={handleSearch}
           />
         </div>
       </div>
@@ -64,7 +75,22 @@ const UsersTransaction = () => {
         <p><b className="font-[600] text-[24px] text-[#212121]">Pending</b></p>
       </div>
       <div className="py-4">
-        <div className="border-[1px] tranfers p-2 border-[#909090] rounded-[24px]">
+        <div className="select-wrapper max-elements">
+          <label className="block font-extrabold text-[20px]" htmlFor="max-elements">Entries per page:</label>
+          <select className="py-4 hover:bg-[#E1E4E7] cursor-pointer focus:outline-none px-2 rounded-[10px]" name="max-elements" id="max-elements" onChange={e => { currentPage.set(1); entriesPerPage.set(Number(e.target.value)); }}>
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={10}>10</option>
+            <option value={15}>15</option>
+            <option value={20}>20</option>
+            <option value={30}>30</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+            <option value={transfers?.length}>All</option>
+          </select>
+        </div>
+        <p className="text-end py-4">Showing {`${entries.indexOfFirst + 1}-${entries.indexOfLast} of ${transfers?.length}`}</p>
+        <div className="border-[1px] tranfers p-2 border-[#E6E6E6] bg-[#fff] rounded-[24px]">
           <table className="w-full p-4 bg-[#fff]">
             <thead>
               <tr>
@@ -80,8 +106,10 @@ const UsersTransaction = () => {
                 loading ? (<>loading transaction details...</>)
                   : error ? (<>error details</>)
                     : transfers ? (
-                      transfers.map((transfer, index) => (
-                        <tr key={index}>
+                      transfers.slice(entries.indexOfFirst, entries.indexOfLast).filter((transfer) =>
+                      transfer.first_name.toLowerCase().includes(searchQuery.toLowerCase())
+                    ).map((transfer, index) => (
+                        <tr key={transfer.id}>
                           <td className="text-center text-[12px] py-4">{transfer.first_name}</td>
                           <td className="text-center text-[12px]">{formatDate(transfer.created_at)}</td>
                           <td className="text-center text-[12px]">{transfer.amount} {transfer.currency}</td>
@@ -112,6 +140,31 @@ const UsersTransaction = () => {
             </tbody>
           </table>
         </div>
+        <Pagination
+          entriesPerPage={entriesPerPage.get}
+          totalEntries={transfers?.length}
+          currentPage={{ get: currentPage.get, set: currentPage.set }}
+          offset={3}
+          classNames={{
+            wrapper: "pagination flex items-center justify-center gap-6 mt-4",
+            item: 'pagination-item cursor-pointer text-[16px]',
+            itemActive: "pagination-item-active",
+            navPrev: "pagination-item nav-item cursor-pointer",
+            navNext: "pagination-item nav-item cursor-pointer",
+            navStart: "pagination-item nav-item cursor-pointer",
+            navEnd: "pagination-item nav-item cursor-pointer",
+            navPrevCustom: "pagination-item bg-[#000]",
+            navNextCustom: "pagination-item"
+          }}
+          showFirstNumberAlways={true}
+          showLastNumberAlways={true}
+          navStart={<button className="text-[16px] bg-[#FCFBFE] rounded-[6px] py-2 px-4 gap-2 flex items-center"><BsArrowUpLeft />First</button>}
+          navEnd={<button className="text-[16px] bg-[#FCFBFE] rounded-[6px] py-2 px-4 gap-2 flex items-center"><BsArrowUpRight /> Last</button>}
+          navPrev={<button className="hover:bg-[#E1E4E7] font-extrabold text-[20px] rounded-[7px] px-4">&#x2039;</button>}
+          navNext={<button className="hover:bg-[#E1E4E7] font-extrabold text-[20px] rounded-[7px] px-4">&#x203a;</button>}
+          navPrevCustom={{ steps: 5, content: "\u00B7\u00B7\u00B7" }}
+          navNextCustom={{ steps: 5, content: "\u00B7\u00B7\u00B7" }}
+        />
       </div>
     </div>
   );

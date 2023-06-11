@@ -12,6 +12,10 @@
   font-family: 'Rebond Grotesque', sans-serif;
 }
 
+.admin {
+  background-color: #F5F5F5;
+}
+
 .navbar {
   top: 0;
   margin-bottom: 10px;
@@ -59,6 +63,13 @@
 
 .user_container {
   width: fit-content;
+}
+
+.pagination-item-active {
+  color: #fff;
+  background-color: #814DE5;
+  border-radius: 4px;
+  padding: 0px 8px;
 }
 
 @media screen and (min-width: 768px) {

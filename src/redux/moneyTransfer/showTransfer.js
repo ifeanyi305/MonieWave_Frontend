@@ -49,6 +49,6 @@ export default (state = initialState, action) => {
         failed: true
       }
     default:
-      return {...state, progress: false};
+      return {...state};
   }
 }
