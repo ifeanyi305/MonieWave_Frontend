@@ -56,7 +56,20 @@ const TransactDetails = () => {
           <small className="text-[#212121] text-[16px]">{formatDate(transfer?.created_at)} at {formatTime(transfer?.created_at)}</small>
         </div>
         <div>
-          <p className="text-[16px] text-[#909090] font-[600]">Transaction status</p>
+          <p className="text-[16px] text-[#909090] font-[600]">
+            Transaction status: <span 
+            className={
+              transfer?.status == 'Pending' ?
+              'text-[#F9B608] text-center text-[16px]' :
+              transfer?.status == 'Processing' ?
+                'text-[#814DE5] text-center text-[16px]' :
+                transfer?.status == 'Completed' ?
+                  'text-[#37A13C] text-center text-[16px]' :
+                  transfer?.status == 'Rejected' ?
+                    'text-[#C50713] text-center text-[16px]' :
+                    'text-[#000] text-center text-[16px]'
+            }>{transfer?.status}</span>
+          </p>
           <select
             className={
               status == 'Pending' ?
@@ -111,6 +124,12 @@ const TransactDetails = () => {
               <small className="text-[#212121] text-[16px]">{transfer?.reference_number}</small>
             </div>
           </div>
+          {/* <div className="">
+            <div className="flex pb-4 gap-4 items-center">
+              <p className="text-[16px] text-[#909090] font-[600]">Fee:</p>
+              <small className="text-[#212121] text-[16px]">{transfer?.fee}</small>
+            </div>
+          </div> */}
           <div className="">
             <div className="flex pb-4 gap-4 items-center">
               <p className="text-[16px] text-[#909090] font-[600]">Exchange rate:</p>
@@ -167,7 +186,7 @@ const TransactDetails = () => {
           className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"
         >
           {
-            loading ? 'updating...' : updated ? 'status updated' : error ? 'status update failed' : 'confirm'
+            loading ? 'updating...' : updated ? 'status updated' : error ? 'status update failed' : 'Update status'
           }
         </button>
       </div>

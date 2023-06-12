@@ -14,7 +14,7 @@ const Sidebar = ({ sidebar, handleSidebar }) => {
         <ul className="text-[#FAFAFA] m-6">
           <Link onClick={handleSidebar} to="/"><li className={style.padding}>Home</li></Link>
           <Link onClick={handleSidebar} to="/users_transaction"><li className={style.padding}>Transactions</li></Link>
-          <Link onClick={handleSidebar} to="/users"><li className={style.padding}>User&apos;s List</li></Link>
+          <Link onClick={handleSidebar} to="/users"><li className={style.padding}>Users</li></Link>
         </ul>
       </div>
     </div>
