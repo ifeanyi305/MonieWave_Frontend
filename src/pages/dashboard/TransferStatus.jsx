@@ -1,4 +1,6 @@
 import React from 'react';
+import html2pdf from 'html2pdf.js';
+import { renderToString } from 'react-dom/server';
 import { useLocation, Link } from 'react-router-dom';
 import { GrNotification } from 'react-icons/gr';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
@@ -6,6 +8,7 @@ import { MdOutlinePending } from 'react-icons/md';
 import { FcProcess } from 'react-icons/fc';
 import { GiCancel } from 'react-icons/gi';
 import { TbClockCancel } from 'react-icons/tb';
+import Ratehive from '../../assets/images/navbar/RateHive.png';
 
 const TransferStatus = () => {
   const location = useLocation();
@@ -40,6 +43,77 @@ const TransferStatus = () => {
       }
     }
   }
+
+  const transferDetails = [
+    {
+      title: "Transaction Date",
+      detail: formatTimestamp(transfer?.created_at),
+    },
+    {
+      title: "Transaction Type",
+      detail: transfer?.payment_method,
+    },
+    {
+      title: "Amount",
+      detail: transfer?.naira_amount,
+    },
+    {
+      title: "Exchange Rate",
+      detail: <p>{transfer?.exchange_rate} {transfer?.currency}</p>,
+    },
+    {
+      title: "Recipient Name",
+      detail: transfer?.recipient_name,
+    },
+    {
+      title: "Recipient Account Number",
+      detail: transfer?.recipient_account,
+    },
+    {
+      title: "Bank",
+      detail: transfer?.recipient_bank,
+    },
+    {
+      title: "Recipient Number",
+      detail: transfer?.reference_number,
+    },
+  ];
+
+  const Receipt = () => (
+    <div>
+      <div className="w-full">
+        <div className="flex justify-center"><img src={Ratehive} alt="Ratehive_logo" /></div>
+        <p>Transaction Receipt</p>
+        <div className="my-4">
+          {transferDetails.map((transaction) => (
+            <div className="flex items-center gap-4" key={transaction.id}>
+              <p>{transaction.title}:</p>
+              <p>{transaction.detail}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+
+  const handleDownload = () => {
+    const receiptElement = document.createElement('div');
+    receiptElement.innerHTML = renderToString(<Receipt />);
+    const opt = {
+      margin: 1,
+      filename: 'transaction_receipt.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+      },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().from(receiptElement).set(opt).save();
+  };
+
   return (
     <div className="px-6">
       <div className="flex my-[4%] justify-between wrap items-start">
@@ -96,7 +170,9 @@ const TransferStatus = () => {
           </div>
           <div>
             <p className="text-[#464646] pb-4 text-[20px] font-[600]">{transfer?.naira_amount}</p>
-            <p className="text-[#814DE5] text-[14px] font-[400]">Download receipt</p>
+            <button className={transfer?.status === 'Completed' ? 'block' : 'hidden'} type="button" onClick={() => handleDownload()}>
+              <p className="text-[#814DE5] text-[14px] font-[400]">Download receipt</p>
+            </button>
           </div>
         </div>
       </div>

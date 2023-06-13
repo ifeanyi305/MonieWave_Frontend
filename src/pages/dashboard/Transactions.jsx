@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Transactions = () => {
   const { victory, loading, error } = useSelector((state) => state.allTransfers);
   const [searchQuery, setSearchQuery] = useState('');
-  const transfers = victory?.victory
+  const transfers = victory?.victory;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const Transactions = () => {
                     </div>
                     <div>
                       <p className="text-[#464646] pb-4 text-[20px] font-[600]">{transfer.naira_amount}</p>
-                      <p className="text-[#814DE5] text-[14px] font-[400]">Download receipt</p>
+                      <p className={transfer?.status === 'Completed' ? 'block text-[#814DE5] text-[14px] font-[400]' : 'hidden'}>Download receipt</p>
                     </div>
                   </div>
                 </Link>
