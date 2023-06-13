@@ -108,7 +108,7 @@ const UsersTransaction = () => {
                     : transfers ? (
                       transfers.slice(entries.indexOfFirst, entries.indexOfLast).filter((transfer) =>
                       transfer.first_name.toLowerCase().includes(searchQuery.toLowerCase())
-                    ).map((transfer, index) => (
+                    ).reverse().map((transfer, index) => (
                         <tr key={transfer.id}>
                           <td className="text-center text-[12px] py-4">{transfer.first_name}</td>
                           <td className="text-center text-[12px]">{formatDate(transfer.created_at)}</td>
