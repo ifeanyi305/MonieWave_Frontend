@@ -13,6 +13,7 @@ const UsersTransaction = () => {
   const { success, loading, error } = useSelector((state) => state.getAllTransfers);
   const { progress, pending } = useSelector((state) => state.showTransfer);
   const transfers = success?.success?.transfers;
+  const reversedTransfer = transfers?.slice().reverse();
   const [showButtonArray, setShowButtonArray] = useState(Array(transfers?.length).fill(false));
   const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch();
@@ -106,9 +107,9 @@ const UsersTransaction = () => {
                 loading ? (<>loading transaction details...</>)
                   : error ? (<>error details</>)
                     : transfers ? (
-                      transfers.slice(entries.indexOfFirst, entries.indexOfLast).filter((transfer) =>
+                      reversedTransfer.slice(entries.indexOfFirst, entries.indexOfLast).filter((transfer) =>
                       transfer.first_name.toLowerCase().includes(searchQuery.toLowerCase())
-                    ).reverse().map((transfer, index) => (
+                    ).map((transfer, index) => (
                         <tr key={transfer.id}>
                           <td className="text-center text-[12px] py-4">{transfer.first_name}</td>
                           <td className="text-center text-[12px]">{formatDate(transfer.created_at)}</td>
@@ -153,8 +154,8 @@ const UsersTransaction = () => {
             navNext: "pagination-item nav-item cursor-pointer",
             navStart: "pagination-item nav-item cursor-pointer",
             navEnd: "pagination-item nav-item cursor-pointer",
-            navPrevCustom: "pagination-item bg-[#000]",
-            navNextCustom: "pagination-item"
+            navPrevCustom: "pagination-item cursor-pointer",
+            navNextCustom: "pagination-item cursor-pointer"
           }}
           showFirstNumberAlways={true}
           showLastNumberAlways={true}
