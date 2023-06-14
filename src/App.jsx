@@ -23,7 +23,7 @@ import UsersTransaction from './pages/admin/UsersTransaction';
 import TransactDetails from './pages/admin/TransactDetails';
 import UsersLists from './pages/admin/UsersLists';
 import Home from './pages/admin/Home';
-import TransferReceipt from './pages/dashboard/TransferReceipt';
+import ContactUs from './pages/ContactUs';
 
 function App() {
   const [sidebar, setSidebar] = useState(false);
@@ -70,7 +70,6 @@ function App() {
             } />
             <Route path="/transactions" element={<Transactions />} />
             <Route path="/transfer_status" element={<TransferStatus />} />
-            <Route path="/transfer_receipt" element={<TransferReceipt />} />
           </Route>
         </Routes>
 
@@ -79,6 +78,7 @@ function App() {
         <Routes>
           <Route element={<PublicRoutes />}>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/Contact" element={<ContactUs />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup role={role} setRole={setRole} />} />
             {/*  */}

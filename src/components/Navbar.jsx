@@ -22,21 +22,21 @@ const Navbar = () => {
   };
 
   const style = {
-    header: 'flex justify-between navbar w-full dark:bg-[#000] bg-[#fff] dark:text-[#fff] items-center py-4 px-[5%]',
-    flex_gap: 'flex items-center gap-[5px]',
-    flex_gap2: 'flex items-center gap-[10px]',
-    nav_list: 'flex gap-[7px] items-center',
+    header: 'flex flex-wrap justify-between navbar w-full dark:bg-[#000] bg-[#fff] dark:text-[#fff] items-center py-4 ',
+    flex_gap: 'flex flex-wrap items-center gap-[5px]',
+    flex_gap2: 'flex px-2 flex-wrap items-center gap-[10px]',
+    nav_list: 'flex flex-wrap gap-[7px] items-center',
     padding: 'p-[13px]'
   }
 
   return (
-    <div className="container">
+    <div className="">
       <nav className={style.header}>
         <ul className={style.nav_list}>
           <li><a href='/broken'><img src={Ratehive} alt="title" /></a></li>
           <li className={style.padding}><a href='/broken'>Make transfers</a></li>
           <li className={style.padding}><a href='/broken'>About Us</a></li>
-          <li className={style.padding}><a href='/broken'>Contact</a></li>
+          <Link to="/Contact"><li className={style.padding}>Contact</li></Link>
           <li className={style.flex_gap}>
             <img src={ukFlag} alt="ukflag" />
             <li className="p-[13px] text-[#966BE9] dark:text-[#7D5CC1]"><a href='/broken'>EN</a></li>

@@ -20,7 +20,11 @@
   top: 0;
   margin-bottom: 10px;
   position: sticky;
-  color: #000000ca;
+}
+
+.send_money_preview_con {
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
 }
 
 .container {
@@ -42,11 +46,6 @@
 
 .detail {
   z-index: 10;
-}
-
-.card {
-  width: 90%;
-  margin: auto;
 }
 
 .open {
@@ -103,7 +102,7 @@
 }
 
 .tranfers {
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .button {

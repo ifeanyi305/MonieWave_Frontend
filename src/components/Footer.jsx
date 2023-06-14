@@ -1,5 +1,6 @@
 import React from 'react';
 import Ratehive from '../assets/images/navbar/RateHive.png';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const lists = [
@@ -41,7 +42,7 @@ const Footer = () => {
           <ul>
             <li className={style.title}><a href="/broken">{lists[0].title}</a></li>
             <li className={style.text}><a href="/broken">{lists[0].about}</a></li>
-            <li className={style.text}><a href="/broken">{lists[0].contact}</a></li>
+            <Link to="/Contact"><li className={style.text}>{lists[0].contact}</li></Link>
           </ul>
           <ul>
             <li className={style.title}><a href="/broken">{lists[1].title}</a></li>
