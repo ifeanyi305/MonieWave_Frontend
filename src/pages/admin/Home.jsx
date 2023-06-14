@@ -16,6 +16,7 @@ const Home = () => {
   const userName = isAuthenticated?.username;
   const { success, loading, error } = useSelector((state) => state.getAllTransfers);
   const transfers = success?.success?.transfers;
+  const reversedTransfer = transfers?.slice().reverse();
   const { successful, pending, failed } = useSelector((state) => state.users);
   const allUsers = successful?.successful?.users;
   const dispatch = useDispatch();
@@ -127,7 +128,7 @@ const Home = () => {
                 loading ? (<>loading transfer details...</>)
                   : error ? (<>error details</>)
                     : transfers ? (
-                      transfers.map((transfer) => (
+                      reversedTransfer.slice(0, 7).map((transfer) => (
                         <tr key={transfer.id}>
                           <td className="text-center text-[12px] py-4">{transfer.first_name}</td>
                           <td className="text-center text-[12px]">{formatDate(transfer.created_at)} at {formatTime(transfer.created_at)}</td>
