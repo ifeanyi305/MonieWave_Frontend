@@ -82,13 +82,13 @@ const TransferStatus = () => {
   const Receipt = () => (
     <div>
       <div className="w-full">
-        <div className="flex justify-center"><img src={Ratehive} alt="Ratehive_logo" /></div>
-        <p>Transaction Receipt</p>
-        <div className="my-4">
+        <div className="my-4"><img src={Ratehive} alt="Ratehive_logo" /></div>
+        <p className="text-[#212121] my-4 font-extrabold text-[18px]">Transaction Receipt</p>
+        <div className="my-4 md:w-[65%] w-full bg-[#F7F7F7] p-4 rounded-[20px]">
           {transferDetails.map((transaction) => (
-            <div className="flex items-center gap-4" key={transaction.id}>
-              <p>{transaction.title}:</p>
-              <p>{transaction.detail}</p>
+            <div className="flex items-center py-2 gap-4" key={transaction.id}>
+              <p className="text-[#464646] font-extrabold text-[16px]">{transaction.title}:</p>
+              <p className="text-[#464646] font-[500] text-[14px]">{transaction.detail}</p>
             </div>
           ))}
         </div>
