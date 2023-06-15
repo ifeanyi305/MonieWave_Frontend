@@ -4,11 +4,9 @@ import { renderToString } from 'react-dom/server';
 import { useLocation, Link } from 'react-router-dom';
 import { GrNotification } from 'react-icons/gr';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
-import { MdOutlinePending } from 'react-icons/md';
-import { FcProcess } from 'react-icons/fc';
 import { GiCancel } from 'react-icons/gi';
-import { TbClockCancel } from 'react-icons/tb';
 import Ratehive from '../../assets/images/navbar/RateHive.png';
+import CheckOk from '../../assets/images/navbar/check_good.png';
 
 const TransferStatus = () => {
   const location = useLocation();
@@ -139,26 +137,50 @@ const TransferStatus = () => {
       </div>
       <div className="py-6">
         <div className="flex mb-4 items-center gap-2">
-          <AiOutlineCheckCircle className="text-[#37A13C]" />
+            <img src={CheckOk} alt="check icon" />
           <div>
-            <p>Transfer confirmation request sent</p>
-            <p>{formatTimestamp(transfer?.created_at)}</p>
+            <p className="text-[#6B6B6B]">Transfer confirmation request sent</p>
+            <p className="text-[#6B6B6B]">{formatTimestamp(transfer?.created_at)}</p>
           </div>
         </div>
-        <div className="flex mb-4 items-center gap-2">
-          <div>
-            {
-              transfer?.status == 'Pending' ? (<MdOutlinePending className="text-[#F9B608]" />)
-                : transfer?.status == 'Processing' ? (<FcProcess className="text-[#814DE5]" />)
-                  : transfer?.status == 'Completed' ? (<AiOutlineCheckCircle className="text-[#37A13C]" />)
-                    : transfer?.status == 'Rejected' ? (<GiCancel className="text-[#C50713]" />)
-                      : (<TbClockCancel />)
-            }
-          </div>
-          <div>
-            <p>Transfer {transfer?.status}</p>
-            <p>{formatTimestamp(transfer?.updated_at)}</p>
-          </div>
+        <div>
+          {
+            transfer?.processing_time == null ? "" :
+              transfer?.processing_time ? (
+                <div className="flex mb-4 items-center gap-2">
+                  <img src={CheckOk} alt="check icon" />
+                  <div>
+                    <p className="text-[#6B6B6B]">Processing of payment to {transfer?.recipient_name}</p>
+                    <p className="text-[#6B6B6B]">{formatTimestamp(transfer?.processing_time)}</p>
+                  </div>
+                </div>
+              ) : ""}
+        </div>
+        <div>
+          {
+            transfer?.completed_time == null ? "" :
+              transfer?.completed_time ? (
+                <div className="flex mb-4 items-center gap-2">
+                  <AiOutlineCheckCircle className="text-[#37A13C] text-[25px]" />
+                  <div>
+                    <p className="text-[#814DE5]">Transfer Successful</p>
+                    <p className="text-[#6B6B6B]">{formatTimestamp(transfer?.completed_time)}</p>
+                  </div>
+                </div>
+              ) : ""}
+        </div>
+        <div>
+          {
+            transfer?.rejected_time == null ? "" :
+              transfer?.rejected_time ? (
+                <div className="flex mb-4 items-center gap-2">
+                  <GiCancel className="text-[#C50713] text-[25px]" />
+                  <div>
+                    <p className="text-[#C50713]">Rejected</p>
+                    <p>{formatTimestamp(transfer?.rejected_time)}</p>
+                  </div>
+                </div>
+              ) : ""}
         </div>
       </div>
       <div>

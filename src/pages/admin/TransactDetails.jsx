@@ -86,7 +86,6 @@ const TransactDetails = () => {
             onChange={(e) => setStatus(e.target.value)}
           >
             <option value="">Select status</option>
-            <option value="Pending">Pending</option>
             <option value="Processing">Processing</option>
             <option value="Completed">Completed</option>
             <option value="Rejected">Rejected</option>

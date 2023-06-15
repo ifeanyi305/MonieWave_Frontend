@@ -126,7 +126,7 @@ const Home = () => {
             <tbody>
               {
                 loading ? (<>loading transfer details...</>)
-                  : error ? (<>error details</>)
+                  // : error ? (<>error details</>)
                     : transfers ? (
                       reversedTransfer.slice(0, 7).map((transfer) => (
                         <tr key={transfer.id}>

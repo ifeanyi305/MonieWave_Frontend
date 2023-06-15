@@ -4,7 +4,7 @@ import { CgDanger } from 'react-icons/cg';
 import { FiCopy } from 'react-icons/fi'
 import { AiOutlineCheck } from 'react-icons/ai'
 
-const BankDetails = ({ setNumber, reference_number, amount, fee }) => {
+const BankDetails = ({ setNumber, reference_number, amount, fee, currency }) => {
   const [currentColor, setCurrentColor] = useState('red');
 
   useEffect(() => {
@@ -96,8 +96,8 @@ const BankDetails = ({ setNumber, reference_number, amount, fee }) => {
             <p className="text-[15px]">Total Amount to be sent</p>
           </div>
           <div>
-            <p className="font-[900] text-[15px]">{fee} GBP</p>
-            <p className="font-[900] text-[15px]">{parseInt(amount) + fee} GBP</p>
+            <p className="font-[900] text-[15px]">{fee} {currency}</p>
+            <p className="font-[900] text-[15px]">{parseInt(amount) + fee} {currency}</p>
           </div>
         </div>
         <div className="flex justify-between items-start">

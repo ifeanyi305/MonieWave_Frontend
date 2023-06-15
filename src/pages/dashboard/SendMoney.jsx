@@ -42,7 +42,7 @@ const SendMoney = ({
       reference_number: reference_number.toString(),
       currency,
       exchange_rate, recipient_name, recipient_bank,
-      payment_method
+      payment_method, fee: fee.toString(),
     }
     const transferData = {
       transferDetails, token
@@ -91,6 +91,7 @@ const SendMoney = ({
           reference_number={reference_number}
           amount={amount}
           fee={fee}
+          currency={currency}
         />
       case 3:
         return <MoneySent
