@@ -9,6 +9,7 @@ import showUserDetailsReducer from './users/userDetails';
 import updateTransferReducer from './moneyTransfer/updateTransfer';
 import showTransferReducer from './moneyTransfer/showTransfer';
 import superUserReducer from './superUser/superUser';
+import deleteUserReducer from './superUser/deleteUser';
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     showTransfer: showTransferReducer,
     userDetails: showUserDetailsReducer,
     superUser: superUserReducer,
+    terminateUser: deleteUserReducer,
   }
 })
 

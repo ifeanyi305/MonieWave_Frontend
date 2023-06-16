@@ -188,11 +188,11 @@ const Users = () => {
               className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"
             >
               {
-              coming ? 'Creating user...' :
-               error ? 'An error has occurred, try refreshing' :
-               success ? 'User created successfully' :
-               'Create user'
-               }
+                coming ? 'Creating user...' :
+                  error ? 'An error has occurred, try refreshing' :
+                    success ? 'User created successfully' :
+                      'Create user'
+              }
             </button>
           </form>
         </div>
@@ -213,7 +213,13 @@ const Users = () => {
         </div>
         <div className="flex items-center justify-between py-4">
           <p><b className="font-[600] text-[24px] text-[#212121]">Customers</b></p>
-          <button type="button" onClick={handleUserModal}>Add user</button>
+          <button
+            className="py-2 px-6 login_btn border-[#814DE5] border-[1px] bg-transparent text-[#000] text-center"
+            type="button"
+            onClick={handleUserModal}
+          >
+            <span className="text-[17px]">+</span> Add user
+          </button>
         </div>
         <div className="select-wrapper max-elements">
           <label className="block font-extrabold text-[20px]" htmlFor="max-elements">Entries per page:</label>
