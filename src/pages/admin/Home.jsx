@@ -19,6 +19,7 @@ const Home = () => {
   const reversedTransfer = transfers?.slice().reverse();
   const { successful, pending, failed } = useSelector((state) => state.users);
   const allUsers = successful?.successful?.users;
+  const reversedUsers = allUsers?.slice().reverse();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -126,7 +127,7 @@ const Home = () => {
             <tbody>
               {
                 loading ? (<>loading transfer details...</>)
-                  // : error ? (<>error details</>)
+                  : error ? (<>error details</>)
                     : transfers ? (
                       reversedTransfer.slice(0, 7).map((transfer) => (
                         <tr key={transfer.id}>
@@ -163,8 +164,8 @@ const Home = () => {
             pending ? (<>fetching users...</>)
               : failed ? (<>an error occured while fetching users</>)
                 : allUsers ? (
-                  allUsers.map((user) => (
-                    <div key={user.id} className=" w-full flex user_container gap-4 justify-between items-center p-4 bg-[#fff] border-[1px] border-[#E6E6E6] rounded-[24px]">
+                  reversedUsers.slice(0, 10).map((user) => (
+                    <div key={user.id} className=" w-full flex flex-wrap user_container gap-4 justify-between items-center p-4 bg-[#fff] border-[1px] border-[#E6E6E6] rounded-[24px]">
                       <div>
                         <p className="text-[16px] text-[#212121] font-[600]">{user.first_name} {user.last_name}</p>
                         <small className="text-[#6B6B6B] text-[12px]">{user.email}</small>

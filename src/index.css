@@ -8,6 +8,11 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.create_user_container::-webkit-scrollbar {
+  height: 5px;
+  width: 1px;
+}
+
 .heading_text {
   font-family: 'Rebond Grotesque', sans-serif;
 }
@@ -103,6 +108,11 @@
 
 .tranfers {
   overflow-x: auto;
+}
+
+.create_user_container {
+  overflow-y: auto;
+  z-index: 1000;
 }
 
 .button {

@@ -8,6 +8,7 @@ import getUsersReducer from './users/users';
 import showUserDetailsReducer from './users/userDetails';
 import updateTransferReducer from './moneyTransfer/updateTransfer';
 import showTransferReducer from './moneyTransfer/showTransfer';
+import superUserReducer from './superUser/superUser';
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     updateTransfer: updateTransferReducer,
     showTransfer: showTransferReducer,
     userDetails: showUserDetailsReducer,
+    superUser: superUserReducer,
   }
 })
 

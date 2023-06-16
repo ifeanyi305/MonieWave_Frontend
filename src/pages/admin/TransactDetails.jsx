@@ -123,12 +123,12 @@ const TransactDetails = () => {
               <small className="text-[#212121] text-[16px]">{transfer?.reference_number}</small>
             </div>
           </div>
-          {/* <div className="">
+          <div className="">
             <div className="flex pb-4 gap-4 items-center">
               <p className="text-[16px] text-[#909090] font-[600]">Fee:</p>
-              <small className="text-[#212121] text-[16px]">{transfer?.fee}</small>
+              <small className="text-[#212121] text-[16px]">{transfer?.fee} {transfer?.currency}</small>
             </div>
-          </div> */}
+          </div>
           <div className="">
             <div className="flex pb-4 gap-4 items-center">
               <p className="text-[16px] text-[#909090] font-[600]">Exchange rate:</p>

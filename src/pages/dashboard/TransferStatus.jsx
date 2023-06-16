@@ -60,6 +60,10 @@ const TransferStatus = () => {
       detail: <p>{transfer?.exchange_rate} {transfer?.currency}</p>,
     },
     {
+      title: "Fee",
+      detail: <p>{transfer?.fee} {transfer?.currency}</p>,
+    },
+    {
       title: "Recipient Name",
       detail: transfer?.recipient_name,
     },
@@ -72,7 +76,7 @@ const TransferStatus = () => {
       detail: transfer?.recipient_bank,
     },
     {
-      title: "Recipient Number",
+      title: "Reference code",
       detail: transfer?.reference_number,
     },
   ];

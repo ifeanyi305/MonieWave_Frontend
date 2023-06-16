@@ -160,6 +160,10 @@ const UsersLists = () => {
                           <small className="text-[#212121] text-[16px]">{transfer.recipient_phone}</small>
                         </div>
                         <div className="flex pb-4 gap-4 items-center">
+                          <p className="text-[16px] text-[#909090] font-[600]">Fee:</p>
+                          <small className="text-[#212121] text-[16px]">{transfer.fee}</small>
+                        </div>
+                        <div className="flex pb-4 gap-4 items-center">
                           <p className="text-[16px] text-[#909090] font-[600]">Status:</p>
                           <small className="text-[#212121] text-[16px]">{transfer.status}</small>
                         </div>

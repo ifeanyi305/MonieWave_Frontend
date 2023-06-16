@@ -116,7 +116,7 @@ export const verifyOtp = createAsyncThunk(
 
 export const signup = createAsyncThunk(
   SIGN_UP,
-  async (payload, { rejectWithValue, dispatch }) => {
+  async (payload, { rejectWithValue }) => {
     const response = await fetch(SIGN_UP_URL, {
       method: 'POST',
       headers: {
