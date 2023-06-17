@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { deleteUser } from '../../redux/superUser/deleteUser';
 import { updateUserStatus } from '../../redux/superUser/updateUserStatus';
+import { updateUserRole } from '../../redux/superUser/updateUserRole';
 import { useNavigate } from 'react-router-dom';
 
 const UsersLists = () => {
@@ -14,8 +15,10 @@ const UsersLists = () => {
   const [searchBeneficiary, setSearchBeneficiary] = useState('');
   const [action, setAction] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [userStatus, setUserStatus] = useState('Active');
+  const [userStatus, setUserStatus] = useState('');
+  const [userRole, setUserRole] = useState('');
   const { updated, updating, canceled } = useSelector((state) => state.userStatus);
+  const { modified, modifying, terminated } = useSelector((state) => state.userRole);
   const user = progress?.user;
   const userTransfers = progress?.transfers;
   const userBeneficiaries = progress?.beneficiaries;
@@ -78,6 +81,31 @@ const UsersLists = () => {
     }
   };
 
+  useEffect(() => {
+    if (updated) {
+      navigate('/users')
+    }
+  }, [updated])
+
+  const handleUserRoleUpdate = () => {
+    if (userRole !== '') {
+      dispatch(
+        updateUserRole({
+          user: {
+            id: user?.id,
+            role: userRole,
+          },
+        })
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (modified) {
+      navigate('/users')
+    }
+  }, [modified])
+
   const formatTime = (timestamp) => {
     const formattedTime = new Date(timestamp).toLocaleTimeString([], {
       hour: "numeric",
@@ -137,7 +165,7 @@ const UsersLists = () => {
                   <div className="my-[4%]">
                     <h1 className="text-[40px] text-[#464646]">{user?.first_name}&apos;s details: <span className="text-[#966BE9]">{user?.first_name} {user?.last_name}</span></h1>
                   </div>
-                  <div className="flex flex-wrap gap-2 mb-2 justify-between items-center w-full p-4 bg-[#fff] border-[1px] border-[#E6E6E6] rounded-[24px]">
+                  <div className="flex flex-wrap gap-4 mb-2 justify-between items-center w-full p-4 bg-[#fff] border-[1px] border-[#E6E6E6] rounded-[24px]">
                     <div>
                       <p className="text-[16px] text-[#909090] font-[600]">Transaction Completed</p>
                       <small className="text-[#212121] text-[16px]">{userTransfers?.length}</small>
@@ -152,8 +180,21 @@ const UsersLists = () => {
                         value={userStatus}
                         onChange={(e) => setUserStatus(e.target.value)}
                       >
+                        <option value="">select status</option>
                         <option value="Active">Active</option>
                         <option value="Disabled">Suspend</option>
+                      </select>
+                    </div>
+                    <div>
+                      <p className="text-[16px] text-[#909090] font-[600]">Update user role</p>
+                      <select
+                        value={userRole}
+                        onChange={(e) => setUserRole(e.target.value)}
+                      >
+                        <option value="">select role</option>
+                        <option value="admin">admin</option>
+                        <option value="customer">customer</option>
+                        <option value="support">support</option>
                       </select>
                     </div>
                     <div>
@@ -346,7 +387,7 @@ const UsersLists = () => {
         </div>
         <p className="text-[15px] text-[#909090] font-[600]">{transferStatus}</p>
         <p className="text-[15px] text-[#909090] font-[600]">{beneficiaryStatus}</p>
-        <div className="md:w-[40%] m-auto">
+        <div className="md:w-[40%] m-auto flex flex-wrap gap-4 items-center">
           <button
             onClick={() => handleUserStatusUpdate()}
             type="submit"
@@ -354,6 +395,15 @@ const UsersLists = () => {
           >
             {
               updating ? 'updating...' : updated ? 'status updated' : canceled ? 'status update failed' : 'Update user status'
+            }
+          </button>
+          <button
+            onClick={() => handleUserRoleUpdate()}
+            type="submit"
+            className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"
+          >
+            {
+              modifying ? 'updating...' : modified ? 'Role updated' : terminated ? 'Role update failed' : 'Update user role'
             }
           </button>
         </div>

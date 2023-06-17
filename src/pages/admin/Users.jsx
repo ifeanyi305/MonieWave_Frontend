@@ -15,6 +15,7 @@ const Users = () => {
   const { progress, loading } = useSelector((state) => state.userDetails);
   const { success, coming, error } = useSelector((state) => state.superUser);
   const allUsers = successful?.successful?.users;
+  const reversedUsers = allUsers?.slice().reverse();
   const [showButtonArray, setShowButtonArray] = useState(Array(allUsers?.length).fill(false));
   const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch();
@@ -252,7 +253,7 @@ const Users = () => {
                 pending ? (<>fetching users</>)
                   : failed ? (<>an error occured while fetching users</>)
                     : allUsers ? (
-                      allUsers.slice(entries.indexOfFirst, entries.indexOfLast).filter((user) =>
+                      reversedUsers.slice(entries.indexOfFirst, entries.indexOfLast).filter((user) =>
                         user.first_name.toLowerCase().includes(searchQuery.toLowerCase())
                       ).map((user, index) => (
                         <tr key={index}>
