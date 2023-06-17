@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { deleteUser } from '../../redux/superUser/deleteUser';
+import { updateUserStatus } from '../../redux/superUser/updateUserStatus';
 import { useNavigate } from 'react-router-dom';
 
 const UsersLists = () => {
@@ -13,7 +14,8 @@ const UsersLists = () => {
   const [searchBeneficiary, setSearchBeneficiary] = useState('');
   const [action, setAction] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [suspendModal, setSuspendModal] = useState(false);
+  const [userStatus, setUserStatus] = useState('Active');
+  const { updated, updating, canceled } = useSelector((state) => state.userStatus);
   const user = progress?.user;
   const userTransfers = progress?.transfers;
   const userBeneficiaries = progress?.beneficiaries;
@@ -48,15 +50,8 @@ const UsersLists = () => {
     setDeleteModal(!deleteModal);
   }
 
-  const handleSuspendModal = () => {
-    setSuspendModal(!suspendModal);
-  }
-
   const removeUser = (id) => {
     dispatch(deleteUser(id))
-    if (success) {
-      navigate('/users')
-    }
   }
 
   useEffect(() => {
@@ -69,6 +64,19 @@ const UsersLists = () => {
     transferEmpty();
     beneficiaryEmpty();
   }, [userTransfers]);
+
+  const handleUserStatusUpdate = () => {
+    if (userStatus !== '') {
+      dispatch(
+        updateUserStatus({
+          user: {
+            id: user?.id,
+            status: userStatus,
+          },
+        })
+      );
+    }
+  };
 
   const formatTime = (timestamp) => {
     const formattedTime = new Date(timestamp).toLocaleTimeString([], {
@@ -110,26 +118,13 @@ const UsersLists = () => {
               className="bg-[#C50713] text-[#fff] py-[2px] px-4 rounded-[7px]"
               type="button"
               onClick={() => removeUser(user?.id)}
-              >{
+            >{
                 pending ? 'deleting...' :
-                error ? 'failed' :
-                success ? 'User deleted' :
-                'Yes'
+                  error ? 'failed' :
+                    success ? 'User deleted' :
+                      'Yes'
               }
-              </button>
-          </div>
-        </div>
-      </div>
-      <div className={!suspendModal ? 'hidden' : 'block w-full h-full p-6 fixed top-0 bg-[#000000ca]'}>
-        <div className='bg-[#fff] rounded-[24px] recipientModal md:w-[40%] p-6 absolute top-[40%] md:left-[20%]'>
-          <p className="text-center">Are you sure you want to suspend this user?</p>
-          <div className="flex justify-center gap-4 items-center">
-            <button
-              className="bg-[#37A13C] text-[#fff] py-[2px] px-4 rounded-[7px]"
-              type="button" onClick={() => handleSuspendModal()}>No</button>
-            <button
-              className="bg-[#C50713] text-[#fff] py-[2px] px-4 rounded-[7px]"
-              type="button">Yes</button>
+            </button>
           </div>
         </div>
       </div>
@@ -153,7 +148,13 @@ const UsersLists = () => {
                     </div>
                     <div>
                       <p className="text-[16px] text-[#909090] font-[600]">Active status</p>
-                      <small className="text-[#212121] text-[16px]">{user?.status}</small>
+                      <select
+                        value={userStatus}
+                        onChange={(e) => setUserStatus(e.target.value)}
+                      >
+                        <option value="Active">Active</option>
+                        <option value="Disabled">Suspend</option>
+                      </select>
                     </div>
                     <div>
                       <p className="text-[16px] text-[#909090] font-[600]">Action</p>
@@ -345,6 +346,17 @@ const UsersLists = () => {
         </div>
         <p className="text-[15px] text-[#909090] font-[600]">{transferStatus}</p>
         <p className="text-[15px] text-[#909090] font-[600]">{beneficiaryStatus}</p>
+        <div className="md:w-[40%] m-auto">
+          <button
+            onClick={() => handleUserStatusUpdate()}
+            type="submit"
+            className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"
+          >
+            {
+              updating ? 'updating...' : updated ? 'status updated' : canceled ? 'status update failed' : 'Update user status'
+            }
+          </button>
+        </div>
       </div>
     </div>
   );

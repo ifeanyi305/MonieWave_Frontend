@@ -10,6 +10,7 @@ import updateTransferReducer from './moneyTransfer/updateTransfer';
 import showTransferReducer from './moneyTransfer/showTransfer';
 import superUserReducer from './superUser/superUser';
 import deleteUserReducer from './superUser/deleteUser';
+import UpdateUserStatusReducer from './superUser/updateUserStatus';
 
 const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
     userDetails: showUserDetailsReducer,
     superUser: superUserReducer,
     terminateUser: deleteUserReducer,
+    userStatus: UpdateUserStatusReducer,
   }
 })
 
