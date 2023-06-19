@@ -39,16 +39,16 @@ function App() {
   const { progress, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log("successful", progress);
-  console.log("pending", loading);
+  // console.log("successful", progress);
+  // console.log("pending", loading);
 
   const handleSidebar = () => {
     setSidebar(!sidebar);
   };
 
-  useEffect(() => {
-    dispatch(signin());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(signin());
+  // }, [dispatch]);
 
   // useEffect(() => {
   //   if (allUsers?.status == "Disabled") {

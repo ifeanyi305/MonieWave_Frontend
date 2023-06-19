@@ -13,25 +13,29 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
-  const { progress, loading } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const submit = (e) => {
     e.preventDefault();
     const user = {
-      email,
-      password,
+      user: {
+        email,
+        password,
+      }
     }
-    dispatch(signin(user))
-      if (progress) {
+    dispatch(signin(user)).then((res) => {
+      if (res.error) {
+        flash('error', res.payload);
+        setLoginError(true);
+      } else {
         dispatch(resetStateAndKeepFlash());
         flash('success', 'Account logged in successfully');
         navigate('/');
-      } else {
-        flash('error', 'Invalid credentials ');
-        setLoginError(true);
       }
+    })
   }
 
   return (

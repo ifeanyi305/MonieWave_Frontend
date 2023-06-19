@@ -70,7 +70,7 @@ const Redirect = () => {
         </div>
       </div>
       <div>
-        <p>Today's exchange rates</p>
+        {/* <p>Today's exchange rates</p> */}
         {/* <div ref={euroRef}>
         </div> */}
       </div>

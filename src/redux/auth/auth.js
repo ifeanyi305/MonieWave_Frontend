@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const SIGN_IN = 'auth/sign_in';
 const SIGN_UP = 'auth/sign_up';
@@ -18,11 +19,6 @@ const initialState = {
   role: '',
 };
 
-export const setUserRole = (role) => ({
-  type: SET_USER_ROLE,
-  payload: role,
-});
-
 const setToken = (token) => {
   localStorage.setItem('user', JSON.stringify({ token }));
 }
@@ -39,34 +35,27 @@ export const resetStateAndKeepFlash = () => ({
 
 export const signin = createAsyncThunk(
   SIGN_IN,
-  async (payload, { rejectWithValue, dispatch }) => {
-    const response = await fetch(SIGN_IN_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ user: payload }),
-    });
+  async (user, { rejectWithValue }) => {
+    try {
+      const data = await axios.post(SIGN_IN_URL, user, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
 
-    if (!response.ok) {
-      return rejectWithValue({
-        // success: response.ok,
-        errors: ['Invalid Credentials'],
-      })
+      const userDetails = {
+        token: data.data.data.meta.token,
+        role: data.data.data.attributes.role,
+        username: data.data.data.attributes.first_name,
+      };
+
+      localStorage.setItem('user', JSON.stringify(userDetails));
+      setToken(userDetails);
+      return { progress: data.status };
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
     }
-
-    const data = await response.json();
-    const role = data.data.attributes.role;
-    const userDetails = {
-      token: data.data.meta.token,
-      role: data.data.attributes.role,
-      username: data.data.attributes.first_name
-    }
-
-    dispatch(setUserRole(role));
-    localStorage.setItem('user', JSON.stringify(userDetails));
-    setToken(userDetails);
-    return { success: response.ok, ...data };
   },
 );
 
@@ -157,16 +146,17 @@ export default (state = initialState, action) => {
   switch (action.type) {
     // SIGN IN
     case `${SIGN_IN}/pending`:
-      return { progress: null, loading: true };
+      return { progress: false, loading: true, errors: false };
     case `${SIGN_IN}/fulfilled`:
       return {
-        progress: true,
+        progress: action.payload,
         loading: false,
-        message: action.payload.message,
-        user: action.payload.resource,
+        // message: action.payload.message,
+        // user: action.payload.resource,
+        errors: false,
       }
     case `${SIGN_IN}/rejected`:
-      return { progress: false, loading: false, errors: action.payload?.errors };
+      return { progress: false, loading: false, errors: true, };
     // SIGN OUT
     case `${SIGN_OUT}/pending`:
       return { success: null };
@@ -235,11 +225,6 @@ export default (state = initialState, action) => {
         loading: false,
         errors: action.payload.errors
       }
-    case SET_USER_ROLE:
-      return {
-        ...state,
-        role: action.payload,
-      };
     default:
       return state;
   }
