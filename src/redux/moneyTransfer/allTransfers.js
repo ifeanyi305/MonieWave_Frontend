@@ -44,7 +44,6 @@ export default (state = initialState, action) => {
         ...state,
         success: action.payload,
         loading: false,
-        message: action.payload.message,
         error: false
       }
     case `${GETAllTRANSFERS}/rejected`:

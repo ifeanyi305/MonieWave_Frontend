@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { usePagination, Pagination } from "pagination-react-js";
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BsArrowUpLeft } from 'react-icons/bs';
@@ -13,7 +13,10 @@ const UsersTransaction = () => {
   const { success, loading, error } = useSelector((state) => state.getAllTransfers);
   const { progress, pending } = useSelector((state) => state.showTransfer);
   const transfers = success?.success?.transfers;
-  const reversedTransfer = transfers?.slice().reverse();
+  const reversedTransfer = useMemo(() => {
+    return transfers?.slice().reverse();
+  }, [transfers]);
+  const [selectedPage, setSelectedPage] = useState([]);
   const [showButtonArray, setShowButtonArray] = useState(Array(transfers?.length).fill(false));
   const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch();
@@ -24,8 +27,23 @@ const UsersTransaction = () => {
     dispatch(fetchAllTransfers());
   }, [dispatch]);
 
+  useEffect(() => {
+    setSelectedPage(reversedTransfer || []);
+  }, [reversedTransfer]);
+
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  const handleSelectStatus = (e) => {
+    if (e.target.value === "all") {
+      return setSelectedPage(reversedTransfer)
+    }
+    const status = e.target.value;
+    const pageSelected = reversedTransfer?.filter(
+      (page) => page.status === status,
+    );
+    setSelectedPage(pageSelected);
   };
 
   const viewButton = (index) => {
@@ -73,7 +91,18 @@ const UsersTransaction = () => {
         </div>
       </div>
       <div className="flex items-center justify-between py-4">
-        <p><b className="font-[600] text-[24px] text-[#212121]">Pending</b></p>
+        <select
+          name="page"
+          id="page"
+          className="bg-[#F9F6FE] text-[#814DE5] text-[20px] border-[#D5C4F6] border-[1px] rounded-[16px] p-[16px] cursor-pointer"
+          onChange={handleSelectStatus}
+        >
+          <option value="all">All</option>
+          <option value="Pending">pending</option>
+          <option value="Processing">Processing</option>
+          <option value="Completed">Completed</option>
+          <option value="Rejected">Rejected</option>
+        </select>
       </div>
       <div className="py-4">
         <div className="select-wrapper max-elements">
@@ -87,7 +116,7 @@ const UsersTransaction = () => {
             <option value={30}>30</option>
             <option value={50}>50</option>
             <option value={100}>100</option>
-            <option value={transfers?.length}>All</option>
+            <option value={selectedPage?.length}>All</option>
           </select>
         </div>
         <p className="text-end py-4">Showing {`${entries.indexOfFirst + 1}-${entries.indexOfLast} of ${transfers?.length}`}</p>
@@ -107,9 +136,9 @@ const UsersTransaction = () => {
                 loading ? (<>loading transaction details...</>)
                   : error ? (<>error details</>)
                     : transfers ? (
-                      reversedTransfer.slice(entries.indexOfFirst, entries.indexOfLast).filter((transfer) =>
-                      transfer.first_name.toLowerCase().includes(searchQuery.toLowerCase())
-                    ).map((transfer, index) => (
+                      selectedPage.slice(entries.indexOfFirst, entries.indexOfLast).filter((transfer) =>
+                        transfer.first_name.toLowerCase().includes(searchQuery.toLowerCase())
+                      ).map((transfer, index) => (
                         <tr key={transfer.id}>
                           <td className="text-center text-[12px] py-4">{transfer.first_name}</td>
                           <td className="text-center text-[12px]">{formatDate(transfer.created_at)}</td>

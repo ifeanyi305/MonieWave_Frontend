@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { usePagination, Pagination } from "pagination-react-js";
 import { useSelector, useDispatch } from 'react-redux';
 import { BsArrowUpLeft } from 'react-icons/bs';
@@ -15,12 +15,30 @@ const Users = () => {
   const { progress, loading } = useSelector((state) => state.userDetails);
   const { success, coming, error } = useSelector((state) => state.superUser);
   const allUsers = successful?.successful?.users;
-  const reversedUsers = allUsers?.slice().reverse();
+  const reversedUsers = useMemo(() => {
+    return allUsers?.slice().reverse();
+  }, [allUsers]);
+  const [selectedPage, setSelectedPage] = useState([]);
   const [showButtonArray, setShowButtonArray] = useState(Array(allUsers?.length).fill(false));
   const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentPage, entriesPerPage, entries } = usePagination(1, 10);
+
+  useEffect(() => {
+    setSelectedPage(reversedUsers || []);
+  }, [reversedUsers]);
+
+  const handleSelectStatus = (e) => {
+    if (e.target.value === "all") {
+      return setSelectedPage(reversedUsers)
+    }
+    const status = e.target.value;
+    const pageSelected = reversedUsers?.filter(
+      (page) => page.role === status,
+    );
+    setSelectedPage(pageSelected);
+  };
 
   // Create super user
   const [first_name, setFirstname] = useState('');
@@ -213,7 +231,17 @@ const Users = () => {
           </div>
         </div>
         <div className="flex items-center justify-between py-4">
-          <p><b className="font-[600] text-[24px] text-[#212121]">Customers</b></p>
+          <select
+            name="page"
+            id="page"
+            className="bg-[#F9F6FE] text-[#814DE5] text-[20px] border-[#D5C4F6] border-[1px] rounded-[16px] p-[16px] cursor-pointer"
+            onChange={handleSelectStatus}
+          >
+            <option value="all">All</option>
+            <option value="admin">Admin</option>
+            <option value="customer">Customer</option>
+            <option value="support">Support</option>
+          </select>
           <button
             className="py-2 px-6 login_btn border-[#814DE5] border-[1px] bg-transparent text-[#000] text-center"
             type="button"
@@ -253,7 +281,7 @@ const Users = () => {
                 pending ? (<>fetching users</>)
                   : failed ? (<>an error occured while fetching users</>)
                     : allUsers ? (
-                      reversedUsers.slice(entries.indexOfFirst, entries.indexOfLast).filter((user) =>
+                      selectedPage.slice(entries.indexOfFirst, entries.indexOfLast).filter((user) =>
                         user.first_name.toLowerCase().includes(searchQuery.toLowerCase())
                       ).map((user, index) => (
                         <tr key={index}>
