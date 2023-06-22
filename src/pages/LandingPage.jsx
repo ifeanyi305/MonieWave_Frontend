@@ -45,8 +45,8 @@ const LandingPage = () => {
 
   return (
     <>
+      <Navbar />
       <div className="px-14">
-        <Navbar />
         {
           screenWidth > breakpoint ? (
             <div>

@@ -1,6 +1,5 @@
 import { ToastContainer } from 'react-toastify';
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import LandingPage from './pages/LandingPage';
@@ -15,7 +14,6 @@ import SendMoney from './pages/dashboard/SendMoney';
 import Recipients from './pages/dashboard/Recipients';
 import Transactions from './pages/dashboard/Transactions';
 import TransferStatus from './pages/dashboard/TransferStatus';
-import { getToken } from './redux/auth/auth';
 import AdminRoutes from './pages/ProtectedRoute/AdminRoutes';
 import CustomerRoute from './pages/ProtectedRoute/CustomerRoute';
 import PublicRoutes from './pages/ProtectedRoute/PublicRoutes';
@@ -25,9 +23,6 @@ import TransactDetails from './pages/admin/TransactDetails';
 import UsersLists from './pages/admin/UsersLists';
 import Home from './pages/admin/Home';
 import ContactUs from './pages/ContactUs';
-import { signin } from './redux/auth/auth';
-import { signout } from './redux/auth/auth';
-import { useNavigate } from 'react-router-dom';
 
 function App() {
   const [sidebar, setSidebar] = useState(false);
@@ -36,26 +31,10 @@ function App() {
   const [recipient_bank, setRecipient_bank] = useState('');
   const [recipient_phone, setRecipient_phone] = useState('');
   const [role, setRole] = useState('customer');
-  const { progress, loading } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  // console.log("successful", progress);
-  // console.log("pending", loading);
 
   const handleSidebar = () => {
     setSidebar(!sidebar);
   };
-
-  // useEffect(() => {
-  //   dispatch(signin());
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (allUsers?.status == "Disabled") {
-  //     dispatch(signout());
-  //     navigate('/login');
-  //   }
-  // }, [allUsers, dispatch, navigate]);
 
   return (
     <div className="dark:bg-[#000] App">
