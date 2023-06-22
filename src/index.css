@@ -8,6 +8,11 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.create_user_container {
+  overflow-y: auto;
+  z-index: 1000;
+}
+
 .create_user_container::-webkit-scrollbar {
   height: 5px;
   width: 1px;
@@ -18,7 +23,7 @@
 }
 
 .admin {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 
 .navbar {
@@ -71,13 +76,14 @@
 
 .pagination-item-active {
   color: #fff;
-  background-color: #814DE5;
+  background-color: #814de5;
   border-radius: 4px;
-  padding: 0px 8px;
+  padding: 0 8px;
 }
 
 @media screen and (min-width: 768px) {
-  .sidebar, .landing_page_navbar_con {
+  .sidebar,
+  .landing_page_navbar_con {
     display: block;
   }
 }
@@ -127,7 +133,8 @@
     flex-direction: column;
   }
 
-  .landing_page_nav_list, .auth_button_con {
+  .landing_page_nav_list,
+  .auth_button_con {
     display: flex;
     flex-direction: column;
   }
@@ -152,11 +159,6 @@
 
 .tranfers {
   overflow-x: auto;
-}
-
-.create_user_container {
-  overflow-y: auto;
-  z-index: 1000;
 }
 
 .button {
@@ -197,10 +199,10 @@
   transition: transform 0.2s ease;
 }
 
-.toggle input[type="checkbox"]:checked+label {
+.toggle input[type="checkbox"]:checked + label {
   background-color: #2196f3;
 }
 
-.toggle input[type="checkbox"]:checked+label::before {
+.toggle input[type="checkbox"]:checked + label::before {
   transform: translateX(20px);
 }

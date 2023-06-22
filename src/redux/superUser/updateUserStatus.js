@@ -50,6 +50,6 @@ export default (state = initialState, action) => {
         canceled: true
       }
     default:
-      return {...state, updated: false, canceled: false, canceled: false};
+      return {...state, updated: false, updating: false, canceled: false};
   }
 }

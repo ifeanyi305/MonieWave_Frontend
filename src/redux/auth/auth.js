@@ -6,7 +6,6 @@ const SIGN_UP = 'auth/sign_up';
 const SIGN_OUT = 'auth/sign_out';
 const RESET_PASSWORD = 'auth/reset_password';
 const VERIFY_OTP = 'auth/verify_otp';
-const SET_USER_ROLE = 'auth/setUserRole';
 const CLEAN_FLASH = 'auth/clean_flash';
 const RESET_STATE_AND_KEEP_FLASH = 'auth/reset_state_and_keep_flash';
 
