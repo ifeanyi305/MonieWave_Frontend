@@ -11,7 +11,7 @@ const UserNameAndEmail = (
     <div>
       <form onSubmit={submit}>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label className="block" htmlFor="_username">Firstname</label>
+        <label className="block" htmlFor="_username">Firstname <span className="text-[#C50713] text-[17px]">*</span></label>
         <input
           type="text"
           id="firstname"
@@ -22,7 +22,7 @@ const UserNameAndEmail = (
           onChange={(e) => setFirstname(e.target.value)}
         />
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label className="block" htmlFor="_username">Lastname</label>
+        <label className="block" htmlFor="_username">Lastname <span className="text-[#C50713] text-[17px]">*</span></label>
         <input
           type="text"
           id="lastname"

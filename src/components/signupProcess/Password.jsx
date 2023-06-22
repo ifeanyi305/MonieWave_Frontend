@@ -6,7 +6,7 @@ const Password = ({ password, submit, setPassword, confirmPassword, setConfirmPa
     <div>
       <form onSubmit={submit}>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label className="block" htmlFor="password">Password</label>
+        <label className="block" htmlFor="password">Password <span className="text-[#C50713] text-[17px]">*</span></label>
         <input
           type="password"
           id="password"
@@ -17,7 +17,7 @@ const Password = ({ password, submit, setPassword, confirmPassword, setConfirmPa
           onChange={(e) => setPassword(e.target.value)}
         />
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label className="block" htmlFor="confirm_password">Confirm your Password</label>
+        <label className="block" htmlFor="confirm_password">Confirm your Password <span className="text-[#C50713] text-[17px]">*</span></label>
         <input
           type="password"
           id="confirmPassword"

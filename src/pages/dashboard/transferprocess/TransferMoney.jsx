@@ -14,6 +14,10 @@ const TransferMoney = ({
   const [loadingRates, setloadingRates] = useState(true);
   const [error, setError] = useState('');
 
+  const validateForm = () => {
+    return  amount.length !== 0 && naira_amount.length !== 0;
+  };
+
   const fetchRates = async () => {
     try {
       const response = await axios.get('http://127.0.0.1:3000/api/v1/rate/latest_all');
@@ -122,7 +126,7 @@ const TransferMoney = ({
       </div>
       <div className="py-6 md:w-[45%]">
         <div>
-          <label className="block">you send</label>
+          <label className="block">you send <span className="text-[#C50713] text-[17px]">*</span></label>
           <div className="flex gap-[2px] border-[#6B6B6B] rounded-[8px] pl-[5px] border-[1px] items-center">
             <input
               type="number"
@@ -144,7 +148,7 @@ const TransferMoney = ({
           <img src={exchange} className="m-auto" alt="exchange" />
         </div>
         <div>
-          <label className="block">Osadebanem Ralph recieves exactly</label>
+          <label className="block">Osadebanem Ralph recieves exactly <span className="text-[#C50713] text-[17px]">*</span></label>
           {loadingRates ? (
             <input
               type="text"
@@ -169,7 +173,10 @@ const TransferMoney = ({
         </div>
         <button
           type="button"
-          className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"
+          disabled={!validateForm()}
+          className={validateForm() ?
+            'p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center'
+            : 'p-2 mt-[27px] opacity-40 mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center'}
           onClick={() => setNumber(1)}>
           Continue
         </button>

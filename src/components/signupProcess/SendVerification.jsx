@@ -10,7 +10,7 @@ const SendVerification = ({ email, setEmail, sendVerication }) => {
     <div>
       <form onSubmit={sendVerication}>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label className="block" htmlFor="email">Email</label>
+        <label className="block" htmlFor="email">Email <span className="text-[#C50713] text-[17px]">*</span></label>
         <input
           type="email"
           id="email"

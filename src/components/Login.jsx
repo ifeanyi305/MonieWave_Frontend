@@ -13,25 +13,29 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
-  const { progress, loading } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const submit = (e) => {
     e.preventDefault();
     const user = {
-      email,
-      password,
+      user: {
+        email,
+        password,
+      }
     }
-    dispatch(signin(user))
-      if (progress) {
+    dispatch(signin(user)).then((res) => {
+      if (res.error) {
+        flash('error', res.payload);
+        setLoginError(true);
+      } else {
         dispatch(resetStateAndKeepFlash());
         flash('success', 'Account logged in successfully');
         navigate('/');
-      } else {
-        flash('error', 'Invalid credentials ');
-        setLoginError(true);
       }
+    })
   }
 
   return (
@@ -63,7 +67,7 @@ const Login = () => {
             <div>
               <form onSubmit={submit}>
                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                <label className="block" htmlFor="email">Your email address</label>
+                <label className="block" htmlFor="email">Your email address <span className="text-[#C50713] text-[17px]">*</span></label>
                 <input
                   type="text"
                   id="email"
@@ -74,7 +78,7 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                <label className="block" htmlFor="password">Password</label>
+                <label className="block" htmlFor="password">Password <span className="text-[#C50713] text-[17px]">*</span></label>
                 <input
                   type="password"
                   id="password"

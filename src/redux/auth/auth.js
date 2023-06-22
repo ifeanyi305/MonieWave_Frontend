@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const SIGN_IN = 'auth/sign_in';
 const SIGN_UP = 'auth/sign_up';
@@ -13,7 +14,9 @@ const SIGN_UP_URL = `http://127.0.0.1:3000/api/v1/users`;
 const RESET_PASSWORD_URL = `http://127.0.0.1:3000/api/v1/password/reset`;
 const VERIFY_OTP_URL = `http://127.0.0.1:3000/api/v1/otp/verify_otp`;
 
-const initialState = [];
+const initialState = {
+  role: '',
+};
 
 const setToken = (token) => {
   localStorage.setItem('user', JSON.stringify({ token }));
@@ -31,28 +34,29 @@ export const resetStateAndKeepFlash = () => ({
 
 export const signin = createAsyncThunk(
   SIGN_IN,
-  async (payload, { rejectWithValue }) => {
-    const response = await fetch(SIGN_IN_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ user: payload }),
-    });
+  async (user, { rejectWithValue }) => {
+    try {
+      const data = await axios.post(SIGN_IN_URL, user, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
 
-    if (!response.ok) {
-      return rejectWithValue({
-        success: response.ok,
-        errors: ['Invalid Credentials'],
-      })
+      const userDetails = {
+        token: data.data.data.meta.token,
+        role: data.data.data.attributes.role,
+        username: data.data.data.attributes.first_name,
+      };
+
+      localStorage.setItem('user', JSON.stringify(userDetails));
+      setToken(userDetails);
+      return { progress: data.status };
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
     }
-
-    const data = await response.json();
-    localStorage.setItem('user', data.data.meta.token);
-    setToken(data.data.meta.token);
-    return { success: response.ok, ...data };
   },
-)
+);
 
 export const resetPassword = createAsyncThunk(
   RESET_PASSWORD,
@@ -117,8 +121,13 @@ export const signup = createAsyncThunk(
     }
 
     const data = await response.json();
-    localStorage.setItem('user', data.data.meta.token);
-    setToken(data.data.meta.token);
+    const userDetails = {
+      token: data.data.meta.token,
+      role: data.data.attributes.role,
+      username: data.data.attributes.first_name
+    }
+    localStorage.setItem('user', JSON.stringify(userDetails));
+    setToken(userDetails);
     return { success: response.ok, ...data };
   },
 )
@@ -136,16 +145,17 @@ export default (state = initialState, action) => {
   switch (action.type) {
     // SIGN IN
     case `${SIGN_IN}/pending`:
-      return { progress: null, loading: true };
+      return { progress: false, loading: true, errors: false };
     case `${SIGN_IN}/fulfilled`:
       return {
-        progress: true,
+        progress: action.payload,
         loading: false,
-        message: action.payload.message,
-        user: action.payload.resource,
+        // message: action.payload.message,
+        // user: action.payload.resource,
+        errors: false,
       }
     case `${SIGN_IN}/rejected`:
-      return { progress: false, loading: false, errors: action.payload?.errors };
+      return { progress: false, loading: false, errors: true, };
     // SIGN OUT
     case `${SIGN_OUT}/pending`:
       return { success: null };
@@ -178,8 +188,6 @@ export default (state = initialState, action) => {
     // RESET_STATE_AND_KEEP_FLASH
     case RESET_STATE_AND_KEEP_FLASH:
       return { ...state, loading: false, success: null };
-    default:
-      return state;
     // RESET PASSWORD
     case `${RESET_PASSWORD}/pending`:
       return {
@@ -216,5 +224,7 @@ export default (state = initialState, action) => {
         loading: false,
         errors: action.payload.errors
       }
+    default:
+      return state;
   }
 }

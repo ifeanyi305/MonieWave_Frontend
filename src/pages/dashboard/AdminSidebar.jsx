@@ -13,9 +13,8 @@ const Sidebar = ({ sidebar, handleSidebar }) => {
       <div className="flex justify-center md:justify-start">
         <ul className="text-[#FAFAFA] m-6">
           <Link onClick={handleSidebar} to="/"><li className={style.padding}>Home</li></Link>
-          <Link onClick={handleSidebar} to="/send_money"><li className={style.padding}>Send money</li></Link>
-          <Link onClick={handleSidebar} to="/recipients"><li className={style.padding}>Recipients</li></Link>
-          <Link onClick={handleSidebar} to="/transactions"><li className={style.padding}>Transactions</li></Link>
+          <Link onClick={handleSidebar} to="/users_transaction"><li className={style.padding}>Transactions</li></Link>
+          <Link onClick={handleSidebar} to="/users"><li className={style.padding}>Users</li></Link>
         </ul>
       </div>
     </div>

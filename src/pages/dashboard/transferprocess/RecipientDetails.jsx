@@ -13,14 +13,21 @@ const RecipientDetails = ({
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [bank_code, setBank_code] = useState('')
-  const [loading, setLoading] = useState(true);
+  const [pending, setPending] = useState(true);
   const [error, setError] = useState('');
-  const { successful, coming } = useSelector((state) => state.beneficiary);
+  const { successful, loading } = useSelector((state) => state.beneficiary);
   const dispatch = useDispatch();
 
   const handleToggle = () => {
     setIsChecked(!isChecked);
-    console.log(isChecked);
+  };
+
+  const validateForm = () => {
+    return  pending !== true &&
+    error !== 'An error occurred, type the Account number again' &&
+     recipient_account.length !== 0 &&
+     recipient_phone.length !== 0 &&
+     recipient_bank.length !== 0
   };
 
   const handleBankChange = (selectedOption) => {
@@ -52,10 +59,10 @@ const RecipientDetails = ({
       const res = await axios.get(`https://app.nuban.com.ng/api/NUBAN-JYBVNVCG1570?bank_code=${bank_code}&acc_no=${recipient_account}`);
       const recipientName = res.data[0].account_name;
       setRecipient_name(recipientName);
-      setLoading(false);
+      setPending(false);
     } catch (error) {
       setError('An error occurred, type the Account number again');
-      setLoading(false);
+      setPending(false);
     }
   };
   useEffect(() => {
@@ -118,7 +125,7 @@ const RecipientDetails = ({
       <div className="py-6 md:w-[45%]">
         <form onSubmit={submit}>
           <div>
-            <label className="block">Bank Name</label>
+            <label className="block">Bank Name <span className="text-[#C50713] text-[17px]">*</span></label>
             <Select
               value={options.find((option) => option.value === recipient_bank)}
               onChange={handleBankChange}
@@ -127,7 +134,7 @@ const RecipientDetails = ({
             />
           </div>
           <div className="my-4">
-            <label className="block">Account Number</label>
+            <label className="block">Account Number <span className="text-[#C50713] text-[17px]">*</span></label>
             <input
               value={recipient_account}
               type="number"
@@ -136,15 +143,15 @@ const RecipientDetails = ({
             />
           </div>
           <div className="my-4">
-            <label className="block">Account Holder Name</label>
+            <label className="block">Account Holder Name <span className="text-[#C50713] text-[17px]">*</span></label>
             <input
               type="text"
-              value={loading ? 'loading Account name' : error ? error : recipient_name} readOnly
+              value={pending ? 'loading Account name' : error ? error : recipient_name} readOnly
               className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
             />
           </div>
           <div>
-            <label className="block">Recipient Phone Number</label>
+            <label className="block">Recipient Phone Number <span className="text-[#C50713] text-[17px]">*</span></label>
             <div className="flex gap-4 items-center">
               <select className="block border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]" name="number" id="number">
                 <option value="+234">+234</option>
@@ -167,9 +174,12 @@ const RecipientDetails = ({
           </div>
           <button
             type="submit"
-            className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center"
+            disabled={!validateForm()}
+            className={validateForm() ?
+              'p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center'
+              : 'p-2 mt-[27px] opacity-40 mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center'}
           >
-            {coming ? 'loading' : 'continue'}
+            {loading ? 'loading' : 'continue'}
           </button>
         </form>
       </div>

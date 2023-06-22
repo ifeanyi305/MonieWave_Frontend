@@ -50,7 +50,7 @@ const ResetPassword = () => {
           <p className="text-center">Enter the email address you used to create your RateHive account and</p>
           <p className="text-center">we will send you a link to reset your password.</p>
           <form className="py-[8%]" onSubmit={handleSubmit}>
-            <label className="block">Enter your email address</label>
+            <label className="block">Enter your email address <span className="text-[#C50713] text-[17px]">*</span></label>
             <input type="email" className="p-4 block w-[560px] rounded-[8px] border-[#6B6B6B] border-[1px]" value={email} onChange={handleInputChange} />
             <div className="mt-[5%] flex justify-center">
               <button type="submit" className="p-2 login_btn bg-[#814DE5] text-[#fff] w-[80%] text-center">
