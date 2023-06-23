@@ -175,23 +175,30 @@ const UsersLists = () => {
                       <small className="text-[#212121] text-[16px]">{totalAmount}GPB</small>
                     </div>
                     <div>
-                      <p className="text-[16px] text-[#909090] font-[600]">Active status</p>
+                      <p className="text-[16px] text-[#909090] font-[600]">
+                        Active status:
+                        <span className={user?.status == "Active" ? 'text-[#37A13C] pl-2' : 'text-[#C50713] pl-2'}>
+                          {user?.status}
+                        </span>
+                      </p>
                       <select
                         value={userStatus}
                         onChange={(e) => setUserStatus(e.target.value)}
                       >
-                        <option value="">select status</option>
+                        <option value="">update status</option>
                         <option value="Active">Active</option>
                         <option value="Disabled">Suspend</option>
                       </select>
                     </div>
                     <div>
-                      <p className="text-[16px] text-[#909090] font-[600]">Update user role</p>
+                      <p className="text-[16px] text-[#909090] font-[600]">user role:
+                        <span className="text-[#814DE5] pl-2">{user?.role}</span>
+                      </p>
                       <select
                         value={userRole}
                         onChange={(e) => setUserRole(e.target.value)}
                       >
-                        <option value="">select role</option>
+                        <option value="">update role</option>
                         <option value="admin">admin</option>
                         <option value="customer">customer</option>
                         <option value="support">support</option>
@@ -202,7 +209,7 @@ const UsersLists = () => {
                       <button type="button" onClick={() => handleAction()} className="text-[#212121] text-[16px]">. . .</button>
                       <div className={!action ? 'hidden' : 'block flex flex-col'}>
                         <button onClick={() => handleDeleteModal()}>Delete user</button>
-                        <button onClick={() => handleSuspendModal()}>Suspend user</button>
+                        {/* <button onClick={() => handleSuspendModal()}>Suspend user</button> */}
                       </div>
                     </div>
                   </div>

@@ -188,6 +188,8 @@ const Users = () => {
                 className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
                 type="password"
                 value={password}
+                required
+                minLength="8"
                 placeholder="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -198,6 +200,8 @@ const Users = () => {
                 className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
                 type="password"
                 value={confirmPassword}
+                required
+                minLength="8"
                 placeholder="confirmPassword"
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
