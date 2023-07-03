@@ -126,7 +126,7 @@ const Home = () => {
             </thead>
             <tbody>
               {
-                loading ? (<>loading transfer details...</>)
+                loading ? (<>loading transaction details...</>)
                   : error ? (<>error details</>)
                     : transfers ? (
                       reversedTransfer.slice(0, 7).map((transfer) => (
