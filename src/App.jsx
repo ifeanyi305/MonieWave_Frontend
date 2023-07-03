@@ -23,6 +23,7 @@ import TransactDetails from './pages/admin/TransactDetails';
 import UsersLists from './pages/admin/UsersLists';
 import Home from './pages/admin/Home';
 import ContactUs from './pages/ContactUs';
+import ExchangeRates from './pages/admin/ExchangeRates';
 
 function App() {
   const [sidebar, setSidebar] = useState(false);
@@ -102,6 +103,7 @@ function App() {
               <Route path="/users_transaction" element={<UsersTransaction />} />
               <Route path="/transact_details" element={<TransactDetails />} />
               <Route path="/users_lists" element={<UsersLists />} />
+              <Route path="/exchange_rates" element={<ExchangeRates />} />
             </Route>
           </Routes>
         </div>

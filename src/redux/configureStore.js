@@ -12,6 +12,7 @@ import superUserReducer from './superUser/superUser';
 import deleteUserReducer from './superUser/deleteUser';
 import UpdateUserStatusReducer from './superUser/updateUserStatus';
 import UpdateUserRoleReducer from './superUser/updateUserRole';
+import ExchangeRatesReducer from './exchangeRate/exchangeRate'
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     terminateUser: deleteUserReducer,
     userStatus: UpdateUserStatusReducer,
     userRole: UpdateUserRoleReducer,
+    exchangeRate: ExchangeRatesReducer,
   }
 })
 

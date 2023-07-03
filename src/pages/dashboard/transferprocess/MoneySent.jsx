@@ -1,6 +1,6 @@
 import React from 'react';
 import { GrNotification } from 'react-icons/gr';
-import checkbox from './images/checkbox.png'
+import checkbox from './images/checkbox.png';
 
 const MoneySent = ({ setNumber, confirmTransfer, loading, errors }) => {
   return (
