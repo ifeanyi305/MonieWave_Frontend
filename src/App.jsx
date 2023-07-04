@@ -24,6 +24,7 @@ import UsersLists from './pages/admin/UsersLists';
 import Home from './pages/admin/Home';
 import ContactUs from './pages/ContactUs';
 import ExchangeRates from './pages/admin/ExchangeRates';
+import ChatBot from './pages/livebot/ChatBot';
 
 function App() {
   const [sidebar, setSidebar] = useState(false);
@@ -104,6 +105,7 @@ function App() {
               <Route path="/transact_details" element={<TransactDetails />} />
               <Route path="/users_lists" element={<UsersLists />} />
               <Route path="/exchange_rates" element={<ExchangeRates />} />
+              <Route path="/chatbot" element={<ChatBot />} />
             </Route>
           </Routes>
         </div>
