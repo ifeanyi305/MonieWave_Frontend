@@ -234,11 +234,11 @@ const Users = () => {
             />
           </div>
         </div>
-        <div className="flex items-center justify-between py-4">
+        <div className="flex items-center flex-wrap justify-between py-4">
           <select
             name="page"
             id="page"
-            className="bg-[#F9F6FE] text-[#814DE5] text-[20px] border-[#D5C4F6] border-[1px] rounded-[16px] p-[16px] cursor-pointer"
+            className="bg-[#F9F6FE] mb-[3px] text-[#814DE5] text-[20px] border-[#D5C4F6] border-[1px] rounded-[16px] p-[16px] cursor-pointer"
             onChange={handleSelectStatus}
           >
             <option value="all">All</option>

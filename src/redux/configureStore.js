@@ -12,7 +12,9 @@ import superUserReducer from './superUser/superUser';
 import deleteUserReducer from './superUser/deleteUser';
 import UpdateUserStatusReducer from './superUser/updateUserStatus';
 import UpdateUserRoleReducer from './superUser/updateUserRole';
-import ExchangeRatesReducer from './exchangeRate/exchangeRate'
+import ExchangeRatesReducer from './exchangeRate/exchangeRate';
+import ChatReducer from './liveBot/chat';
+import AllchatReducer from './liveBot/allChats';
 
 const store = configureStore({
   reducer: {
@@ -30,6 +32,8 @@ const store = configureStore({
     userStatus: UpdateUserStatusReducer,
     userRole: UpdateUserRoleReducer,
     exchangeRate: ExchangeRatesReducer,
+    chatBot: ChatReducer,
+    allChatBot: AllchatReducer,
   }
 })
 

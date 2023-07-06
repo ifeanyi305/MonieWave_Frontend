@@ -4,6 +4,10 @@
     "answer": "Our return policy allows customers to return products within 30 days of purchase for a full refund."
   },
   {
+    "question": "hello or hi or how are you doing or hey",
+    "answer": "Hi!, what can we do for you?"
+  },
+  {
     "question": "How can I track my order?",
     "answer": "You can track your order by logging into your account and navigating to the 'Order History' section."
   },

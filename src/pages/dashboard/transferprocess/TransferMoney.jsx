@@ -39,7 +39,6 @@ const TransferMoney = ({
     axios.get('http://127.0.0.1:3000/api/v1/fee_ranges')
       .then(response => {
         const rateFee = response.data;
-        console.log(rateFee);
         const baseAmount = parseFloat(amount);
         if (baseAmount >= 1 && baseAmount <= 100) {
           setFee(rateFee.data[0].fee)
