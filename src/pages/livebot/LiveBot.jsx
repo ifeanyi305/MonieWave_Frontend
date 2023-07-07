@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createChatMessage } from '../../redux/liveBot/chat';
+import { fetchMessages } from '../../redux/liveBot/userMessage';
 import { AiOutlineSend } from 'react-icons/ai';
-import { useState } from 'react';
 
 const LiveBot = () => {
-  const { success } = useSelector((state) => state.chatBot);
-  console.log("successful", success);
+  const { message, pending } = useSelector((state) => state.userMessage);
   const [chat, setChat] = useState('');
   const sender = 'customer';
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleChatInput = (e) => {
     setChat(e.target.value)
-  }
+  };
+
+  useEffect(() => {
+    dispatch(fetchMessages())
+  }, [dispatch])
 
   const sendMessage = (e) => {
     e.preventDefault()
@@ -23,26 +26,37 @@ const LiveBot = () => {
         sender,
       }
     };
-    dispatch(createChatMessage(data));
+    dispatch(createChatMessage(data)).then((res) => {
+      if (res.error) {
+        'error'
+      } else {
+        dispatch(fetchMessages())
+      }
+    })
     setChat("");
   }
 
   return (
     <div>
-      <div className="p-6">
-        <p>live bot</p>
-        {
-          success.map((message) => (
-            <div>
+    <div className="p-6">
+      {pending ? (
+        <p>Loading</p>
+      ) : (
+        message && message.messages ? (
+          message.messages.map((message, index) => (
+            <div key={index}>
               <p
-               className={message.sender === 'customer' ? 'flex justify-end' : 'bot'}
+                className={message.sender === 'customer' ? 'flex justify-end' : 'bot'}
               >
                 {message.content}
               </p>
             </div>
           ))
-        }
-      </div>
+        ) : (
+          <p>No messages</p>
+        )
+      )}
+    </div>
       <div className="p-6 radius2 sticky bg-[#fff] bottom-0">
         <form onSubmit={sendMessage}>
           <div className="flex gap-[2px] border-[#AB88EE] rounded-[8px] p-[5px] border-[2px] items-center">

@@ -16,7 +16,7 @@ const AdminSidebar = ({ sidebar, handleSidebar }) => {
           <Link onClick={handleSidebar} to="/users_transaction"><li className={style.padding}>Transactions</li></Link>
           <Link onClick={handleSidebar} to="/users"><li className={style.padding}>Users</li></Link>
           <Link onClick={handleSidebar} to="/exchange_rates"><li className={style.padding}>Exchange Rates</li></Link>
-          <Link onClick={handleSidebar} to="/messages"><li className={style.padding}>Messages</li></Link>
+          <Link onClick={handleSidebar} to="/chats"><li className={style.padding}>Chats</li></Link>
         </ul>
       </div>
     </div>

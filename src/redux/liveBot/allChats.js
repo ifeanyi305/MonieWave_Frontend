@@ -14,7 +14,7 @@ const initialState = {
 
 export const fetchChats = createAsyncThunk(
   ALL_CHATS,
-  async ({ rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
@@ -22,8 +22,7 @@ export const fetchChats = createAsyncThunk(
         }
       };
       const response = await axios.get('http://127.0.0.1:3000/api/v1/chats', config);
-      console.log(response);
-      return response.data;
+      return { progress: response.data };
     } catch (error) {
       return rejectWithValue(error);
     }

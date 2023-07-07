@@ -25,6 +25,7 @@ import Home from './pages/admin/Home';
 import ContactUs from './pages/ContactUs';
 import ExchangeRates from './pages/admin/ExchangeRates';
 import ChatBot from './pages/livebot/ChatBot';
+import Chats from './pages/admin/Chats';
 import Messages from './pages/admin/Messages';
 
 function App() {
@@ -107,6 +108,7 @@ function App() {
               <Route path="/transact_details" element={<TransactDetails />} />
               <Route path="/users_lists" element={<UsersLists />} />
               <Route path="/exchange_rates" element={<ExchangeRates />} />
+              <Route path="/chats" element={<Chats />} />
               <Route path="/messages" element={<Messages />} />
             </Route>
           </Routes>
