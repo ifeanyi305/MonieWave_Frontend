@@ -44,9 +44,15 @@ const LiveBot = () => {
       ) : (
         message && message.messages ? (
           message.messages.map((message, index) => (
-            <div key={index}>
+            <div
+              key={index}
+              className={`message ${message.sender === 'admin' ? 'bot' : 'flex justify-end'}`}>
               <p
-                className={message.sender === 'customer' ? 'flex justify-end' : 'bot'}
+                className={`my-2
+                  ${message.sender === 'admin' ?
+                    'bg-[#E6DBFA] chatbot_radius w-fit px-4 py-[8px]' :
+                    'w-fit bg-[#563399] text-[#fff] py-[8px] userbot_radius px-4'}`
+                }
               >
                 {message.content}
               </p>

@@ -17,6 +17,8 @@ import ChatReducer from './liveBot/chat';
 import AllchatReducer from './liveBot/allChats';
 import MessageReducer from './liveBot/messages';
 import UserMessageReducer from './liveBot/userMessage';
+import CreateFeeReducer from './fee/createFee';
+import UpdateFeeReducer from './fee/updateFee';
 
 const store = configureStore({
   reducer: {
@@ -38,6 +40,8 @@ const store = configureStore({
     allChatBot: AllchatReducer,
     message: MessageReducer,
     userMessage: UserMessageReducer,
+    newfee: CreateFeeReducer,
+    updateFee: UpdateFeeReducer,
   }
 })
 

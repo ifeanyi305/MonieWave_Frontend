@@ -27,6 +27,7 @@ import ExchangeRates from './pages/admin/ExchangeRates';
 import ChatBot from './pages/livebot/ChatBot';
 import Chats from './pages/admin/Chats';
 import Messages from './pages/admin/Messages';
+import Fee from './pages/admin/Fee';
 
 function App() {
   const [sidebar, setSidebar] = useState(false);
@@ -110,6 +111,7 @@ function App() {
               <Route path="/exchange_rates" element={<ExchangeRates />} />
               <Route path="/chats" element={<Chats />} />
               <Route path="/messages" element={<Messages />} />
+              <Route path="/fee" element={<Fee />} />
             </Route>
           </Routes>
         </div>

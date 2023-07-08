@@ -44,25 +44,38 @@ const ExchangeRates = () => {
         pauseOnHover
         theme="colored"
       />
-      Exchange rates
+      <h1 className="text-[24px] font-extrabold my-2">Exchange rates</h1>
       <form onSubmit={newExchangeRate}>
-        <input
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-          className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
-        />
-        <select
-          value={currency}
-          onChange={(e) => setCurrency(e.target.value)}
-          className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
-        >
-          <option value="">Select currency</option>
-          <option value="euro">Euro</option>
-          <option value="pounds">Pounds</option>
-        </select>
-        <button type="submit">Create rate</button>
+        <div className="flex gap-4 items-center flex-wrap">
+          <div>
+            <label className="block">Price<sup className="text-[#CA1C2B]">*</sup></label>
+            <input
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+              className="border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
+            />
+          </div>
+          <div className="my-2">
+            <label className="block">Currency<sup className="text-[#CA1C2B]">*</sup></label>
+            <select
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+              className="border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
+            >
+              <option value="">Select currency</option>
+              <option value="euro">Euro</option>
+              <option value="pounds">Pounds</option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            className="py-2 px-4 mt-[27px] mb-2 rounded-[8px] bg-[#814DE5] text-[#fff] text-center"
+          >
+            Create rate
+          </button>
+        </div>
       </form>
     </div>
   );

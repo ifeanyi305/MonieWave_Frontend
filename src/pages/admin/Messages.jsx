@@ -18,40 +18,50 @@ const Messages = () => {
 
   const sendMessage = (e) => {
     e.preventDefault()
-    const data = {
-      data: {
-        content: chat,
-        sender,
-        user_id: message?.messages[0].user_id,
-        admin_id: message?.messages[0].admin_id,
-      }
-    };
-    dispatch(createChatMessage(data)).then((res) => {
-      if (res.error) {
-        'error'
-      } else {
-        dispatch(showMessages(message?.messages[0].chat_id))
-      }
-    })
-    setChat("");
+    if (chat.trim() !== '') {
+      const data = {
+        data: {
+          content: chat,
+          sender,
+          user_id: message?.messages[0].user_id,
+          admin_id: message?.messages[0].admin_id,
+        }
+      };
+      dispatch(createChatMessage(data)).then((res) => {
+        if (res.error) {
+          'error'
+        } else {
+          dispatch(showMessages(message?.messages[0].chat_id))
+        }
+      })
+      setChat("");
+    }
   }
 
   return (
     <div className="px-6">
-      {fetching ? (
-        'loading'
-      ) : (
-        memo?.map((message, index) => (
-          <div key={index}>
-            <p
-              className={message.sender === 'customer' ? 'flex justify-end' : 'bot'}
-            >
-              {message.content}
-            </p>
-          </div>
-        ))
-      )}
-      <div className="p-6 radius2 sticky bg-[#fff] bottom-0">
+      <div>
+        {fetching ? (
+          'loading'
+        ) : (
+          memo?.map((message, index) => (
+            <div
+              key={index}
+              className={`message ${message.sender === 'admin' ? 'bot' : 'flex justify-end'}`}>
+              <p
+                className={`my-2
+                  ${message.sender === 'admin' ?
+                    'bg-[#E6DBFA] chatbot_radius w-fit px-4 py-[8px]' :
+                    'w-fit bg-[#563399] text-[#fff] py-[8px] userbot_radius px-4'}`
+                }
+              >
+                {message.content}
+              </p>
+            </div>
+          ))
+        )}
+      </div>
+      <div className="p-6 sticky bg-[#fff] bottom-0">
         <form onSubmit={sendMessage}>
           <div className="flex gap-[2px] border-[#AB88EE] rounded-[8px] p-[5px] border-[2px] items-center">
             <input
