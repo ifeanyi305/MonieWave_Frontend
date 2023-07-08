@@ -12,6 +12,11 @@ import superUserReducer from './superUser/superUser';
 import deleteUserReducer from './superUser/deleteUser';
 import UpdateUserStatusReducer from './superUser/updateUserStatus';
 import UpdateUserRoleReducer from './superUser/updateUserRole';
+import ExchangeRatesReducer from './exchangeRate/exchangeRate';
+import ChatReducer from './liveBot/chat';
+import AllchatReducer from './liveBot/allChats';
+import MessageReducer from './liveBot/messages';
+import UserMessageReducer from './liveBot/userMessage';
 
 const store = configureStore({
   reducer: {
@@ -28,6 +33,11 @@ const store = configureStore({
     terminateUser: deleteUserReducer,
     userStatus: UpdateUserStatusReducer,
     userRole: UpdateUserRoleReducer,
+    exchangeRate: ExchangeRatesReducer,
+    chatBot: ChatReducer,
+    allChatBot: AllchatReducer,
+    message: MessageReducer,
+    userMessage: UserMessageReducer,
   }
 })
 

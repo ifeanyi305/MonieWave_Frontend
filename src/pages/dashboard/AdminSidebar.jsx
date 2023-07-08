@@ -2,7 +2,7 @@ import React from 'react';
 import Ratehive from '../../assets/images/navbar/RateHive.png';
 import { Link } from 'react-router-dom';
 
-const Sidebar = ({ sidebar, handleSidebar }) => {
+const AdminSidebar = ({ sidebar, handleSidebar }) => {
   const style = {
     padding: "py-6",
     checking: 'bg-[#000] h-[100%] fixed w-[50%] md:w-[20%]'
@@ -15,10 +15,12 @@ const Sidebar = ({ sidebar, handleSidebar }) => {
           <Link onClick={handleSidebar} to="/"><li className={style.padding}>Home</li></Link>
           <Link onClick={handleSidebar} to="/users_transaction"><li className={style.padding}>Transactions</li></Link>
           <Link onClick={handleSidebar} to="/users"><li className={style.padding}>Users</li></Link>
+          <Link onClick={handleSidebar} to="/exchange_rates"><li className={style.padding}>Exchange Rates</li></Link>
+          <Link onClick={handleSidebar} to="/chats"><li className={style.padding}>Chats</li></Link>
         </ul>
       </div>
     </div>
   );
 };
 
-export default Sidebar;
+export default AdminSidebar;

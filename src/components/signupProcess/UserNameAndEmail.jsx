@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const UserNameAndEmail = (
   { submit, first_name, setFirstname, last_name, setLastname, setNumber }

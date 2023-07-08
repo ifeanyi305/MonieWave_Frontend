@@ -20,7 +20,7 @@ const Redirect = () => {
   };
 
   //   const fetchRates = async (newDiv) => {
-  //     const response = await axios.get('http://127.0.0.1:3000/api/v1/rate/history');
+  //     const response = await axios.get('https://ratehive-api.fly.dev/api/v1/rate/history');
   //     console.log("i'm the ressponse", response)
   //     const data = response.data.data.Euro
   //     const Areadata = data.map((d) => {
