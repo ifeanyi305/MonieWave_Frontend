@@ -21,7 +21,7 @@ export const updateTransferStatus = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       };
-      const response = await axios.put('http://127.0.0.1:3000/api/v1/transfers/update_transfer_status', data, config);
+      const response = await axios.put('https://ratehive.onrender.com/api/v1/transfers/update_transfer_status', data, config);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

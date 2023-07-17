@@ -9,10 +9,10 @@ const VERIFY_OTP = 'auth/verify_otp';
 const CLEAN_FLASH = 'auth/clean_flash';
 const RESET_STATE_AND_KEEP_FLASH = 'auth/reset_state_and_keep_flash';
 
-const SIGN_IN_URL = `http://127.0.0.1:3000/auth/login`;
-const SIGN_UP_URL = `http://127.0.0.1:3000/api/v1/users`;
-const RESET_PASSWORD_URL = `http://127.0.0.1:3000/api/v1/password/reset`;
-const VERIFY_OTP_URL = `http://127.0.0.1:3000/api/v1/otp/verify_otp`;
+const SIGN_IN_URL = `https://ratehive.onrender.com/auth/login`;
+const SIGN_UP_URL = `https://ratehive.onrender.com/api/v1/users`;
+const RESET_PASSWORD_URL = `https://ratehive.onrender.com/api/v1/password/reset`;
+const VERIFY_OTP_URL = `https://ratehive.onrender.com/api/v1/otp/verify_otp`;
 
 const initialState = {
   role: '',

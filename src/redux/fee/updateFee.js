@@ -21,7 +21,7 @@ export const updateFee = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         }
       };
-      const response = await axios.put('http://127.0.0.1:3000/api/v1/fee_ranges', data, config);
+      const response = await axios.put('https://ratehive.onrender.com/api/v1/fee_ranges', data, config);
       console.log(response);
       return response.data;
     } catch (error) {

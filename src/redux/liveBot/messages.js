@@ -17,7 +17,7 @@ export const showMessages = createAsyncThunk(
   MESSAGES,
   async (id) => {
     try {
-      const response = await axios.get(`http://127.0.0.1:3000/api/v1/chats/${id}`, {
+      const response = await axios.get(`https://ratehive.onrender.com/api/v1/chats/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

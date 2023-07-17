@@ -19,6 +19,10 @@ const Redirect = () => {
     navigate('/login');
   };
 
+  const userDetails = getToken();
+  const token = userDetails?.username;
+
+
   //   const fetchRates = async (newDiv) => {
   //     const response = await axios.get('https://ratehive-api.fly.dev/api/v1/rate/history');
   //     console.log("i'm the ressponse", response)
@@ -49,10 +53,10 @@ const Redirect = () => {
   return (
     <div className="p-6">
       <div className="flex mb-[4%] justify-between wrap items-center">
-        <h1 className="text-[40px] text-[#212121]">Hi Flourish</h1>
+        <h1 className="text-[40px] text-[#212121]">Hi {token}</h1>
         <div className="flex gap-4">
           <button><GrNotification /></button>
-          <p>Flourish Ralph &darr;</p>
+          <p>{token} &darr;</p>
         </div>
       </div>
       <div className="mb-4">
