@@ -47,16 +47,6 @@ const ExchangeRates = () => {
       <h1 className="text-[24px] font-extrabold my-2">Exchange rates</h1>
       <form onSubmit={newExchangeRate}>
         <div className="flex gap-4 items-center flex-wrap">
-          <div>
-            <label className="block">Price<sup className="text-[#CA1C2B]">*</sup></label>
-            <input
-              type="number"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              required
-              className="border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
-            />
-          </div>
           <div className="my-2">
             <label className="block">Currency<sup className="text-[#CA1C2B]">*</sup></label>
             <select
@@ -68,6 +58,16 @@ const ExchangeRates = () => {
               <option value="euro">Euro</option>
               <option value="pounds">Pounds</option>
             </select>
+          </div>
+          <div>
+            <label className="block">Rates(NGN)<sup className="text-[#CA1C2B]">*</sup></label>
+            <input
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+              className="border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
+            />
           </div>
           <button
             type="submit"
