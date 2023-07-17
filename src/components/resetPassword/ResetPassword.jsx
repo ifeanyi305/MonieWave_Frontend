@@ -14,7 +14,7 @@ const ResetPassword = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
-    fetch('http://127.0.0.1:3000/api/v1/password/forgot', {
+    fetch('https://ratehive.onrender.com/api/v1/password/forgot', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

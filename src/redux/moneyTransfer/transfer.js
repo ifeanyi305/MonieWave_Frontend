@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const TRANSFER = 'transfers';
-const TRANSFER_URL = `http://127.0.0.1:3000/api/v1/transfers`;
+const TRANSFER_URL = `https://ratehive.onrender.com/api/v1/transfers`;
 
 const initialState = [];
 

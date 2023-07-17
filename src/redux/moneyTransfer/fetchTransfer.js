@@ -22,7 +22,7 @@ export const fetchTransfers = createAsyncThunk(
         }
       };
 
-      const res = await axios.get('http://127.0.0.1:3000/api/v1/transfers', config);
+      const res = await axios.get('https://ratehive.onrender.com/api/v1/transfers', config);
       return { victory: res.data.data };
     } catch (error) {
       return rejectWithValue(error.message);

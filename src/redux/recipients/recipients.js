@@ -5,7 +5,7 @@ import axios from 'axios';
 const RECIPIENT = 'recipient';
 const ALLRECIPIENT = 'allRecipient';
 const DELETERECIPIENT = 'deleteRecipient';
-const RECIPIENT_URL = `http://127.0.0.1:3000/api/v1/beneficiaries`;
+const RECIPIENT_URL = `https://ratehive.onrender.com/api/v1/beneficiaries`;
 const userDetails = getToken();
 const token = userDetails?.token;
 
@@ -47,7 +47,7 @@ export const fetchRecipients = createAsyncThunk(
         }
       };
 
-      const response = await axios.get('http://127.0.0.1:3000/api/v1/beneficiaries', config);
+      const response = await axios.get('https://ratehive.onrender.com/api/v1/beneficiaries', config);
       return { success: response.data.data };
     } catch (error) {
       return rejectWithValue(error.message);
@@ -59,7 +59,7 @@ export const deleteRecipients = createAsyncThunk(
   DELETERECIPIENT,
   async (id) => {
     try {
-      const response = await axios.delete(`http://127.0.0.1:3000/api/v1/beneficiaries/${id}`, {
+      const response = await axios.delete(`https://ratehive.onrender.com/api/v1/beneficiaries/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

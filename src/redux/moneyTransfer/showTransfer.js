@@ -16,7 +16,7 @@ export const showUserTransfer = createAsyncThunk(
   SHOWTRANSFER,
   async (id) => {
     try {
-      const response = await axios.get(`http://127.0.0.1:3000/api/v1/transfers/${id}`, {
+      const response = await axios.get(`https://ratehive.onrender.com/api/v1/transfers/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

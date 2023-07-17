@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const CREATE_EXCHANGE_RATE = 'create_exchange_rate';
 const userDetails = getToken();
-const RATE_URL = 'http://127.0.0.1:3000/api/v1/rate/create';
+const RATE_URL = 'https://ratehive.onrender.com/api/v1/rate/create';
 const token = userDetails?.token;
 
 const initialState = {

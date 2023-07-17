@@ -21,7 +21,7 @@ export const fetchMessages = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         }
       }
-      const response = await axios.get('http://127.0.0.1:3000/api/v1/chats/1', config);
+      const response = await axios.get('https://ratehive.onrender.com/api/v1/chats/1', config);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.errors);

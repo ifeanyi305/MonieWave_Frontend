@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getToken } from '../auth/auth';
 
 const SUPER_USER = 'create_superuser';
-const SUPER_USER_URL = `http://127.0.0.1:3000/api/v1/users/create_super_user`;
+const SUPER_USER_URL = `https://ratehive.onrender.com/api/v1/users/create_super_user`;
 const userDetails = getToken();
 const token = userDetails?.token;
 
