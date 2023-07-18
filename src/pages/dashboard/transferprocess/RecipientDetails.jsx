@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GrNotification } from 'react-icons/gr';
 import { getBankCodes } from '../bankCodes/BankCodes';
 import Select from 'react-select';
+import { getToken } from '../../../redux/auth/auth';
+import loadingGiphy from '../../admin/images/loading-icon.gif';
 
 const RecipientDetails = ({
   setNumber, recipient_name, setRecipient_name, recipient_account,
@@ -21,6 +23,9 @@ const RecipientDetails = ({
   const handleToggle = () => {
     setIsChecked(!isChecked);
   };
+
+  const userDetails = getToken();
+  const token = userDetails?.username;
 
   const validateForm = () => {
     return  pending !== true &&
@@ -115,7 +120,7 @@ const RecipientDetails = ({
         <h1 onClick={() => setNumber(0)} className="text-[40px] cursor-pointer bg-[#F2EDFC] px-[5px] rounded-[50%]  text-[#464646]">&larr;</h1>
         <div className="flex gap-4">
           <button><GrNotification /></button>
-          <p>Flourish Ralph &darr;</p>
+          <p>{token}</p>
         </div>
       </div>
       <div>
@@ -146,7 +151,7 @@ const RecipientDetails = ({
             <label className="block">Account Holder Name <span className="text-[#C50713] text-[17px]">*</span></label>
             <input
               type="text"
-              value={pending ? 'loading Account name' : error ? error : recipient_name} readOnly
+              value={pending ? 'loading Account name...' : error ? error : recipient_name} readOnly
               className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
             />
           </div>

@@ -120,7 +120,7 @@ const TransferMoney = ({
         <h1 className="text-[40px] text-[#212121]">Send Money</h1>
         <div className="flex gap-4">
           <button><GrNotification /></button>
-          <p>{token} &darr;</p>
+          <p>{token}</p>
         </div>
       </div>
       <div>

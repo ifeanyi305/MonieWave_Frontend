@@ -12,7 +12,7 @@ const Password = ({ password, submit, setPassword, confirmPassword, setConfirmPa
           id="password"
           name="password"
           value={password}
-          className="p-4 block w-[560px] rounded-[8px] border-[#6B6B6B] border-[1px]"
+          className="p-4 block w-full rounded-[8px] border-[#6B6B6B] border-[1px]"
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -23,11 +23,11 @@ const Password = ({ password, submit, setPassword, confirmPassword, setConfirmPa
           id="confirmPassword"
           name="confirmPassword"
           value={confirmPassword}
-          className="p-4 block w-[560px] rounded-[8px] border-[#6B6B6B] border-[1px]"
+          className="p-4 block w-full rounded-[8px] border-[#6B6B6B] border-[1px]"
           placeholder="confirm Password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <button type="submit" className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-[560px] text-center">
+        <button type="submit" className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center">
           {
             coming ? (<img src={Loading} className="w-[25px] m-auto" alt="loading" />) : (<> sign up</>)
           }

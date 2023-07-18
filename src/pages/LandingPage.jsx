@@ -89,7 +89,7 @@ const LandingPage = () => {
                 loop
                 mousewheel
                 autoplay={{
-                  delay: 10000,
+                  delay: 2000,
                   disableOnInteraction: true,
                 }}
                 navigation
