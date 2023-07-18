@@ -39,7 +39,7 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div className="px-6">
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -53,7 +53,7 @@ const Login = () => {
         theme="colored"
       />
       <div className="flex w-[80%] m-auto bg-[#fff] mb-6 items-center gap-2">
-        <div><img className="h-full w-full" src={Lady} alt="lady with a phone" /></div>
+        <div><img className="h-full hidden md:block w-full" src={Lady} alt="lady with a phone" /></div>
         <div className="w-full p-6">
           <h1 className="pb-[40px]"><a href='/broken'><img className="m-auto" src={RateHive} alt="title" /></a></h1>
           <div className="text-center pb-[40px]">
@@ -63,7 +63,7 @@ const Login = () => {
               <Link className="text-[#814DE5] text-[16px] font-[400]" to='/signup'> Sign up here</Link>
             </p>
           </div>
-          <div className="flex justify-center">
+          <div className="">
             <div>
               <form onSubmit={submit}>
                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -73,7 +73,7 @@ const Login = () => {
                   id="email"
                   name="email"
                   value={email}
-                  className="p-4 block w-[560px] rounded-[8px] border-[#6B6B6B] border-[1px]"
+                  className="p-4 block w-full rounded-[8px] border-[#6B6B6B] border-[1px]"
                   placeholder="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -84,11 +84,11 @@ const Login = () => {
                   id="password"
                   name="password"
                   value={password}
-                  className="p-4 block w-[560px] rounded-[8px] border-[#6B6B6B] border-[1px]"
+                  className="p-4 block w-full rounded-[8px] border-[#6B6B6B] border-[1px]"
                   placeholder="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <button onClick={submit} type="submit" className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-[560px] text-center">
+                <button onClick={submit} type="submit" className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center">
                   {
                     loading ? (<img src={Loading} className="w-[25px] m-auto" alt="loading" />) : (<>login</>)
                   }

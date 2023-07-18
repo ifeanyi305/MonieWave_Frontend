@@ -121,7 +121,7 @@ const Signup = ({ role, setRole }) => {
       <ToastContainer />
       <div className="flex w-[80%] m-auto bg-[#fff] mb-6 items-center gap-2">
         <div>
-          <img className="h-full w-full" src={Man} alt="man folding hands" />
+          <img className="h-full hidden md:block w-full" src={Man} alt="man folding hands" />
         </div>
         <div className="w-full p-6">
           <h1 className="pb-[40px]"><a href='/broken'><img className="m-auto" src={RateHive} alt="title" /></a></h1>
@@ -132,7 +132,7 @@ const Signup = ({ role, setRole }) => {
               <Link className="text-[#814DE5] text-[16px] font-[400]" to='/login'> Log in here</Link>
             </p>
           </div>
-          <div className="flex justify-center">{currentForm()}</div>
+          <div className="">{currentForm()}</div>
         </div>
       </div>
     </div>

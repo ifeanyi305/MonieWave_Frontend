@@ -16,14 +16,14 @@ const SendVerification = ({ email, setEmail, sendVerication }) => {
           id="email"
           name="email"
           value={email}
-          className="p-4 block w-[560px] rounded-[8px] border-[#6B6B6B] border-[1px]"
+          className="p-4 block w-full rounded-[8px] border-[#6B6B6B] border-[1px]"
           placeholder="email"
           onChange={(e) => setEmail(e.target.value)}
         />
         <button
           className={!validateEmail() ?
-            'p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-[560px] text-center'
-            : 'p-2 mt-[27px] opacity-40 mb-2 login_btn bg-[#814DE5] text-[#fff] w-[560px] text-center'}
+            'p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center'
+            : 'p-2 mt-[27px] opacity-40 mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center'}
           disabled={validateEmail()}
           type="submit"
           onClick={sendVerication}>

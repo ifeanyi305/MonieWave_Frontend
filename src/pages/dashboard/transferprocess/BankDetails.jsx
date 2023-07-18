@@ -3,6 +3,7 @@ import { GrNotification } from 'react-icons/gr';
 import { CgDanger } from 'react-icons/cg';
 import { FiCopy } from 'react-icons/fi'
 import { AiOutlineCheck } from 'react-icons/ai'
+import { getToken } from '../../../redux/auth/auth';
 
 const BankDetails = ({ setNumber, reference_number, amount, fee, currency }) => {
   const [currentColor, setCurrentColor] = useState('red');
@@ -20,6 +21,9 @@ const BankDetails = ({ setNumber, reference_number, amount, fee, currency }) => 
       clearInterval(interval);
     };
   }, []);
+
+  const userDetails = getToken();
+  const token = userDetails?.username;
 
   const CopyButton = ({ text }) => {
     const [copySuccess, setCopySuccess] = useState(false);
@@ -61,7 +65,7 @@ const BankDetails = ({ setNumber, reference_number, amount, fee, currency }) => 
         <h1 onClick={() => setNumber(1)} className="text-[40px] cursor-pointer bg-[#F2EDFC] px-[5px] rounded-[50%]  text-[#464646]">&larr;</h1>
         <div className="flex gap-4">
           <button><GrNotification /></button>
-          <p>Flourish Ralph &darr;</p>
+          <p>{token}</p>
         </div>
       </div>
       <div>

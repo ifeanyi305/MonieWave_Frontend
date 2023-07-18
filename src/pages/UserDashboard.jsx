@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { getToken } from '../redux/auth/auth';
 import Authentication from '../components/Authentication';
-import { signout } from '../redux/auth/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { GrNotification } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -11,13 +10,8 @@ import { createChart } from 'lightweight-charts';
 
 const Redirect = () => {
   const { user } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   // const euroRef = useRef(null);
-  const handleLogout = () => {
-    dispatch(signout());
-    navigate('/login');
-  };
+
 
   const userDetails = getToken();
   const token = userDetails?.username;
@@ -40,6 +34,7 @@ const Redirect = () => {
   //     areaSeries.setData(Areadata);
   //     chart.timeScale().fitContent();
   //     console.log("i'm the data", Areadata);
+  //     console.log("the response from the request" chatData)
   //   };
 
   // useEffect(() => {
@@ -49,6 +44,14 @@ const Redirect = () => {
   //   fetchRates(newDiv);
   // }, [])
 
+  useEffect(() => {
+    const hasReloaded = localStorage.getItem('hasReloaded');
+    if (!hasReloaded) {
+      localStorage.setItem('hasReloaded', 'true');
+      window.location.reload();
+    }
+  }, []);
+
   <Authentication />
   return (
     <div className="p-6">
@@ -56,7 +59,7 @@ const Redirect = () => {
         <h1 className="text-[40px] text-[#212121]">Hi {token}</h1>
         <div className="flex gap-4">
           <button><GrNotification /></button>
-          <p>{token} &darr;</p>
+          <p>{token}</p>
         </div>
       </div>
       <div className="mb-4">
@@ -78,11 +81,6 @@ const Redirect = () => {
         {/* <div ref={euroRef}>
         </div> */}
       </div>
-      {/* <button
-        type="button"
-        onClick={handleLogout}
-      > Logout
-      </button> */}
     </div>
   );
 };

@@ -37,7 +37,7 @@ const Otp = ({ otp, email, setOtp, setNumber, setVerification, sendVerication })
           id="test"
           name="text"
           value={otp}
-          className="p-4 block w-[560px] rounded-[8px] border-[#6B6B6B] border-[1px]"
+          className="p-4 block w-full rounded-[8px] border-[#6B6B6B] border-[1px]"
           placeholder="otp"
           onChange={(e) => setOtp(e.target.value)}
         />
@@ -46,7 +46,7 @@ const Otp = ({ otp, email, setOtp, setNumber, setVerification, sendVerication })
           type='button' onClick={sendVerication}>
           Didn&apos;t recieve a code? resend code
         </button>
-        <button type="submit" className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-[560px] text-center">
+        <button type="submit" className="p-2 mt-[27px] mb-2 login_btn bg-[#814DE5] text-[#fff] w-full text-center">
           {
             loading ? (<img src={Loading} className="w-[25px] m-auto" alt="loading" />) : (<>Verify otp</>)
           }

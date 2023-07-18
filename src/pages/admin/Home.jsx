@@ -89,7 +89,7 @@ const Home = () => {
         <h1 className="text-[40px] text-[#212121]">Welcome back {userName}!</h1>
         <div className="flex gap-4">
           <button><GrNotification /></button>
-          <p>{userName} &darr;</p>
+          <p>{userName}</p>
         </div>
       </div>
       <div className="flex justify-between items-center flex-wrap">

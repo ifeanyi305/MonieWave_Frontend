@@ -163,7 +163,6 @@ export default (state = initialState, action) => {
       return {
         success: true,
         loading: false,
-        message: action.payload.message,
         user: null,
       }
     case `${SIGN_OUT}/rejected`:
