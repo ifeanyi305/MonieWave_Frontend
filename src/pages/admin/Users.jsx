@@ -137,6 +137,7 @@ const Users = () => {
                 value={role}
                 className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
                 onChange={(e) => setRole(e.target.value)}>
+                <option value="">Select type</option>
                 <option value="admin">admin</option>
                 <option value="customer">customer</option>
                 <option value="support">support</option>
