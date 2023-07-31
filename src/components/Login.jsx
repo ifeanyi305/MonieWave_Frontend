@@ -34,6 +34,7 @@ const Login = () => {
         dispatch(resetStateAndKeepFlash());
         flash('success', 'Account logged in successfully');
         navigate('/');
+        window.location.reload();
       }
     })
   }

@@ -174,7 +174,10 @@ const Recipients = ({
         </div>
         {
           loading ? (<p>loading...</p>) : error ? (<p>An error occured while loading recipient, try refreshing the page</p>) : recipients ? (
-            recipients.filter((recipient) =>
+            recipients
+            .slice()
+            .reverse()
+            .filter((recipient) =>
               recipient.account_name.toLowerCase().includes(searchQuery.toLowerCase())
             ).map((recipient) => (
               <div className="border-[1px] border-[#D3D3D3] mb-[5%] rounded-[24px] w-full p-6" key={recipient.id}>

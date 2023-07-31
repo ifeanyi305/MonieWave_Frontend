@@ -28,15 +28,13 @@ const Sidebar = ({ sidebar, handleSidebar }) => {
           <Link onClick={handleSidebar} to="/recipients"><li className={style.padding}>Recipients</li></Link>
           <Link onClick={handleSidebar} to="/transactions"><li className={style.padding}>Transactions</li></Link>
           <Link onClick={handleSidebar} to="/chatbot"><li className={style.padding}>Live chat bot</li></Link>
-          <Link onClick={handleSidebar} to="/chatbot">
-            <li className={style.padding}>
-              <button
-                type="button"
-                onClick={handleLogout}
-              > Logout
-              </button>
-            </li>
-          </Link>
+          <li className={style.padding}>
+            <button
+              type="button"
+              onClick={handleLogout}
+            > Logout
+            </button>
+          </li>
         </ul>
       </div>
     </div>

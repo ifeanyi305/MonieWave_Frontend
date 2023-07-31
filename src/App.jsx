@@ -1,5 +1,5 @@
 import { ToastContainer } from 'react-toastify';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import LandingPage from './pages/LandingPage';
@@ -28,6 +28,11 @@ import ChatBot from './pages/livebot/ChatBot';
 import Chats from './pages/admin/Chats';
 import Messages from './pages/admin/Messages';
 import Fee from './pages/admin/Fee';
+import { signout } from './redux/auth/auth';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { flash } from './redux/flash/flash';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [sidebar, setSidebar] = useState(false);
@@ -40,6 +45,29 @@ function App() {
   const handleSidebar = () => {
     setSidebar(!sidebar);
   };
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const userDetailsString = localStorage.getItem('user');
+  const userDetails = userDetailsString ? JSON.parse(userDetailsString) : null;
+  const tokenExpiryDay = userDetails?.token?.token_expiry_date ? new Date(userDetails?.token.token_expiry_date) : null;
+  const currentDate = new Date();
+  useEffect(() => {
+    const checkExpiry = () => {
+      if (currentDate.getTime() >= tokenExpiryDay?.getTime()) {
+        flash('warning', 'Your session has expired, redirecting you to login');
+        setTimeout(() => {
+          dispatch(signout());
+          navigate('/login');
+        }, 60000);
+      }
+    }
+
+    const timerId = setTimeout(checkExpiry, 60000);
+
+    return () => clearTimeout(timerId);
+  }, [currentDate, tokenExpiryDay, dispatch, navigate]);
 
   return (
     <div className="dark:bg-[#000] App">
