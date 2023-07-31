@@ -44,14 +44,6 @@ const Redirect = () => {
   //   fetchRates(newDiv);
   // }, [])
 
-  useEffect(() => {
-    const hasReloaded = localStorage.getItem('hasReloaded');
-    if (!hasReloaded) {
-      localStorage.setItem('hasReloaded', 'true');
-      window.location.reload();
-    }
-  }, []);
-
   <Authentication />
   return (
     <div className="p-6">

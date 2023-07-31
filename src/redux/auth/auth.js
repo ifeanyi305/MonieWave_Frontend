@@ -43,14 +43,19 @@ export const signin = createAsyncThunk(
         body: JSON.stringify(user),
       });
 
+      const tokenCreatedDate = new Date();
+      const tokenExpiryDate = new Date(tokenCreatedDate.getTime() + 5 * 24 * 60 * 60 * 1000);
+      
       const userDetails = {
         token: data.data.data.meta.token,
         role: data.data.data.attributes.role,
         username: data.data.data.attributes.first_name,
+        token_expiry_date: tokenExpiryDate,
       };
-
+      
       localStorage.setItem('user', JSON.stringify(userDetails));
-      setToken(userDetails);
+      setToken(userDetails);      
+      
       return { progress: data.status };
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -120,11 +125,15 @@ export const signup = createAsyncThunk(
       })
     }
 
+    const tokenCreatedDate = new Date();
+    const tokenExpiryDate = new Date(tokenCreatedDate.getTime() + 5 * 24 * 60 * 60 * 1000);
+
     const data = await response.json();
     const userDetails = {
       token: data.data.meta.token,
       role: data.data.attributes.role,
-      username: data.data.attributes.first_name
+      username: data.data.attributes.first_name,
+      token_expiry_date: tokenExpiryDate,
     }
     localStorage.setItem('user', JSON.stringify(userDetails));
     setToken(userDetails);

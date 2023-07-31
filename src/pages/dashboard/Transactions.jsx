@@ -49,42 +49,48 @@ const Transactions = () => {
       <div className="flex items-center justify-between py-4">
         <p><b className="font-[600] text-[24px] text-[#212121]">Transaction History</b></p>
       </div>
-      {
-        loading ? (<p>loading...</p>)
-          : error ? (<p>an error occured while loading transfers, try refreshing the page</p>) : transfers ? (
-            transfers.filter((transfer) =>
-              transfer.recipient_name.toLowerCase().includes(searchQuery.toLowerCase())
-            ).map((transfer) => (
-              <div key={transfer.id}>
-                <div className="flex justify-between items-center">
-                  <p className="text-[#6B6B6B] text-[19px]">{formatDate(transfer.created_at)}</p>
-                  <p className={
-                    transfer.status == 'Pending' ?
-                      'text-[#F9B608] text-[12px]' :
-                      transfer.status == 'Processing' ?
-                        'text-[#814DE5] text-[12px]' :
-                        transfer.status == 'Completed' ?
-                          'text-[#37A13C] text-[12px]' :
-                          transfer.status == 'Rejected' ?
-                            'text-[#C50713] text-[12px]' :
-                            'text-[#000] text-[12px]'
-                  }>{transfer.status}</p>
-                </div>
-                <Link className="no-underline" state={transfer} to="/transfer_status">
-                  <div className="border-[1px] border-[#D3D3D3] flex justify-between items-center mb-[5%] rounded-[24px] w-full p-6">
-                    <div>
-                      <p className="text-[#464646] pb-4 text-[20px] font-[500]">{transfer.recipient_name}</p>
-                      <p className="text-[#464646] text-[14px] font-[400]">{transfer.recipient_bank}</p>
-                    </div>
-                    <div>
-                      <p className="text-[#464646] pb-4 text-[20px] font-[600]">{transfer.naira_amount}</p>
-                      <p className={transfer?.status === 'Completed' ? 'block text-[#814DE5] text-[14px] font-[400]' : 'hidden'}>Download receipt</p>
-                    </div>
-                  </div>
-                </Link>
+      {loading ? (
+        <p>loading...</p>
+      ) : error ? (
+        <p>an error occurred while loading transfers, try refreshing the page</p>
+      ) : transfers && transfers.length > 0 ? (
+        transfers
+          .slice()
+          .reverse()
+          .filter((transfer) =>
+            transfer.recipient_name.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+          .map((transfer) => (
+            <div key={transfer.id}>
+              <div className="flex justify-between items-center">
+                <p className="text-[#6B6B6B] text-[19px]">{formatDate(transfer.created_at)}</p>
+                <p className={
+                  transfer.status == 'Pending' ?
+                    'text-[#F9B608] text-[12px]' :
+                    transfer.status == 'Processing' ?
+                      'text-[#814DE5] text-[12px]' :
+                      transfer.status == 'Completed' ?
+                        'text-[#37A13C] text-[12px]' :
+                        transfer.status == 'Rejected' ?
+                          'text-[#C50713] text-[12px]' :
+                          'text-[#000] text-[12px]'
+                }>{transfer.status}</p>
               </div>
-            ))
-          ) : (<>Transfers not available</>)
+              <Link className="no-underline" state={transfer} to="/transfer_status">
+                <div className="border-[1px] border-[#D3D3D3] flex justify-between items-center mb-[5%] rounded-[24px] w-full p-6">
+                  <div>
+                    <p className="text-[#464646] pb-4 text-[20px] font-[500]">{transfer.recipient_name}</p>
+                    <p className="text-[#464646] text-[14px] font-[400]">{transfer.recipient_bank}</p>
+                  </div>
+                  <div>
+                    <p className="text-[#464646] pb-4 text-[20px] font-[600]">{transfer.naira_amount}</p>
+                    <p className={transfer?.status === 'Completed' ? 'block text-[#814DE5] text-[14px] font-[400]' : 'hidden'}>Download receipt</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          ))
+      ) : (<>Transfers not available</>)
       }
     </div>
   );
