@@ -29,7 +29,7 @@ const RecipientDetails = ({
 
   const validateForm = () => {
     return  pending !== true &&
-    error !== 'An error occurred, type the Account number again' &&
+    error !== 'Unable to retrive account name, please check the account number' &&
      recipient_account.length !== 0 &&
      recipient_phone.length !== 0 &&
      recipient_bank.length !== 0
@@ -66,7 +66,7 @@ const RecipientDetails = ({
       setRecipient_name(recipientName);
       setPending(false);
     } catch (error) {
-      setError('An error occurred, type the Account number again');
+      setError('Unable to retrive account name, please check the account number');
       setPending(false);
     }
   };
@@ -116,7 +116,7 @@ const RecipientDetails = ({
 
   return (
     <div className="px-6">
-      <div className="flex my-[4%] justify-between wrap items-start">
+      <div className="flex my-[4%] justify-between wrap items-center">
         <h1 onClick={() => setNumber(0)} className="text-[40px] cursor-pointer bg-[#F2EDFC] px-[5px] rounded-[50%]  text-[#464646]">&larr;</h1>
         <div className="flex gap-4">
           <button><GrNotification /></button>
@@ -151,9 +151,10 @@ const RecipientDetails = ({
             <label className="block">Account Holder Name <span className="text-[#C50713] text-[17px]">*</span></label>
             <input
               type="text"
-              value={pending ? 'loading Account name...' : error ? error : recipient_name} readOnly
+              value={pending ? 'loading Account name...' : error ? '' : recipient_name} readOnly
               className="w-full border-[#6B6B6B] p-4 block border-[1px] rounded-[8px]"
             />
+            <small className='text-[#C50B13] text-[11px]'>{error}</small>
           </div>
           <div>
             <label className="block">Recipient Phone Number <span className="text-[#C50713] text-[17px]">*</span></label>

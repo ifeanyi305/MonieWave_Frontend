@@ -151,7 +151,7 @@ const TransferMoney = ({
           <img src={exchange} className="m-auto" alt="exchange" />
         </div>
         <div>
-          <label className="block">Osadebanem Ralph recieves exactly <span className="text-[#C50713] text-[17px]">*</span></label>
+          <label className="block">The recipient recieves exactly <span className="text-[#C50713] text-[17px]">*</span></label>
           {loadingRates ? (
             <input
               type="text"
