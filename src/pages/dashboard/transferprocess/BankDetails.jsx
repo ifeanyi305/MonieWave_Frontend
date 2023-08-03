@@ -61,7 +61,7 @@ const BankDetails = ({ setNumber, reference_number, amount, fee, currency }) => 
 
   return (
     <div className="px-6">
-      <div className="flex my-[4%] justify-between wrap items-start">
+      <div className="flex my-[4%] justify-between wrap items-center">
         <h1 onClick={() => setNumber(1)} className="text-[40px] cursor-pointer bg-[#F2EDFC] px-[5px] rounded-[50%]  text-[#464646]">&larr;</h1>
         <div className="flex gap-4">
           <button><GrNotification /></button>
@@ -73,24 +73,28 @@ const BankDetails = ({ setNumber, reference_number, amount, fee, currency }) => 
         <p>Make the payment into our bank account and we&apos;ll send the Naira equivalent to your recipient.</p>
       </div>
       <div className="py-6 md:w-[50%]">
-        <div className="flex justify-between items-center">
+        <div className="">
           <div>
-            <p className="font-[900] text-[24px]">Account Name:</p>
-            <p className="font-[900] text-[24px]">IBAN:</p>
-            <p className="font-[900] text-[24px]">BIC:</p>
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <CopyButton text="RateHive Transfers" />
-              <p className="text-[24px]">RateHive Transfers</p>
+            <div className="md:flex md:justify-between md:items-center md:gap-4">
+              <p className="font-[900] text-[24px]">Account Name:</p>
+              <div className="flex items-center gap-2">
+                <CopyButton text="RateHive Transfers" />
+                <p className="text-[20px]">RateHive Transfers</p>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <CopyButton text="NL48BUNQ2038**" />
-              <p className="text-[24px]">NL48BUNQ2038**</p>
+            <div className="md:flex md:justify-between my-2 md:items-center md:gap-4">
+              <p className="font-[900] text-[24px]">IBAN:</p>
+              <div className="flex items-center gap-2">
+                <CopyButton text="NL48 BUNQ 2038 5197 73" />
+                <p className="text-[20px]">NL48 BUNQ 2038 5197 73</p>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <CopyButton text="BUNQNCXXXXX" />
-              <p className="text-[24px]">BUNQNCXXXXX</p>
+            <div className="md:flex md:justify-between md:items-center md:gap-4">
+              <p className="font-[900] text-[24px]">BIC:</p>
+              <div className="flex items-center gap-2">
+                <CopyButton text="BUNQNL2AXXX" />
+                <p className="text-[20px]">BUNQNL2AXXX</p>
+              </div>
             </div>
           </div>
         </div>

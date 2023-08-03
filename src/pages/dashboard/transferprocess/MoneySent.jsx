@@ -8,7 +8,7 @@ const MoneySent = ({ setNumber, confirmTransfer, loading, errors }) => {
   const token = userDetails?.username;
   return (
     <div className="px-6">
-      <div className="flex mt-[4%] justify-between wrap items-start">
+      <div className="flex mt-[4%] justify-between wrap items-center">
         <h1 onClick={() => setNumber(2)} className="text-[40px] cursor-pointer bg-[#F2EDFC] px-[5px] rounded-[50%]  text-[#464646]">&larr;</h1>
         <div className="flex gap-4">
           <button><GrNotification /></button>
