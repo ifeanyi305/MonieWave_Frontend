@@ -62,12 +62,12 @@ const Navbar = () => {
           </div>
           <nav className={style.header}>
             <ul className={style.nav_list}>
-              <li className={style.padding}><a href='/broken'>Make transfers</a></li>
-              <li className={style.padding}><a href='/broken'>About Us</a></li>
+              <li className={style.padding}>Make transfers</li>
+              <li className={style.padding}>About Us</li>
               <Link to="/Contact"><li className={style.padding}>Contact</li></Link>
               <li className={style.flex_gap}>
                 <img src={ukFlag} alt="ukflag" />
-                <li className="p-[13px] text-[#966BE9] dark:text-[#7D5CC1]"><a href='/broken'>EN</a></li>
+                <li className="p-[13px] text-[#966BE9] dark:text-[#7D5CC1]">EN</li>
               </li>
             </ul>
           </nav>

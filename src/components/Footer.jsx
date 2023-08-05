@@ -38,30 +38,30 @@ const Footer = () => {
     <div>
       <div className="px-[5%] bg-[#1A0F2E]">
         <div className="flex mt-[6%] gap-4 py-[6%] text-[#fff] flex-wrap items-start justify-between">
-          <h1><a href='/broken'><img src={Ratehive} alt="title" /></a></h1>
+          <h1><img src={Ratehive} alt="title" /></h1>
           <ul>
-            <li className={style.title}><a href="/broken">{lists[0].title}</a></li>
-            <li className={style.text}><a href="/broken">{lists[0].about}</a></li>
+            <li className={style.title}>{lists[0].title}</li>
+            <li className={style.text}>{lists[0].about}</li>
             <Link to="/Contact"><li className={style.text}>{lists[0].contact}</li></Link>
           </ul>
           <ul>
-            <li className={style.title}><a href="/broken">{lists[1].title}</a></li>
-            <li className={style.text}><a href="/broken">{lists[1].transfers}</a></li>
-            <li className={style.text}><a href="/broken">{lists[1].app}</a></li>
+            <li className={style.title}>{lists[1].title}</li>
+            <li className={style.text}>{lists[1].transfers}</li>
+            <li className={style.text}>{lists[1].app}</li>
           </ul>
           <ul>
-            <li className={style.title}><a href="/broken">{lists[2].title}</a></li>
-            <li className={style.text}><a href="/broken">{lists[2].terms}</a></li>
-            <li className={style.text}><a href="/broken">{lists[2].report}</a></li>
-            <li className={style.text}><a href="/broken">{lists[2].policy}</a></li>
-            <li className={style.text}><a href="/broken">{lists[2].Cookie}</a></li>
+            <li className={style.title}>{lists[2].title}</li>
+            <li className={style.text}>{lists[2].terms}</li>
+            <li className={style.text}>{lists[2].report}</li>
+            <li className={style.text}>{lists[2].policy}</li>
+            <li className={style.text}>{lists[2].Cookie}</li>
           </ul>
           <ul>
-            <li className={style.title}><a href="/broken">{lists[3].title}</a></li>
-            <li className={style.text}><a href="/broken">{lists[3].linkedin}</a></li>
-            <li className={style.text}><a href="/broken">{lists[3].instagram}</a></li>
-            <li className={style.text}><a href="/broken">{lists[3].twitter}</a></li>
-            <li className={style.text}><a href="/broken">{lists[3].telegram}</a></li>
+            <li className={style.title}>{lists[3].title}</li>
+            <li className={style.text}>{lists[3].linkedin}</li>
+            <li className={style.text}>{lists[3].instagram}</li>
+            <li className={style.text}>{lists[3].twitter}</li>
+            <li className={style.text}>{lists[3].telegram}</li>
           </ul>
         </div>
         <div className="py-[5%]">
