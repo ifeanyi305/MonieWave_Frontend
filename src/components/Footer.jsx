@@ -10,7 +10,7 @@ const Footer = () => {
       contact: 'Contact'
     },
     {
-      title: 'RateHive Products',
+      title: 'MonieWave Products',
       transfers: 'Money Transfers',
       app: 'RateHive App'
     },
