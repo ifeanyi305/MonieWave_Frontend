@@ -126,7 +126,7 @@ const Signup = ({ role, setRole }) => {
         <div className="w-full p-6">
           <h1 className="pb-[40px]"><a href='/broken'><img className="m-auto" src={RateHive} alt="title" /></a></h1>
           <div className="text-center pb-[40px]">
-            <p className="text-[#212121] font-[600] text-[40px]">Create your RateHive account</p>
+            <p className="text-[#212121] font-[600] text-[40px]">Create your MonieWave account</p>
             <p className="text-[16px]  text-[#212121] font-[400]">
               Already have an account?
               <Link className="text-[#814DE5] text-[16px] font-[400]" to='/login'> Log in here</Link>

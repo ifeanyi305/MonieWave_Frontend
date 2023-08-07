@@ -60,7 +60,7 @@ const Login = () => {
           <div className="text-center pb-[40px]">
             <p className="text-[#212121] font-[600] text-[40px]">Welcome back</p>
             <p className="text-[16px]  text-[#212121] font-[400]">
-              New to RateHive?
+              New to MonieWave?
               <Link className="text-[#814DE5] text-[16px] font-[400]" to='/signup'> Sign up here</Link>
             </p>
           </div>
