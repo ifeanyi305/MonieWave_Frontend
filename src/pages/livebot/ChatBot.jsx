@@ -27,7 +27,7 @@ const Chatbot = () => {
               type="button"
               onClick={() => setNumber(0)}
             >&larr;</button>}</p>
-            <h1 className='text-[#FAFAFA]'>Ratehive customer support</h1>
+            <h1 className='text-[#FAFAFA]'>MonieWave customer support</h1>
           </div>
           <button type="button" className="text-[#fafafa] text-[25px]">&times;</button>
         </div>

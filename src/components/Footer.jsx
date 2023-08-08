@@ -12,7 +12,7 @@ const Footer = () => {
     {
       title: 'MonieWave Products',
       transfers: 'Money Transfers',
-      app: 'RateHive App'
+      app: 'MonieWave App'
     },
     {
       title: 'Legal & Policies',
@@ -66,7 +66,7 @@ const Footer = () => {
         </div>
         <div className="py-[5%]">
           <hr className="border-[#E6DBFA] border-[1px]" />
-          <p className="text-center text-[#fff] pt-[10px] text-[12px]">Copyright &copy; 2023 RateHive</p>
+          <p className="text-center text-[#fff] pt-[10px] text-[12px]">Copyright &copy; 2023 MonieWave</p>
         </div>
       </div>
     </div>
