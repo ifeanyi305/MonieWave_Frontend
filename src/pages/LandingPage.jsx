@@ -64,7 +64,7 @@ const LandingPage = () => {
                 </div>
                 <div className="px-4">
                   <img className="m-auto mb-6 mt-4 w-[72px] h-[72px]" src={Calculator} alt="calculator" />
-                  <p className="text-center mb-4 mt-2">RateHive</p>
+                  <p className="text-center mb-4 mt-2">MonieWave</p>
                   <img className="w-[289px]" src={Transactions} alt="transact" />
                 </div>
                 <div className="border-[#814DE5] h-[316px] rounded-[11px] border-[1px] px-2 py-4">
@@ -112,7 +112,7 @@ const LandingPage = () => {
                 <SwiperSlide>
                   <div className="px-4">
                     <img className="m-auto mb-6 mt-4 w-[72px] h-[72px]" src={Calculator} alt="calculator" />
-                    <p className="text-center mb-4 mt-2">RateHive</p>
+                    <p className="text-center mb-4 mt-2">MonieWave</p>
                     <img className="w-[289px] m-auto" src={Transactions} alt="transact" />
                   </div>
                 </SwiperSlide>
@@ -146,7 +146,7 @@ const LandingPage = () => {
               to Naira at Low Rates!
             </p>
             <p className="md:w-[574px] dark:text-[#fff] mt-[5%] text-[20px]">
-              With RateHive, you can effortlessly convert your
+              With MonieWave, you can effortlessly convert your
               Euros and Pounds to Naira and send money to
               Nigeria instantly at the best exchange rates.
             </p>
@@ -208,11 +208,11 @@ const LandingPage = () => {
         <div className="flex flex-wrap mt-[15%] justify-between items-start">
           <div>
             <p className="block mb-[10px] md:w-[666px] dark:text-[#fff] text-[30px] font-extrabold">
-              Securely Send Money with RateHive.
+              Securely Send Money with MonieWave.
             </p>
             <p className="md:w-[574px] dark:text-[#fff] mt-[5%] text-[20px]">
               When it comes to sending money to Nigeria,
-              security is key. That's why RateHive offers a safe
+              security is key. That's why MonieWave offers a safe
               and secure platform for your transfers.
             </p>
             <p className="md:w-[574px] dark:text-[#fff] mt-[5%] text-[20px]">
@@ -221,8 +221,8 @@ const LandingPage = () => {
             </p>
             <div className="mt-[10%]"><button type="button" className="p-2 login_btn bg-[#814DE5] text-[#fff] w-[160px] text-center"><Link to='/signup'>Send money</Link></button></div>
             <div className="flex mt-6 gap-2 items-center">
-              <a href='/broken'><img src={appstore} className="w-[150px]" alt="Appstore" /></a>
-              <a href='/broken'><img src={googleplay} className="w-[150px]" alt="googleplay" /></a>
+              <img src={appstore} className="w-[150px]" alt="Appstore" />
+              <img src={googleplay} className="w-[150px]" alt="googleplay" />
             </div>
           </div>
           <div className="mt-4">

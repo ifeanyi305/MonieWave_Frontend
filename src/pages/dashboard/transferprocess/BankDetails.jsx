@@ -78,8 +78,8 @@ const BankDetails = ({ setNumber, reference_number, amount, fee, currency }) => 
             <div className="md:flex md:justify-between md:items-center md:gap-4">
               <p className="font-[900] text-[24px]">Account Name:</p>
               <div className="flex items-center gap-2">
-                <CopyButton text="RateHive Transfers" />
-                <p className="text-[20px]">RateHive Transfers</p>
+                <CopyButton text="MonieWave Transfers" />
+                <p className="text-[20px]">MonieWave Transfers</p>
               </div>
             </div>
             <div className="md:flex md:justify-between my-2 md:items-center md:gap-4">

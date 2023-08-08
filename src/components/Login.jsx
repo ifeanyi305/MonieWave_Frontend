@@ -56,11 +56,11 @@ const Login = () => {
       <div className="flex w-[80%] m-auto bg-[#fff] mb-6 items-center gap-2">
         <div><img className="h-full hidden md:block w-full" src={Lady} alt="lady with a phone" /></div>
         <div className="w-full p-6">
-          <h1 className="pb-[40px]"><a href='/broken'><img className="m-auto" src={RateHive} alt="title" /></a></h1>
+          <h1 className="pb-[40px]"><img className="m-auto" src={RateHive} alt="title" /></h1>
           <div className="text-center pb-[40px]">
             <p className="text-[#212121] font-[600] text-[40px]">Welcome back</p>
             <p className="text-[16px]  text-[#212121] font-[400]">
-              New to RateHive?
+              New to MonieWave?
               <Link className="text-[#814DE5] text-[16px] font-[400]" to='/signup'> Sign up here</Link>
             </p>
           </div>

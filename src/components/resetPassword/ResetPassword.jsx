@@ -47,7 +47,7 @@ const ResetPassword = () => {
       <div className="flex justify-center">
         <div>
           <h1 className="pb-[15px] text-[40px] text-center">Reset Password</h1>
-          <p className="text-center">Enter the email address you used to create your RateHive account and</p>
+          <p className="text-center">Enter the email address you used to create your MonieWave account and</p>
           <p className="text-center">we will send you a link to reset your password.</p>
           <form className="py-[8%]" onSubmit={handleSubmit}>
             <label className="block">Enter your email address <span className="text-[#C50713] text-[17px]">*</span></label>
