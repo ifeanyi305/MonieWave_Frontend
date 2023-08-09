@@ -81,8 +81,8 @@ const Bot = ({ setNumber }) => {
   return (
     <div>
       <div className="p-6 bg-[#fff] h-[350px] create_user_container" ref={containerRef}>
-        <p className={style.bot}>Moni  . Bot</p>
-        <p className={style.bot2}>Hi! welcome to Moni.</p>
+        <p className={style.bot}>MonieWave  . Bot</p>
+        <p className={style.bot2}>Hi! welcome to MonieWave</p>
         <p className={style.bot2}>Ask me a question and I'll find the answer for you</p>
         {messages.map((message) => (
           <div

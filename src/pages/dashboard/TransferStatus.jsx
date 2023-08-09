@@ -7,6 +7,7 @@ import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { GiCancel } from 'react-icons/gi';
 import Ratehive from '../../assets/images/navbar/RateHive.png';
 import CheckOk from '../../assets/images/navbar/check_good.png';
+import { getToken } from '../../redux/auth/auth';
 
 const TransferStatus = () => {
   const location = useLocation();
@@ -15,6 +16,9 @@ const TransferStatus = () => {
     const options = { hour: 'numeric', minute: '2-digit', hour12: true };
     return date.toLocaleTimeString([], options);
   }
+
+  const userDetails = getToken();
+  const userName = userDetails?.username;
 
   function formatTimestamp(timestamp) {
     const currentDate = new Date();
@@ -122,7 +126,7 @@ const TransferStatus = () => {
         <Link to="/transactions" className="text-[40px] cursor-pointer bg-[#F2EDFC] px-[5px] rounded-[50%]  text-[#464646]">&larr;</Link>
         <div className="flex gap-4">
           <button><GrNotification /></button>
-          <p>Flourish Ralph &darr;</p>
+          <p>{userName}</p>
         </div>
       </div>
       <div>
