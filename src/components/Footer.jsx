@@ -41,20 +41,20 @@ const Footer = () => {
           <h1><img src={Ratehive} alt="title" /></h1>
           <ul>
             <li className={style.title}>{lists[0].title}</li>
-            <li className={style.text}>{lists[0].about}</li>
+            <Link to="/aboutus"><li className={style.text}>{lists[0].about}</li></Link>
             <Link to="/Contact"><li className={style.text}>{lists[0].contact}</li></Link>
           </ul>
           <ul>
             <li className={style.title}>{lists[1].title}</li>
-            <li className={style.text}>{lists[1].transfers}</li>
+            <Link to="/login"><li className={style.text}>{lists[1].transfers}</li></Link>
             <li className={style.text}>{lists[1].app}</li>
           </ul>
           <ul>
             <li className={style.title}>{lists[2].title}</li>
-            <li className={style.text}>{lists[2].terms}</li>
-            <li className={style.text}>{lists[2].report}</li>
-            <li className={style.text}>{lists[2].policy}</li>
-            <li className={style.text}>{lists[2].Cookie}</li>
+            <Link to="/termsofuse"><li className={style.text}>{lists[2].terms}</li></Link>
+            <Link to="/reportfraud"><li className={style.text}>{lists[2].report}</li></Link>
+            <Link to="/privacy"><li className={style.text}>{lists[2].policy}</li></Link>
+            <Link to="/cookies"><li className={style.text}>{lists[2].Cookie}</li></Link>
           </ul>
           <ul>
             <li className={style.title}>{lists[3].title}</li>

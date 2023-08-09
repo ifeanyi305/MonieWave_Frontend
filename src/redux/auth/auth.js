@@ -44,7 +44,7 @@ export const signin = createAsyncThunk(
       });
 
       const tokenCreatedDate = new Date();
-      const tokenExpiryDate = new Date(tokenCreatedDate.getTime() + 5 * 24 * 60 * 60 * 1000);
+      const tokenExpiryDate = new Date(tokenCreatedDate.getTime() + 3 * 24 * 60 * 60 * 1000);
       
       const userDetails = {
         token: data.data.data.meta.token,
@@ -126,7 +126,7 @@ export const signup = createAsyncThunk(
     }
 
     const tokenCreatedDate = new Date();
-    const tokenExpiryDate = new Date(tokenCreatedDate.getTime() + 5 * 24 * 60 * 60 * 1000);
+    const tokenExpiryDate = new Date(tokenCreatedDate.getTime() + 3 * 24 * 60 * 60 * 1000);
 
     const data = await response.json();
     const userDetails = {

@@ -23,6 +23,11 @@ import TransactDetails from './pages/admin/TransactDetails';
 import UsersLists from './pages/admin/UsersLists';
 import Home from './pages/admin/Home';
 import ContactUs from './pages/ContactUs';
+import TermsOfUse from './pages/about/TermsOfUse';
+import Cookies from './pages/about/Cookies';
+import Privacy from './pages/about/Privacy';
+import AboutUs from './pages/about/AboutUs';
+import ReportFraud from './pages/about/ReportFraud';
 import ExchangeRates from './pages/admin/ExchangeRates';
 import ChatBot from './pages/livebot/ChatBot';
 import Chats from './pages/admin/Chats';
@@ -114,6 +119,11 @@ function App() {
           <Route element={<PublicRoutes />}>
             <Route path="/" element={<LandingPage />} />
             <Route path="/Contact" element={<ContactUs />} />
+            <Route path="/termsofuse" element={<TermsOfUse />} />
+            <Route path="/cookies" element={<Cookies />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/reportfraud" element={<ReportFraud />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup role={role} setRole={setRole} />} />
             {/*  */}
