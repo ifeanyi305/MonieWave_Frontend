@@ -12,7 +12,7 @@ const AboutUs = () => {
       desc: "We are bringing innovation to money transfer service, gone are the days of filling long forms and sending money to Nigeria without having control on when the money should be received by the beneficiary. The control has been given back to you with our innovative solutions as you can now create a digital wallet for your beneficiary who lives in Nigeria, have control on how much you credit into the wallet, see how the wallet is used by the beneficiary, get notifications whenever the wallet is used."
     },
     {
-      desc: "Also, you can pay directly for services such as school fees, hospital and utility bills, accommodation and many others in Nigeria without the need for going through another person."
+      desc: "Also, you can pay directly for services such as school fees, hospital, utility bills, accommodation and many others in Nigeria without the need for going through another person."
     },
     {
       desc: "We want to make money transfer and international payment services fast, easy and cheap."
